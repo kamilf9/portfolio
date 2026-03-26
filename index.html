@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kamil Fogel — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: #ffffff;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2.5rem;
+      background: transparent;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    nav .brand {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    nav a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero-stage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+    }
+
+    .hero-tilt {
+      transform-style: preserve-3d;
+      will-change: transform;
+      text-align: center;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 128px;
+      line-height: 1.08;
+    }
+
+    .hero-tilt span {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="brand" href="#">Kamil Fogel</a>
+    <ul>
+      <li><a href="#work">work</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="hero-stage">
+    <div class="hero-tilt" id="heroTilt" aria-label="Introduction">
+      <span>HI, I'm Kamil,</span>
+      <span>A ux/ui Designer</span>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var el = document.getElementById('heroTilt');
+      if (!el) return;
+
+      var maxRotateX = 7;
+      var maxRotateY = 9;
+      var currentX = 0;
+      var currentY = 0;
+      var targetX = 0;
+      var targetY = 0;
+      var rafId = null;
+      var smoothing = 0.12;
+
+      function onMove(e) {
+        var w = window.innerWidth || 1;
+        var h = window.innerHeight || 1;
+        var x = e.clientX / w - 0.5;
+        var y = e.clientY / h - 0.5;
+        targetY = x * maxRotateY * 2;
+        targetX = -y * maxRotateX * 2;
+      }
+
+      function onLeave() {
+        targetX = 0;
+        targetY = 0;
+        scheduleTick();
+      }
+
+      function tick() {
+        currentX += (targetX - currentX) * smoothing;
+        currentY += (targetY - currentY) * smoothing;
+        el.style.transform =
+          'rotateX(' + currentX.toFixed(3) + 'deg) rotateY(' + currentY.toFixed(3) + 'deg)';
+        if (
+          Math.abs(targetX - currentX) > 0.002 ||
+          Math.abs(targetY - currentY) > 0.002
+        ) {
+          rafId = requestAnimationFrame(tick);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function scheduleTick() {
+        if (rafId == null) rafId = requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('mousemove', function (e) {
+        onMove(e);
+        scheduleTick();
+      });
+      document.documentElement.addEventListener('mouseleave', onLeave);
+      window.addEventListener('blur', onLeave);
+    })();
+  </script>
+</body>
+</html>
