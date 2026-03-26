@@ -24,6 +24,32 @@
       font-family: 'Roboto', sans-serif;
     }
 
+    .custom-cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 10000;
+      pointer-events: none;
+      padding: 10px 18px;
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      text-transform: lowercase;
+      white-space: nowrap;
+      transform: translate3d(-100px, -100px, 0);
+      will-change: transform, opacity;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .custom-cursor.is-visible {
+      opacity: 1;
+    }
+
     nav {
       position: fixed;
       top: 0;
@@ -54,10 +80,11 @@
     nav a {
       color: inherit;
       text-decoration: none;
+      transition: filter 0.3s ease;
     }
 
     nav a:hover {
-      text-decoration: underline;
+      filter: blur(4px);
     }
 
     .hero-stage {
@@ -76,16 +103,71 @@
       font-family: 'Instrument Serif', serif;
       font-style: italic;
       font-weight: 400;
-      font-size: 128px;
-      line-height: 1.08;
+      font-size: 166px;
+      line-height: 1.04;
     }
 
     .hero-tilt span {
       display: block;
     }
+
+    .projects-section {
+      min-height: 100vh;
+      background: #ffffff;
+      padding: 10vh 2.5rem;
+    }
+
+    .projects-list {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 2rem;
+    }
+
+    .project-title-outer {
+      perspective: 900px;
+      perspective-origin: 50% 50%;
+      flex-shrink: 0;
+    }
+
+    .project-title {
+      transform-style: preserve-3d;
+      transform-origin: center center;
+      will-change: transform;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 96px;
+      line-height: 1.05;
+      text-transform: lowercase;
+      color: #000000;
+    }
+
+    .project-desc {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.4;
+      text-align: right;
+      flex-shrink: 0;
+      align-self: center;
+    }
   </style>
 </head>
 <body>
+  <div id="customCursor" class="custom-cursor" aria-hidden="true">
+    <span class="custom-cursor__label" id="cursorLabel">scroll</span>
+  </div>
+
   <nav>
     <a class="brand" href="#">Kamil Fogel</a>
     <ul>
@@ -98,48 +180,140 @@
   <main class="hero-stage">
     <div class="hero-tilt" id="heroTilt" aria-label="Introduction">
       <span>HI, I'm Kamil,</span>
-      <span>A ux/ui Designer</span>
+      <span>A UX/UI Designer</span>
     </div>
   </main>
 
+  <section class="projects-section" id="work" aria-label="Selected work">
+    <div class="projects-list">
+      <div class="project-row">
+        <div class="project-title-outer">
+          <h2 class="project-title js-tilt-title">house of de vill</h2>
+        </div>
+        <p class="project-desc">web design</p>
+      </div>
+      <div class="project-row">
+        <div class="project-title-outer">
+          <h2 class="project-title js-tilt-title">now</h2>
+        </div>
+        <p class="project-desc">app design</p>
+      </div>
+      <div class="project-row">
+        <div class="project-title-outer">
+          <h2 class="project-title js-tilt-title">balanced</h2>
+        </div>
+        <p class="project-desc">vibe coding</p>
+      </div>
+      <div class="project-row">
+        <div class="project-title-outer">
+          <h2 class="project-title js-tilt-title">the met gala</h2>
+        </div>
+        <p class="project-desc">web design</p>
+      </div>
+      <div class="project-row">
+        <div class="project-title-outer">
+          <h2 class="project-title js-tilt-title">scnd</h2>
+        </div>
+        <p class="project-desc">branding</p>
+      </div>
+    </div>
+  </section>
+
   <script>
     (function () {
-      var el = document.getElementById('heroTilt');
-      if (!el) return;
+      var cursorEl = document.getElementById('customCursor');
+      var cursorLabelEl = document.getElementById('cursorLabel');
+      var heroEl = document.getElementById('heroTilt');
+      var titleNodes = document.querySelectorAll('.js-tilt-title');
 
-      var maxRotateX = 7;
-      var maxRotateY = 9;
-      var currentX = 0;
-      var currentY = 0;
-      var targetX = 0;
-      var targetY = 0;
-      var rafId = null;
+      if (!cursorEl || !heroEl) return;
+
+      var CURSOR_OFFSET_X = 20;
+      var CURSOR_OFFSET_Y = 22;
+      var SCROLL_LABEL_FADE_PX = 50;
+
+      var heroMaxX = 7;
+      var heroMaxY = 9;
+      var titleMaxX = 6;
+      var titleMaxY = 8;
       var smoothing = 0.12;
 
-      function onMove(e) {
-        var w = window.innerWidth || 1;
-        var h = window.innerHeight || 1;
-        var x = e.clientX / w - 0.5;
-        var y = e.clientY / h - 0.5;
-        targetY = x * maxRotateY * 2;
-        targetX = -y * maxRotateX * 2;
+      var heroState = { cx: 0, cy: 0, tx: 0, ty: 0 };
+      var titleState = { cx: 0, cy: 0, tx: 0, ty: 0 };
+      var titleHover = false;
+      var tiltTitleEl = null;
+
+      var rafId = null;
+
+      function setTargetsFromNormalized(nx, ny, maxRx, maxRy, state) {
+        state.ty = nx * maxRy * 2;
+        state.tx = -ny * maxRx * 2;
       }
 
-      function onLeave() {
-        targetX = 0;
-        targetY = 0;
-        scheduleTick();
+      function moveCustomCursor(clientX, clientY) {
+        var x = clientX + CURSOR_OFFSET_X;
+        var y = clientY + CURSOR_OFFSET_Y;
+        cursorEl.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
+      }
+
+      function syncCursorLabelVisibility() {
+        var y = window.scrollY || window.pageYOffset || 0;
+        var showLabel = titleHover || y <= SCROLL_LABEL_FADE_PX;
+        cursorEl.classList.toggle('is-visible', showLabel);
+      }
+
+      function updateCursorLabel() {
+        if (!cursorLabelEl) return;
+        cursorLabelEl.textContent = titleHover ? 'hover' : 'scroll';
+        syncCursorLabelVisibility();
+      }
+
+      function onScroll() {
+        updateCursorLabel();
+      }
+
+      function lerpState(state) {
+        state.cx += (state.tx - state.cx) * smoothing;
+        state.cy += (state.ty - state.cy) * smoothing;
+      }
+
+      function applyHeroTransform() {
+        heroEl.style.transform =
+          'rotateX(' + heroState.cx.toFixed(3) + 'deg) rotateY(' + heroState.cy.toFixed(3) + 'deg)';
+      }
+
+      function applyTitleTransform(el, scale, state) {
+        el.style.transform =
+          'scale(' + scale + ') rotateX(' + state.cx.toFixed(3) + 'deg) rotateY(' + state.cy.toFixed(3) + 'deg)';
       }
 
       function tick() {
-        currentX += (targetX - currentX) * smoothing;
-        currentY += (targetY - currentY) * smoothing;
-        el.style.transform =
-          'rotateX(' + currentX.toFixed(3) + 'deg) rotateY(' + currentY.toFixed(3) + 'deg)';
-        if (
-          Math.abs(targetX - currentX) > 0.002 ||
-          Math.abs(targetY - currentY) > 0.002
-        ) {
+        lerpState(heroState);
+        applyHeroTransform();
+
+        if (tiltTitleEl) {
+          lerpState(titleState);
+          var scale = titleHover ? 1.1 : 1;
+          applyTitleTransform(tiltTitleEl, scale, titleState);
+          var settled =
+            !titleHover &&
+            Math.abs(titleState.tx - titleState.cx) < 0.002 &&
+            Math.abs(titleState.ty - titleState.cy) < 0.002 &&
+            Math.abs(titleState.cx) < 0.02 &&
+            Math.abs(titleState.cy) < 0.02;
+          if (settled) {
+            tiltTitleEl.style.transform = '';
+            tiltTitleEl = null;
+            titleState.cx = titleState.cy = titleState.tx = titleState.ty = 0;
+          }
+        }
+
+        var heroMoving =
+          Math.abs(heroState.tx - heroState.cx) > 0.002 ||
+          Math.abs(heroState.ty - heroState.cy) > 0.002;
+        var titleMoving = tiltTitleEl !== null;
+
+        if (heroMoving || titleMoving) {
           rafId = requestAnimationFrame(tick);
         } else {
           rafId = null;
@@ -147,15 +321,68 @@
       }
 
       function scheduleTick() {
-        if (rafId == null) rafId = requestAnimationFrame(tick);
+        if (rafId === null) rafId = requestAnimationFrame(tick);
       }
 
-      window.addEventListener('mousemove', function (e) {
-        onMove(e);
+      function onMouseMove(e) {
+        moveCustomCursor(e.clientX, e.clientY);
+
+        var w = window.innerWidth || 1;
+        var h = window.innerHeight || 1;
+        setTargetsFromNormalized(e.clientX / w - 0.5, e.clientY / h - 0.5, heroMaxX, heroMaxY, heroState);
+
+        if (titleHover && tiltTitleEl) {
+          var r = tiltTitleEl.getBoundingClientRect();
+          var rw = r.width || 1;
+          var rh = r.height || 1;
+          var nx = (e.clientX - r.left) / rw - 0.5;
+          var ny = (e.clientY - r.top) / rh - 0.5;
+          setTargetsFromNormalized(nx, ny, titleMaxX, titleMaxY, titleState);
+        }
+
         scheduleTick();
-      });
-      document.documentElement.addEventListener('mouseleave', onLeave);
-      window.addEventListener('blur', onLeave);
+      }
+
+      function resetHeroTilt() {
+        heroState.tx = heroState.ty = 0;
+        scheduleTick();
+      }
+
+      function onDocumentLeave() {
+        titleHover = false;
+        resetHeroTilt();
+        titleState.tx = titleState.ty = 0;
+        updateCursorLabel();
+        scheduleTick();
+      }
+
+      function onTitleEnter(e) {
+        titleHover = true;
+        tiltTitleEl = e.currentTarget;
+        titleState.cx = titleState.cy = titleState.tx = titleState.ty = 0;
+        updateCursorLabel();
+        scheduleTick();
+      }
+
+      function onTitleLeave(e) {
+        if (e.currentTarget !== tiltTitleEl) return;
+        titleHover = false;
+        titleState.tx = titleState.ty = 0;
+        updateCursorLabel();
+        scheduleTick();
+      }
+
+      for (var i = 0; i < titleNodes.length; i++) {
+        titleNodes[i].addEventListener('mouseenter', onTitleEnter);
+        titleNodes[i].addEventListener('mouseleave', onTitleLeave);
+      }
+
+      window.addEventListener('mousemove', onMouseMove);
+      document.documentElement.addEventListener('mouseleave', onDocumentLeave);
+      window.addEventListener('blur', onDocumentLeave);
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      updateCursorLabel();
     })();
   </script>
 </body>
