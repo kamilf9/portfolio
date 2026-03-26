@@ -138,7 +138,7 @@
     .parallax-layer {
       position: relative;
       z-index: 20;
-      min-height: 288vh;
+      min-height: 230vh;
       background: transparent;
       pointer-events: none;
     }
@@ -146,7 +146,21 @@
     .parallax-inner {
       position: relative;
       width: 100%;
-      padding-top: 56vh;
+      padding-top: 100vh;
+    }
+
+    .float-group {
+      position: relative;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .float-item-anchor {
+      position: absolute;
+      pointer-events: auto;
+      max-width: 40vw;
+      width: min(40vw, 100%);
+      transform: translate(-50%, 0);
     }
 
     .js-parallax-shift {
@@ -160,48 +174,6 @@
       cursor: none;
     }
 
-    .float-slot {
-      position: relative;
-      width: 100%;
-      min-height: 100vh;
-      padding-top: 6.72vh;
-      padding-bottom: 56vh;
-      pointer-events: none;
-    }
-
-    .float-slot:last-child {
-      padding-bottom: 15.68vh;
-    }
-
-    .float-anchor {
-      position: absolute;
-      top: 50%;
-      pointer-events: auto;
-      max-width: 40vw;
-      width: min(40vw, 100%);
-      transform: translate(-50%, -50%);
-    }
-
-    .float-slot--1 .float-anchor {
-      left: 20%;
-    }
-
-    .float-slot--2 .float-anchor {
-      left: 70%;
-    }
-
-    .float-slot--3 .float-anchor {
-      left: 35%;
-    }
-
-    .float-slot--4 .float-anchor {
-      left: 75%;
-    }
-
-    .float-slot--5 .float-anchor {
-      left: 55%;
-    }
-
     .float-img {
       display: block;
       width: 100%;
@@ -209,6 +181,58 @@
       opacity: 1;
       transform: none;
       filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.18));
+    }
+
+    /* Duo: devill (L) + now (R), tight pair */
+    .float-group--duo {
+      padding-bottom: 44.8vh;
+    }
+
+    .float-duo {
+      position: relative;
+      min-height: 38vh;
+      width: 100%;
+    }
+
+    .float-item-anchor--devill {
+      left: 19%;
+      top: 0;
+    }
+
+    .float-item-anchor--now {
+      left: 71%;
+      top: 5.4vh;
+    }
+
+    /* Solo: balanced, center-left, generous space */
+    .float-group--solo {
+      min-height: 112vh;
+      padding-top: 10vh;
+      padding-bottom: 44.8vh;
+    }
+
+    .float-item-anchor--balanced {
+      left: 34%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Final pair: met gala + scnd, bottom-right scatter */
+    .float-group--finale {
+      min-height: 92vh;
+      padding-bottom: 14vh;
+    }
+
+    .float-item-anchor--metgala {
+      left: 60%;
+      top: 8%;
+      transform: translate(-50%, 0);
+    }
+
+    .float-item-anchor--scnd {
+      left: 80%;
+      top: 42%;
+      transform: translate(-50%, 0);
     }
   </style>
 </head>
@@ -237,42 +261,43 @@
 
   <div class="parallax-layer" id="work">
     <div class="parallax-inner">
-      <div class="float-slot float-slot--1">
-        <div class="float-anchor">
-          <div class="js-parallax-shift" data-speed="-0.14">
-            <div
-              class="float-img-frame js-image-hover"
-              data-cursor-name="HOUSE OF DE VILL"
-              data-cursor-type="web design"
-            >
-              <img
-                class="float-img"
-                src="images/devill.png"
-                alt="House of de Vill"
-              />
+      <section class="float-group float-group--duo" aria-label="Projects duo">
+        <div class="float-duo">
+          <div class="float-item-anchor float-item-anchor--devill">
+            <div class="js-parallax-shift" data-speed="-0.14">
+              <div
+                class="float-img-frame js-image-hover"
+                data-cursor-name="HOUSE OF DE VILL"
+                data-cursor-type="web design"
+              >
+                <img
+                  class="float-img"
+                  src="images/devill.png"
+                  alt="House of de Vill"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="float-item-anchor float-item-anchor--now">
+            <div class="js-parallax-shift" data-speed="0.22">
+              <div
+                class="float-img-frame js-image-hover"
+                data-cursor-name="NOW WEATHER"
+                data-cursor-type="app design"
+              >
+                <img
+                  class="float-img"
+                  src="images/now.png"
+                  alt="Now"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="float-slot float-slot--2">
-        <div class="float-anchor">
-          <div class="js-parallax-shift" data-speed="0.22">
-            <div
-              class="float-img-frame js-image-hover"
-              data-cursor-name="NOW WEATHER"
-              data-cursor-type="app design"
-            >
-              <img
-                class="float-img"
-                src="images/now.png"
-                alt="Now"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="float-slot float-slot--3">
-        <div class="float-anchor">
+      </section>
+
+      <section class="float-group float-group--solo" aria-label="Project solo">
+        <div class="float-item-anchor float-item-anchor--balanced">
           <div class="js-parallax-shift" data-speed="-0.08">
             <div
               class="float-img-frame js-image-hover"
@@ -287,9 +312,10 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="float-slot float-slot--4">
-        <div class="float-anchor">
+      </section>
+
+      <section class="float-group float-group--finale" aria-label="Projects pair">
+        <div class="float-item-anchor float-item-anchor--metgala">
           <div class="js-parallax-shift" data-speed="0.18">
             <div
               class="float-img-frame js-image-hover"
@@ -304,9 +330,7 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="float-slot float-slot--5">
-        <div class="float-anchor">
+        <div class="float-item-anchor float-item-anchor--scnd">
           <div class="js-parallax-shift" data-speed="-0.2">
             <div
               class="float-img-frame js-image-hover"
@@ -321,7 +345,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 
@@ -337,7 +361,7 @@
 
       var CURSOR_OFFSET_X = 20;
       var CURSOR_OFFSET_Y = 22;
-      var SCROLL_LABEL_FADE_PX = 50;
+      var SCROLL_LABEL_FADE_PX = 10;
 
       var heroMaxX = 7;
       var heroMaxY = 9;
