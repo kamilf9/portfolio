@@ -15,7 +15,7 @@
     }
 
     html, body {
-      height: 100%;
+      min-height: 100%;
     }
 
     body {
@@ -31,12 +31,18 @@
       z-index: 10000;
       pointer-events: none;
       padding: 10px 18px;
+      min-width: 5.5rem;
+      min-height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       background: #000000;
       color: #ffffff;
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
       font-size: 14px;
-      line-height: 1;
+      line-height: 1.25;
       letter-spacing: 0.02em;
       text-transform: lowercase;
       white-space: nowrap;
@@ -55,7 +61,7 @@
       top: 0;
       left: 0;
       right: 0;
-      z-index: 10;
+      z-index: 5000;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -87,8 +93,22 @@
       filter: blur(4px);
     }
 
+    .hero-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
     .hero-stage {
-      min-height: 100vh;
+      width: 100%;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -111,55 +131,132 @@
       display: block;
     }
 
-    .projects-section {
-      min-height: 100vh;
-      background: #ffffff;
-      padding: 10vh 2.5rem;
+    .parallax-layer {
+      position: relative;
+      z-index: 20;
+      min-height: 360vh;
+      background: transparent;
+      pointer-events: none;
     }
 
-    .projects-list {
-      height: 80vh;
+    .parallax-inner {
+      position: relative;
+      width: 100%;
+      padding-top: 70vh;
+    }
+
+    .js-parallax-shift {
+      will-change: transform;
+    }
+
+    .float-img-frame {
+      position: relative;
+      display: block;
+      width: 100%;
+      cursor: none;
+    }
+
+    .float-img__label {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .project-row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
       align-items: center;
-      width: 100%;
-      gap: 2rem;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 1rem;
+      text-align: center;
+      color: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+      text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
     }
 
-    .project-title-outer {
-      perspective: 900px;
-      perspective-origin: 50% 50%;
-      flex-shrink: 0;
+    .float-img__name {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+      letter-spacing: 0.12em;
+      line-height: 1.2;
     }
 
-    .project-title {
-      transform-style: preserve-3d;
-      transform-origin: center center;
-      will-change: transform;
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: 96px;
-      line-height: 1.05;
-      text-transform: lowercase;
-      color: #000000;
-    }
-
-    .project-desc {
+    .float-img__type {
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
-      font-size: 16px;
-      line-height: 1.4;
-      text-align: right;
-      flex-shrink: 0;
-      align-self: center;
+      font-size: clamp(0.6rem, 1.2vw, 0.75rem);
+      text-transform: lowercase;
+      letter-spacing: 0.04em;
+      opacity: 0.95;
+    }
+
+    .float-img-frame:has(.float-img.is-revealed):hover .float-img {
+      opacity: 0.5;
+    }
+
+    .float-img-frame:has(.float-img.is-revealed):hover .float-img__label {
+      opacity: 1;
+    }
+
+    .float-slot {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      padding-top: 8.4vh;
+      padding-bottom: 70vh;
+      pointer-events: none;
+    }
+
+    .float-slot:last-child {
+      padding-bottom: 19.6vh;
+    }
+
+    .float-anchor {
+      position: absolute;
+      top: 50%;
+      pointer-events: auto;
+      max-width: 40vw;
+      width: min(40vw, 100%);
+      transform: translate(-50%, -50%);
+    }
+
+    .float-slot--1 .float-anchor {
+      left: 20%;
+    }
+
+    .float-slot--2 .float-anchor {
+      left: 70%;
+    }
+
+    .float-slot--3 .float-anchor {
+      left: 35%;
+    }
+
+    .float-slot--4 .float-anchor {
+      left: 75%;
+    }
+
+    .float-slot--5 .float-anchor {
+      left: 55%;
+    }
+
+    .float-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      opacity: 0;
+      transform: translateY(100vh);
+      filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.18));
+      will-change: transform, opacity;
+      transition:
+        opacity 0.35s ease,
+        transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .float-img.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -177,54 +274,128 @@
     </ul>
   </nav>
 
-  <main class="hero-stage">
-    <div class="hero-tilt" id="heroTilt" aria-label="Introduction">
-      <span>HI, I'm Kamil,</span>
-      <span>A UX/UI Designer</span>
+  <div class="hero-fixed">
+    <div class="hero-stage">
+      <div class="hero-tilt" id="heroTilt" aria-label="Introduction">
+        <span>HI, I'm Kamil,</span>
+        <span>A UX/UI Designer</span>
+      </div>
     </div>
-  </main>
+  </div>
 
-  <section class="projects-section" id="work" aria-label="Selected work">
-    <div class="projects-list">
-      <div class="project-row">
-        <div class="project-title-outer">
-          <h2 class="project-title js-tilt-title">house of de vill</h2>
+  <div class="parallax-layer" id="work">
+    <div class="parallax-inner">
+      <div class="float-slot float-slot--1">
+        <div class="float-anchor">
+          <div class="js-parallax-shift" data-speed="-0.14">
+            <div
+              class="float-img-frame js-image-hover"
+              data-cursor-type="web design"
+            >
+              <img
+                class="float-img js-reveal-img"
+                src="images/devill.png"
+                alt="House of de Vill"
+              />
+              <div class="float-img__label" aria-hidden="true">
+                <span class="float-img__name">HOUSE OF DE VILL</span>
+                <span class="float-img__type">web design</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="project-desc">web design</p>
       </div>
-      <div class="project-row">
-        <div class="project-title-outer">
-          <h2 class="project-title js-tilt-title">now</h2>
+      <div class="float-slot float-slot--2">
+        <div class="float-anchor">
+          <div class="js-parallax-shift" data-speed="0.22">
+            <div
+              class="float-img-frame js-image-hover"
+              data-cursor-type="app design"
+            >
+              <img
+                class="float-img js-reveal-img"
+                src="images/now.png"
+                alt="Now"
+              />
+              <div class="float-img__label" aria-hidden="true">
+                <span class="float-img__name">NOW WEATHER</span>
+                <span class="float-img__type">app design</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="project-desc">app design</p>
       </div>
-      <div class="project-row">
-        <div class="project-title-outer">
-          <h2 class="project-title js-tilt-title">balanced</h2>
+      <div class="float-slot float-slot--3">
+        <div class="float-anchor">
+          <div class="js-parallax-shift" data-speed="-0.08">
+            <div
+              class="float-img-frame js-image-hover"
+              data-cursor-type="app design"
+            >
+              <img
+                class="float-img js-reveal-img"
+                src="images/balanced.png"
+                alt="Balanced"
+              />
+              <div class="float-img__label" aria-hidden="true">
+                <span class="float-img__name">BALANCED</span>
+                <span class="float-img__type">app design</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="project-desc">vibe coding</p>
       </div>
-      <div class="project-row">
-        <div class="project-title-outer">
-          <h2 class="project-title js-tilt-title">the met gala</h2>
+      <div class="float-slot float-slot--4">
+        <div class="float-anchor">
+          <div class="js-parallax-shift" data-speed="0.18">
+            <div
+              class="float-img-frame js-image-hover"
+              data-cursor-type="web design"
+            >
+              <img
+                class="float-img js-reveal-img"
+                src="images/metgala.png"
+                alt="Met Gala"
+              />
+              <div class="float-img__label" aria-hidden="true">
+                <span class="float-img__name">THE MET GALA</span>
+                <span class="float-img__type">web design</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="project-desc">web design</p>
       </div>
-      <div class="project-row">
-        <div class="project-title-outer">
-          <h2 class="project-title js-tilt-title">scnd</h2>
+      <div class="float-slot float-slot--5">
+        <div class="float-anchor">
+          <div class="js-parallax-shift" data-speed="-0.2">
+            <div
+              class="float-img-frame js-image-hover"
+              data-cursor-type="branding"
+            >
+              <img
+                class="float-img js-reveal-img"
+                src="images/scnd.png"
+                alt="SCND"
+              />
+              <div class="float-img__label" aria-hidden="true">
+                <span class="float-img__name">SCND</span>
+                <span class="float-img__type">branding</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="project-desc">branding</p>
       </div>
     </div>
-  </section>
+  </div>
 
   <script>
     (function () {
       var cursorEl = document.getElementById('customCursor');
       var cursorLabelEl = document.getElementById('cursorLabel');
       var heroEl = document.getElementById('heroTilt');
-      var titleNodes = document.querySelectorAll('.js-tilt-title');
+      var parallaxShifts = document.querySelectorAll('.js-parallax-shift');
+      var revealImgs = document.querySelectorAll('.js-reveal-img');
+      var imageFrames = document.querySelectorAll('.js-image-hover');
 
       if (!cursorEl || !heroEl) return;
 
@@ -234,16 +405,39 @@
 
       var heroMaxX = 7;
       var heroMaxY = 9;
-      var titleMaxX = 6;
-      var titleMaxY = 8;
       var smoothing = 0.12;
 
       var heroState = { cx: 0, cy: 0, tx: 0, ty: 0 };
-      var titleState = { cx: 0, cy: 0, tx: 0, ty: 0 };
-      var titleHover = false;
-      var tiltTitleEl = null;
-
+      var imageHover = false;
+      var cursorTypeText = '';
       var rafId = null;
+      var parallaxRaf = null;
+      var revealObserver = null;
+
+      var REVEAL_MIN_SCROLL_PX = 72;
+      var REVEAL_ROOT_TOP_PX = 100;
+      var REVEAL_ROOT_BOTTOM_FRAC = 0.15;
+      var REVEAL_MIN_VISIBLE_FRAC = 0.14;
+
+      function eligibleForReveal(img) {
+        if ((window.scrollY || window.pageYOffset || 0) < REVEAL_MIN_SCROLL_PX) {
+          return false;
+        }
+        var rect = img.getBoundingClientRect();
+        var vh = window.innerHeight || 1;
+        var rootTop = REVEAL_ROOT_TOP_PX;
+        var rootBottom = vh * (1 - REVEAL_ROOT_BOTTOM_FRAC);
+        var overlap = Math.min(rect.bottom, rootBottom) - Math.max(rect.top, rootTop);
+        var h = Math.max(rect.height, 1);
+        return overlap > 0 && overlap / h >= REVEAL_MIN_VISIBLE_FRAC;
+      }
+
+      function revealIfEligible(img, observer) {
+        if (img.classList.contains('is-revealed')) return;
+        if (!eligibleForReveal(img)) return;
+        img.classList.add('is-revealed');
+        if (observer) observer.unobserve(img);
+      }
 
       function setTargetsFromNormalized(nx, ny, maxRx, maxRy, state) {
         state.ty = nx * maxRy * 2;
@@ -258,18 +452,47 @@
 
       function syncCursorLabelVisibility() {
         var y = window.scrollY || window.pageYOffset || 0;
-        var showLabel = titleHover || y <= SCROLL_LABEL_FADE_PX;
+        var showLabel = imageHover || y <= SCROLL_LABEL_FADE_PX;
         cursorEl.classList.toggle('is-visible', showLabel);
       }
 
       function updateCursorLabel() {
         if (!cursorLabelEl) return;
-        cursorLabelEl.textContent = titleHover ? 'hover' : 'scroll';
+        if (imageHover && cursorTypeText) {
+          cursorLabelEl.textContent = cursorTypeText;
+        } else {
+          cursorLabelEl.textContent = 'scroll';
+        }
         syncCursorLabelVisibility();
+      }
+
+      function applyParallax() {
+        var y = window.scrollY || window.pageYOffset || 0;
+        for (var i = 0; i < parallaxShifts.length; i++) {
+          var el = parallaxShifts[i];
+          var speed = parseFloat(el.getAttribute('data-speed'));
+          if (isNaN(speed)) speed = 0;
+          var offset = y * speed;
+          el.style.transform = 'translate3d(0, ' + offset.toFixed(2) + 'px, 0)';
+        }
+      }
+
+      function onScrollParallax() {
+        if (parallaxRaf !== null) return;
+        parallaxRaf = requestAnimationFrame(function () {
+          parallaxRaf = null;
+          applyParallax();
+        });
       }
 
       function onScroll() {
         updateCursorLabel();
+        onScrollParallax();
+        if (revealObserver) {
+          for (var p = 0; p < revealImgs.length; p++) {
+            revealIfEligible(revealImgs[p], revealObserver);
+          }
+        }
       }
 
       function lerpState(state) {
@@ -282,38 +505,15 @@
           'rotateX(' + heroState.cx.toFixed(3) + 'deg) rotateY(' + heroState.cy.toFixed(3) + 'deg)';
       }
 
-      function applyTitleTransform(el, scale, state) {
-        el.style.transform =
-          'scale(' + scale + ') rotateX(' + state.cx.toFixed(3) + 'deg) rotateY(' + state.cy.toFixed(3) + 'deg)';
-      }
-
       function tick() {
         lerpState(heroState);
         applyHeroTransform();
 
-        if (tiltTitleEl) {
-          lerpState(titleState);
-          var scale = titleHover ? 1.1 : 1;
-          applyTitleTransform(tiltTitleEl, scale, titleState);
-          var settled =
-            !titleHover &&
-            Math.abs(titleState.tx - titleState.cx) < 0.002 &&
-            Math.abs(titleState.ty - titleState.cy) < 0.002 &&
-            Math.abs(titleState.cx) < 0.02 &&
-            Math.abs(titleState.cy) < 0.02;
-          if (settled) {
-            tiltTitleEl.style.transform = '';
-            tiltTitleEl = null;
-            titleState.cx = titleState.cy = titleState.tx = titleState.ty = 0;
-          }
-        }
-
         var heroMoving =
           Math.abs(heroState.tx - heroState.cx) > 0.002 ||
           Math.abs(heroState.ty - heroState.cy) > 0.002;
-        var titleMoving = tiltTitleEl !== null;
 
-        if (heroMoving || titleMoving) {
+        if (heroMoving) {
           rafId = requestAnimationFrame(tick);
         } else {
           rafId = null;
@@ -331,15 +531,6 @@
         var h = window.innerHeight || 1;
         setTargetsFromNormalized(e.clientX / w - 0.5, e.clientY / h - 0.5, heroMaxX, heroMaxY, heroState);
 
-        if (titleHover && tiltTitleEl) {
-          var r = tiltTitleEl.getBoundingClientRect();
-          var rw = r.width || 1;
-          var rh = r.height || 1;
-          var nx = (e.clientX - r.left) / rw - 0.5;
-          var ny = (e.clientY - r.top) / rh - 0.5;
-          setTargetsFromNormalized(nx, ny, titleMaxX, titleMaxY, titleState);
-        }
-
         scheduleTick();
       }
 
@@ -349,32 +540,53 @@
       }
 
       function onDocumentLeave() {
-        titleHover = false;
+        imageHover = false;
+        cursorTypeText = '';
         resetHeroTilt();
-        titleState.tx = titleState.ty = 0;
         updateCursorLabel();
         scheduleTick();
       }
 
-      function onTitleEnter(e) {
-        titleHover = true;
-        tiltTitleEl = e.currentTarget;
-        titleState.cx = titleState.cy = titleState.tx = titleState.ty = 0;
+      function onImageFrameEnter(e) {
+        imageHover = true;
+        var t = e.currentTarget.getAttribute('data-cursor-type');
+        cursorTypeText = t ? t.trim().toLowerCase() : '';
         updateCursorLabel();
-        scheduleTick();
       }
 
-      function onTitleLeave(e) {
-        if (e.currentTarget !== tiltTitleEl) return;
-        titleHover = false;
-        titleState.tx = titleState.ty = 0;
+      function onImageFrameLeave() {
+        imageHover = false;
+        cursorTypeText = '';
         updateCursorLabel();
-        scheduleTick();
       }
 
-      for (var i = 0; i < titleNodes.length; i++) {
-        titleNodes[i].addEventListener('mouseenter', onTitleEnter);
-        titleNodes[i].addEventListener('mouseleave', onTitleLeave);
+      for (var j = 0; j < imageFrames.length; j++) {
+        imageFrames[j].addEventListener('mouseenter', onImageFrameEnter);
+        imageFrames[j].addEventListener('mouseleave', onImageFrameLeave);
+      }
+
+      if ('IntersectionObserver' in window) {
+        revealObserver = new IntersectionObserver(
+          function (entries) {
+            for (var r = 0; r < entries.length; r++) {
+              var entry = entries[r];
+              if (!entry.isIntersecting) continue;
+              revealIfEligible(entry.target, revealObserver);
+            }
+          },
+          {
+            root: null,
+            rootMargin: '-100px 0px -15% 0px',
+            threshold: 0.14,
+          }
+        );
+        for (var k = 0; k < revealImgs.length; k++) {
+          revealObserver.observe(revealImgs[k]);
+        }
+      } else {
+        for (var f = 0; f < revealImgs.length; f++) {
+          revealImgs[f].classList.add('is-revealed');
+        }
       }
 
       window.addEventListener('mousemove', onMouseMove);
@@ -383,6 +595,8 @@
       window.addEventListener('scroll', onScroll, { passive: true });
 
       updateCursorLabel();
+      applyParallax();
+      scheduleTick();
     })();
   </script>
 </body>
