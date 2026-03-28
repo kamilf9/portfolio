@@ -6,7 +6,7 @@
   <title>Kamil Fogel — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -31,9 +31,6 @@
       z-index: 10000;
       pointer-events: none;
       padding: 10px 16px;
-      width: max-content;
-      max-width: min(92vw, 28rem);
-      min-height: 2.25rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -42,22 +39,18 @@
       color: #ffffff;
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
-      font-size: 15px;
-      line-height: 1.3;
+      font-size: 14px;
+      line-height: 1.25;
       letter-spacing: 0.02em;
+      text-transform: lowercase;
       white-space: nowrap;
       transform: translate3d(-100px, -100px, 0);
-      will-change: transform, opacity;
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.25s ease;
     }
 
     .custom-cursor.is-visible {
       opacity: 1;
-    }
-
-    .custom-cursor__label {
-      display: block;
     }
 
     nav {
@@ -97,22 +90,21 @@
       filter: blur(4px);
     }
 
-    .hero-fixed {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      z-index: 10;
+    .page-main {
+      padding-top: 5.5rem;
+    }
+
+    .hero-view {
       display: flex;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
+      padding: 3rem 2rem 4rem;
+      min-height: 55vh;
     }
 
     .hero-stage {
       width: 100%;
-      height: 100%;
+      max-width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -122,7 +114,6 @@
 
     .hero-tilt {
       transform-style: preserve-3d;
-      will-change: transform;
       text-align: center;
       font-family: 'Instrument Serif', serif;
       font-style: italic;
@@ -135,110 +126,101 @@
       display: block;
     }
 
-    .parallax-layer {
-      position: relative;
-      z-index: 20;
-      min-height: 230vh;
-      background: transparent;
-      pointer-events: none;
+    .projects-wrap {
+      padding: 24px;
     }
 
-    .parallax-inner {
-      position: relative;
-      width: 100%;
-      padding-top: 100vh;
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 24px;
+      max-width: calc(828px * 2 + 24px);
+      margin: 0 auto;
     }
 
-    .float-group {
-      position: relative;
-      width: 100%;
-      pointer-events: none;
+    .project-hidden {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
     }
 
-    .float-item-anchor {
-      position: absolute;
-      pointer-events: auto;
-      max-width: 40vw;
-      width: min(40vw, 100%);
-      transform: translate(-50%, 0);
-    }
-
-    .js-parallax-shift {
-      will-change: transform;
-    }
-
-    .float-img-frame {
-      position: relative;
-      display: block;
-      width: 100%;
-      cursor: none;
-    }
-
-    .float-img {
-      display: block;
-      width: 100%;
-      height: auto;
+    .project-visible {
       opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+
+    .projects-grid .project-card:nth-child(2n).project-visible {
+      transition-delay: 0.14s;
+    }
+
+    .projects-grid .project-card:nth-child(2n).project-hidden {
+      transition-delay: 0s;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .project-card__media {
+      overflow: hidden;
+      width: 828px;
+      max-width: 100%;
+      height: 622px;
+    }
+
+    .project-card__img {
+      width: 828px;
+      max-width: 100%;
+      height: 622px;
+      object-fit: cover;
+      display: block;
       transform: scale(1);
-      transform-origin: center center;
-      filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.18));
-      transition: transform 0.4s ease, opacity 0.4s ease;
+      filter: blur(0);
+      transition: transform 0.4s ease, filter 0.4s ease;
     }
 
-    .float-img-frame:hover .float-img {
-      transform: scale(1.05);
+    .project-card:hover .project-card__img {
+      transform: scale(0.97);
+      filter: blur(6px);
     }
 
-    /* Duo: devill (L) + now (R), tight pair */
-    .float-group--duo {
-      padding-bottom: 44.8vh;
+    .project-card__name {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.3;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    .float-duo {
-      position: relative;
-      min-height: 38vh;
-      width: 100%;
+    .project-card__type {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.4;
     }
 
-    .float-item-anchor--devill {
-      left: 19%;
-      top: 0;
-    }
+    @media (max-width: 1750px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 828px;
+      }
 
-    .float-item-anchor--now {
-      left: 71%;
-      top: 5.4vh;
-    }
+      .project-card__media,
+      .project-card__img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 828 / 622;
+        max-height: none;
+      }
 
-    /* Solo: balanced, center-left, generous space */
-    .float-group--solo {
-      min-height: 112vh;
-      padding-top: 10vh;
-      padding-bottom: 44.8vh;
-    }
-
-    .float-item-anchor--balanced {
-      left: 34%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    /* Final pair: met gala + scnd, bottom-right scatter */
-    .float-group--finale {
-      min-height: 92vh;
-      padding-bottom: 14vh;
-    }
-
-    .float-item-anchor--metgala {
-      left: 60%;
-      top: 8%;
-      transform: translate(-50%, 0);
-    }
-
-    .float-item-anchor--scnd {
-      left: 80%;
-      top: 42%;
-      transform: translate(-50%, 0);
+      .project-card__img {
+        height: 100%;
+        min-height: 280px;
+      }
     }
   </style>
 </head>
@@ -251,133 +233,114 @@
     <a class="brand" href="#">Kamil Fogel</a>
     <ul>
       <li><a href="#work">work</a></li>
-      <li><a href="#about">about</a></li>
-      <li><a href="#contact">contact</a></li>
+      <li><a href="#">about</a></li>
+      <li><a href="#">contact</a></li>
     </ul>
   </nav>
 
-  <div class="hero-fixed">
-    <div class="hero-stage">
-      <div class="hero-tilt" id="heroTilt" aria-label="Introduction">
-        <span>HI, I'm Kamil,</span>
-        <span>A UX/UI Designer</span>
+  <main class="page-main">
+    <section class="hero-view">
+      <div class="hero-stage">
+        <div class="hero-tilt" id="heroTilt" aria-label="Introduction">
+          <span>HI, I'm Kamil,</span>
+          <span>A UX/UI Designer</span>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="parallax-layer" id="work">
-    <div class="parallax-inner">
-      <section class="float-group float-group--duo" aria-label="Projects duo">
-        <div class="float-duo">
-          <div class="float-item-anchor float-item-anchor--devill">
-            <div class="js-parallax-shift" data-speed="-0.14">
-              <div
-                class="float-img-frame js-image-hover"
-                data-cursor-name="HOUSE OF DE VILL"
-                data-cursor-type="web design"
-              >
-                <img
-                  class="float-img"
-                  src="images/devill.png"
-                  alt="House of de Vill"
-                />
-              </div>
-            </div>
+    <section class="projects-wrap" id="work" aria-label="Selected work">
+      <div class="projects-grid">
+        <article class="project-card js-project-cursor project-hidden js-project-reveal">
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/devill.png"
+              alt="House of de Vill project"
+              width="828"
+              height="622"
+            />
           </div>
-          <div class="float-item-anchor float-item-anchor--now">
-            <div class="js-parallax-shift" data-speed="0.22">
-              <div
-                class="float-img-frame js-image-hover"
-                data-cursor-name="NOW WEATHER"
-                data-cursor-type="app design"
-              >
-                <img
-                  class="float-img"
-                  src="images/now.png"
-                  alt="Now"
-                />
-              </div>
-            </div>
+          <div class="project-card__meta">
+            <h2 class="project-card__name">HOUSE OF DE VILL</h2>
+            <p class="project-card__type">Web design</p>
           </div>
-        </div>
-      </section>
+        </article>
 
-      <section class="float-group float-group--solo" aria-label="Project solo">
-        <div class="float-item-anchor float-item-anchor--balanced">
-          <div class="js-parallax-shift" data-speed="-0.08">
-            <div
-              class="float-img-frame js-image-hover"
-              data-cursor-name="BALANCED"
-              data-cursor-type="app design"
-            >
-              <img
-                class="float-img"
-                src="images/balanced.png"
-                alt="Balanced"
-              />
-            </div>
+        <article class="project-card js-project-cursor project-hidden js-project-reveal">
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/now.png"
+              alt="Now project"
+              width="828"
+              height="622"
+            />
           </div>
-        </div>
-      </section>
+          <div class="project-card__meta">
+            <h2 class="project-card__name">NOW</h2>
+            <p class="project-card__type">App design</p>
+          </div>
+        </article>
 
-      <section class="float-group float-group--finale" aria-label="Projects pair">
-        <div class="float-item-anchor float-item-anchor--metgala">
-          <div class="js-parallax-shift" data-speed="0.18">
-            <div
-              class="float-img-frame js-image-hover"
-              data-cursor-name="THE MET GALA"
-              data-cursor-type="web design"
-            >
-              <img
-                class="float-img"
-                src="images/metgala.png"
-                alt="Met Gala"
-              />
-            </div>
+        <article class="project-card js-project-cursor project-hidden js-project-reveal">
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/balanced.png"
+              alt="Balanced project"
+              width="828"
+              height="622"
+            />
           </div>
-        </div>
-        <div class="float-item-anchor float-item-anchor--scnd">
-          <div class="js-parallax-shift" data-speed="-0.2">
-            <div
-              class="float-img-frame js-image-hover"
-              data-cursor-name="SCND"
-              data-cursor-type="branding"
-            >
-              <img
-                class="float-img"
-                src="images/scnd.png"
-                alt="SCND"
-              />
-            </div>
+          <div class="project-card__meta">
+            <h2 class="project-card__name">BALANCED</h2>
+            <p class="project-card__type">Vibe coding, app design</p>
           </div>
-        </div>
-      </section>
-    </div>
-  </div>
+        </article>
+
+        <article class="project-card js-project-cursor project-hidden js-project-reveal">
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/metgala.png"
+              alt="The Met Gala project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <div class="project-card__meta">
+            <h2 class="project-card__name">THE MET GALA</h2>
+            <p class="project-card__type">Web design</p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
   <script>
     (function () {
       var cursorEl = document.getElementById('customCursor');
       var cursorLabelEl = document.getElementById('cursorLabel');
       var heroEl = document.getElementById('heroTilt');
-      var parallaxShifts = document.querySelectorAll('.js-parallax-shift');
-      var imageFrames = document.querySelectorAll('.js-image-hover');
+      var projectCards = document.querySelectorAll('.js-project-cursor');
+      var revealTargets = document.querySelectorAll('.js-project-reveal');
 
       if (!cursorEl || !heroEl) return;
 
       var CURSOR_OFFSET_X = 20;
       var CURSOR_OFFSET_Y = 22;
-      var SCROLL_LABEL_FADE_PX = 10;
-
       var heroMaxX = 7;
       var heroMaxY = 9;
       var smoothing = 0.12;
 
       var heroState = { cx: 0, cy: 0, tx: 0, ty: 0 };
-      var imageHover = false;
-      var cursorProjectLine = '';
+      var projectHover = false;
       var rafId = null;
-      var parallaxRaf = null;
+
+      function setCursorLabel() {
+        if (!cursorLabelEl) return;
+        cursorLabelEl.textContent = projectHover ? 'view' : 'scroll';
+      }
 
       function setTargetsFromNormalized(nx, ny, maxRx, maxRy, state) {
         state.ty = nx * maxRy * 2;
@@ -388,46 +351,7 @@
         var x = clientX + CURSOR_OFFSET_X;
         var y = clientY + CURSOR_OFFSET_Y;
         cursorEl.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
-      }
-
-      function syncCursorLabelVisibility() {
-        var y = window.scrollY || window.pageYOffset || 0;
-        var showLabel = imageHover || y <= SCROLL_LABEL_FADE_PX;
-        cursorEl.classList.toggle('is-visible', showLabel);
-      }
-
-      function updateCursorLabel() {
-        if (!cursorLabelEl) return;
-        if (imageHover && cursorProjectLine) {
-          cursorLabelEl.textContent = cursorProjectLine;
-        } else {
-          cursorLabelEl.textContent = 'scroll';
-        }
-        syncCursorLabelVisibility();
-      }
-
-      function applyParallax() {
-        var y = window.scrollY || window.pageYOffset || 0;
-        for (var i = 0; i < parallaxShifts.length; i++) {
-          var el = parallaxShifts[i];
-          var speed = parseFloat(el.getAttribute('data-speed'));
-          if (isNaN(speed)) speed = 0;
-          var offset = y * speed;
-          el.style.transform = 'translate3d(0, ' + offset.toFixed(2) + 'px, 0)';
-        }
-      }
-
-      function onScrollParallax() {
-        if (parallaxRaf !== null) return;
-        parallaxRaf = requestAnimationFrame(function () {
-          parallaxRaf = null;
-          applyParallax();
-        });
-      }
-
-      function onScroll() {
-        updateCursorLabel();
-        onScrollParallax();
+        cursorEl.classList.add('is-visible');
       }
 
       function lerpState(state) {
@@ -469,45 +393,63 @@
         scheduleTick();
       }
 
-      function resetHeroTilt() {
-        heroState.tx = heroState.ty = 0;
-        scheduleTick();
-      }
-
       function onDocumentLeave() {
-        imageHover = false;
-        cursorProjectLine = '';
-        resetHeroTilt();
-        updateCursorLabel();
+        projectHover = false;
+        setCursorLabel();
+        heroState.tx = heroState.ty = 0;
+        cursorEl.classList.remove('is-visible');
         scheduleTick();
       }
 
-      function onImageFrameEnter(e) {
-        imageHover = true;
-        var name = (e.currentTarget.getAttribute('data-cursor-name') || '').trim();
-        var type = (e.currentTarget.getAttribute('data-cursor-type') || '').trim().toLowerCase();
-        cursorProjectLine = name && type ? name + ' - ' + type : '';
-        updateCursorLabel();
+      function onProjectEnter() {
+        projectHover = true;
+        setCursorLabel();
       }
 
-      function onImageFrameLeave() {
-        imageHover = false;
-        cursorProjectLine = '';
-        updateCursorLabel();
+      function onProjectLeave() {
+        projectHover = false;
+        setCursorLabel();
       }
 
-      for (var j = 0; j < imageFrames.length; j++) {
-        imageFrames[j].addEventListener('mouseenter', onImageFrameEnter);
-        imageFrames[j].addEventListener('mouseleave', onImageFrameLeave);
+      for (var i = 0; i < projectCards.length; i++) {
+        projectCards[i].addEventListener('mouseenter', onProjectEnter);
+        projectCards[i].addEventListener('mouseleave', onProjectLeave);
+      }
+
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(
+          function (entries) {
+            for (var r = 0; r < entries.length; r++) {
+              var entry = entries[r];
+              if (!entry.isIntersecting) continue;
+              if (entry.intersectionRatio < 0.175) continue;
+              var el = entry.target;
+              el.classList.remove('project-hidden');
+              el.classList.add('project-visible');
+              revealObserver.unobserve(el);
+            }
+          },
+          {
+            root: null,
+            rootMargin: '0px 0px -12% 0px',
+            threshold: [0, 0.1, 0.15, 0.175, 0.2, 0.25, 0.35, 0.5],
+          }
+        );
+        for (var j = 0; j < revealTargets.length; j++) {
+          revealObserver.observe(revealTargets[j]);
+        }
+      } else {
+        for (var k = 0; k < revealTargets.length; k++) {
+          revealTargets[k].classList.remove('project-hidden');
+          revealTargets[k].classList.add('project-visible');
+        }
       }
 
       window.addEventListener('mousemove', onMouseMove);
       document.documentElement.addEventListener('mouseleave', onDocumentLeave);
       window.addEventListener('blur', onDocumentLeave);
-      window.addEventListener('scroll', onScroll, { passive: true });
 
-      updateCursorLabel();
-      applyParallax();
+      setCursorLabel();
       scheduleTick();
     })();
   </script>
