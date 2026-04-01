@@ -6,7 +6,7 @@
   <title>House of de Vill — Kamil Fogel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -152,7 +152,7 @@
       color: #000000;
       text-align: center;
       padding: 100px 0 0;
-      margin: 0 0 40px;
+      margin: 0 0 12px;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -165,7 +165,8 @@
       column-gap: 24px;
       width: 100%;
       box-sizing: border-box;
-      margin-bottom: 60px;
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
     .case-hero-meta-shell.case-reveal-item {
@@ -204,6 +205,49 @@
       flex-shrink: 0;
       user-select: none;
     }
+
+    /* Centers inline-flex link; vertical rhythm; reveal target */
+    .case-prototype-link-wrap {
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 20px;
+      padding: 0;
+    }
+
+    /* Style 3 — prototype CTA; hit area = text + arrow only */
+    .case-prototype-link {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      max-width: 100%;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      font-weight: 400 !important;
+      line-height: 1.35;
+      text-transform: lowercase;
+      color: #000000;
+      text-decoration: none;
+      margin: 0;
+      padding: 4px 8px;
+      filter: none;
+      transition: filter 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media (hover: hover) {
+      .case-prototype-link:hover {
+        filter: blur(4px);
+      }
+    }
+
+    .case-prototype-link:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+      filter: none;
+    }
+
     .case-reveal-block.visible > .case-reveal-item:nth-child(2) { transition-delay: 0.12s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(3) { transition-delay: 0.2s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(4) { transition-delay: 0.28s; }
@@ -402,7 +446,7 @@
       max-width: calc((100% - 11 * 24px) * 7 / 12 + 6 * 24px);
       margin: 0 auto !important;
       margin-top: 60px !important;
-      margin-bottom: 120px !important;
+      margin-bottom: 0 !important;
       padding: 0 !important;
       min-width: 0;
       box-sizing: border-box;
@@ -410,6 +454,32 @@
       transform-origin: center center;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
+    }
+
+    /* 10-col inset (cols 2–11); 80px below snake, 120px before next section */
+    .case-devill-packages-grid {
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 24px !important;
+      row-gap: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box;
+      margin-top: 80px !important;
+      margin-bottom: 120px !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+    }
+
+    .case-devill-packages-grid .case-devill-packages {
+      grid-column: 2 / 12 !important;
+      width: 100% !important;
+      max-width: none;
+      min-width: 0;
+      height: auto !important;
+      display: block;
+      margin: 0 !important;
+      padding: 0 !important;
     }
 
     .case-devill-alligator-section .devill-video-span .devill-snake-still {
@@ -650,7 +720,7 @@
       .case-hero-title {
         font-size: clamp(2.5rem, 12vw, 96px);
         padding: 64px 0 0;
-        margin-bottom: 40px;
+        margin-bottom: 12px;
       }
 
       .devill-embed-video {
@@ -688,6 +758,10 @@
       .case-opening-poster-grid .case-opening-image-poster {
         grid-column: 1 / -1 !important;
       }
+
+      .case-devill-packages-grid .case-devill-packages {
+        grid-column: 1 / -1 !important;
+      }
     }
   </style>
 </head>
@@ -718,6 +792,16 @@
             <span class="case-meta-sep" aria-hidden="true">|</span>
             <span class="case-meta-part">2026</span>
           </div>
+        </div>
+        <div class="case-prototype-link-wrap case-reveal-item">
+          <a
+            class="case-prototype-link"
+            href="https://www.figma.com/proto/TlXTjBjPvHa59cwX0pXwc1/qruella-new?node-id=1-2&amp;viewport=-980%2C-468%2C0.2&amp;t=0DtIMkwGojrRCdXX-1&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=539%3A167&amp;page-id=0%3A1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            EXPLORE PROTOTYPE ↗
+          </a>
         </div>
       </section>
 
@@ -825,6 +909,14 @@
               ></video>
             </div>
           </div>
+        </div>
+        <div class="case-devill-packages-grid">
+          <img
+            class="case-devill-packages case-reveal-item"
+            src="devillproject/packages.png"
+            alt="House of de Vill — packages"
+            loading="lazy"
+          />
         </div>
       </section>
 
