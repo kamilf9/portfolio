@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" class="case-study-page now-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Now — Kamil Fogel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --container-pad: 24px;
+      --case-section-gap: 100px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--container-pad);
+      padding-right: var(--container-pad);
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    html.now-page {
+      background-color: #ffffff;
+    }
+
+    body.case-page.now-page {
+      background-color: #ffffff;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.6;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    body.case-page.now-page.is-entering {
+      opacity: 0;
+    }
+
+    html.case-study-page,
+    html.case-study-page body.case-study-page {
+      cursor: auto !important;
+    }
+
+    body.case-study-page .custom-cursor {
+      display: none !important;
+    }
+
+    /* Nav: frosted bar + link blur on hover (aligned with home interaction) */
+    body.now-page nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10000;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #000000;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    body.now-page nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    body.now-page nav .brand {
+      color: inherit;
+      text-decoration: none;
+      transition: filter 0.3s ease;
+    }
+
+    body.now-page nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    body.now-page nav a {
+      color: inherit;
+      text-decoration: none;
+      transition: filter 0.3s ease;
+    }
+
+    @media (hover: hover) {
+      body.now-page nav .brand:hover,
+      body.now-page nav ul a:hover {
+        filter: blur(4px);
+      }
+    }
+
+    body.now-page nav a:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    .case-main {
+      padding-top: 5.5rem;
+      padding-bottom: 6rem;
+    }
+
+
+    .case-reveal-block:not(.visible) .case-reveal-item {
+      opacity: 0;
+      transform: translate3d(0, 48px, 0);
+    }
+
+    .case-reveal-item {
+      transition:
+        opacity 0.9s cubic-bezier(0.2, 0.6, 0.2, 1),
+        transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+
+    .case-reveal-block.visible .case-reveal-item {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .case-reveal-block.visible > .case-reveal-item:nth-child(1) { transition-delay: 0.04s; }
+
+    .case-block {
+      margin-bottom: var(--case-section-gap);
+    }
+
+    .now-opening-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body class="case-page case-study-page now-page is-entering">
+
+  <nav>
+    <div class="container">
+      <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
+      <ul>
+        <li><a href="index.html#work">work</a></li>
+        <li><a href="index.html">about</a></li>
+        <li><a href="index.html#playground">playground</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="case-main">
+    <div class="container">
+      <section class="case-block case-reveal-block" data-case-reveal>
+        <video
+          class="now-opening-video case-reveal-item"
+          src="now/nowopening.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="Now project opening"
+        ></video>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      function bindPageTransitions() {
+        var links = document.querySelectorAll('a.js-page-transition');
+        for (var i = 0; i < links.length; i++) {
+          links[i].addEventListener('click', function (e) {
+            var href = this.getAttribute('href');
+            if (!href || this.getAttribute('target') === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+            e.preventDefault();
+            document.body.classList.add('is-entering');
+            window.setTimeout(function () {
+              window.location.href = href;
+            }, 480);
+          });
+        }
+      }
+      bindPageTransitions();
+
+      if ('IntersectionObserver' in window) {
+        var blocks = document.querySelectorAll('[data-case-reveal]');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            for (var r = 0; r < entries.length; r++) {
+              var entry = entries[r];
+              if (!entry.isIntersecting || entry.intersectionRatio < 0.12) continue;
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          },
+          {
+            root: null,
+            rootMargin: '0px 0px -8% 0px',
+            threshold: [0, 0.08, 0.12, 0.2, 0.35, 0.5, 1],
+          }
+        );
+        for (var j = 0; j < blocks.length; j++) {
+          obs.observe(blocks[j]);
+        }
+      } else {
+        for (var k = 0; k < blocks.length; k++) {
+          blocks[k].classList.add('visible');
+        }
+      }
+
+      function endEnter() {
+        document.body.classList.remove('is-entering');
+      }
+      if (document.readyState === 'complete') {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(endEnter);
+        });
+      } else {
+        window.addEventListener('load', function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(endEnter);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

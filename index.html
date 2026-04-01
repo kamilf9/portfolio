@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kamil Fogel — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    :root {
+      --container-pad: 24px;
+      --project-grid-row-gap: 40px;
+      --project-grid-column-gap: 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--container-pad);
+      padding-right: var(--container-pad);
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #ffffff;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.6;
+      transition: opacity 0.5s ease;
+    }
+
+    body.page-exit {
+      opacity: 0;
+    }
+
+    a.project-card {
+      color: inherit;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    a.project-card:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    .custom-cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 10000;
+      pointer-events: none;
+      padding: 10px 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      text-transform: lowercase;
+      white-space: nowrap;
+      transform: translate3d(-100px, -100px, 0);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .custom-cursor.is-visible {
+      opacity: 1;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 5000;
+      padding: 0;
+      background: transparent;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    nav .brand {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      transition: filter 0.3s ease;
+    }
+
+    nav a:hover {
+      filter: blur(4px);
+    }
+
+    .hero-view .container.hero-view__inner {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 5.5rem);
+      min-height: calc(100svh - 5.5rem);
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .site-contact {
+      position: absolute;
+      left: var(--container-pad);
+      right: auto;
+      bottom: 24px;
+      text-align: left;
+      align-items: flex-start;
+      color: #000000;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .site-contact__label {
+      margin: 0;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .site-contact__line {
+      margin: 0;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .page-main {
+      padding-top: 5.5rem;
+      width: 100%;
+    }
+
+    .hero-view {
+      position: relative;
+    }
+
+    .hero-stage {
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+      transform: translateY(-25%);
+    }
+
+    .hero-tilt {
+      transform-style: preserve-3d;
+      text-align: center;
+      font-family: 'Instrument Serif', serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 120px;
+      line-height: 1.04;
+      color: #000000;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .hero-tilt__line {
+      display: block;
+    }
+
+    .hero-tilt__caps {
+      text-transform: uppercase;
+    }
+
+    .hero-tilt__italic {
+      font-style: italic;
+    }
+
+    .projects-wrap {
+      margin-top: 40px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        3,
+        calc((100% - 2 * var(--project-grid-column-gap)) / 3)
+      );
+      gap: var(--project-grid-row-gap) var(--project-grid-column-gap);
+      align-items: start;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .project-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0.6, 0.2, 1),
+        transform 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+
+    .project-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-item:hover .project-card__img {
+      transform: scale(0.97);
+      filter: none;
+    }
+
+    .projects-grid .project-item:nth-child(3n + 2).visible {
+      transition-delay: 0.1s;
+    }
+
+    .projects-grid .project-item:nth-child(3n + 3).visible {
+      transition-delay: 0.2s;
+    }
+
+    .projects-grid .project-item:nth-child(3n + 2):not(.visible),
+    .projects-grid .project-item:nth-child(3n + 3):not(.visible) {
+      transition-delay: 0s;
+    }
+
+    .project-card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .project-card__caption {
+      margin: 0;
+      width: 100%;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      color: #000000;
+      filter: blur(0);
+      transition: filter 0.4s ease;
+    }
+
+    .project-item:hover .project-card__caption {
+      filter: blur(4px);
+    }
+
+    .project-card__caption-name {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .project-card__caption-sep {
+      display: inline-block;
+      padding: 0 8px;
+      vertical-align: baseline;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .project-card__caption-type {
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .project-card__media {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .project-card__img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: scale(1);
+      filter: none;
+      transition: transform 0.4s ease;
+    }
+
+    #playground {
+      scroll-margin-top: 5.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-tilt {
+        font-size: clamp(3.25rem, 11vw, 120px);
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid .project-item:nth-child(3n + 2).visible,
+      .projects-grid .project-item:nth-child(3n + 3).visible {
+        transition-delay: 0s;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="customCursor" class="custom-cursor" aria-hidden="true">
+    <span class="custom-cursor__label" id="cursorLabel">scroll</span>
+  </div>
+
+  <nav>
+    <div class="container">
+      <a class="brand" href="#">Kamil Fogel</a>
+      <ul>
+        <li><a href="#work">work</a></li>
+        <li><a href="#">about</a></li>
+        <li><a href="#playground">playground</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="page-main">
+    <section class="hero-view">
+      <div class="container hero-view__inner">
+        <div class="hero-stage">
+          <div class="hero-tilt" id="heroTilt" aria-label="HEY, I'm kamil, a UX/UI designer">
+            <span class="hero-tilt__line"><span class="hero-tilt__caps hero-tilt__italic">hey,</span> I'm <span class="hero-tilt__italic">kamil</span></span>
+            <span class="hero-tilt__line">a <span class="hero-tilt__caps hero-tilt__italic">ux/ui</span> designer</span>
+          </div>
+        </div>
+        <div class="site-contact" aria-label="Contact information">
+          <p class="site-contact__label">contact</p>
+          <p class="site-contact__line">kamil.fogel@gmail.com</p>
+          <p class="site-contact__line">+972 52 666 2494</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-wrap container" id="work" aria-label="Selected work">
+      <div class="projects-grid">
+        <a
+          href="devill.html"
+          class="project-card project-item js-project-reveal js-cursor-hotspot js-page-transition"
+          data-project-id="house-of-de-vill"
+        >
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/devill.png"
+              alt="House of de Vill project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <p class="project-card__caption">
+            <span class="project-card__caption-name">House of de Vill</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">Web design</span>
+          </p>
+        </a>
+
+        <a
+          href="now.html"
+          class="project-card project-item js-project-reveal js-cursor-hotspot js-page-transition"
+          data-project-id="now"
+        >
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/now.png"
+              alt="Now project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <p class="project-card__caption">
+            <span class="project-card__caption-name">Now</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">App design</span>
+          </p>
+        </a>
+
+        <article
+          class="project-card project-item js-project-reveal js-cursor-hotspot"
+          data-project-id="balanced"
+        >
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/balanced.png"
+              alt="Balanced project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <p class="project-card__caption">
+            <span class="project-card__caption-name">Balanced</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">Vibe coding, app design</span>
+          </p>
+        </article>
+
+        <article
+          class="project-card project-item js-project-reveal js-cursor-hotspot"
+          data-project-id="scnd"
+        >
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/scnd.png"
+              alt="SCND branding project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <p class="project-card__caption">
+            <span class="project-card__caption-name">SCND</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">branding</span>
+          </p>
+        </article>
+
+        <article
+          class="project-card project-item js-project-reveal js-cursor-hotspot"
+          data-project-id="health-cigarette"
+        >
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/healthcigarette.png"
+              alt="Health Cigarette title sequence project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <p class="project-card__caption">
+            <span class="project-card__caption-name">Health Cigarette</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">title sequence</span>
+          </p>
+        </article>
+
+        <article
+          class="project-card project-item js-project-reveal js-cursor-hotspot"
+          data-project-id="met-gala"
+        >
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/metgala.png"
+              alt="The Met Gala project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <p class="project-card__caption">
+            <span class="project-card__caption-name">The Met Gala</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">Web design</span>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="playground" class="container" aria-label="Playground"></section>
+  </main>
+
+  <script>
+    (function () {
+      function bindPageTransitions() {
+        var pageLinks = document.querySelectorAll('a.js-page-transition');
+        for (var p = 0; p < pageLinks.length; p++) {
+          pageLinks[p].addEventListener('click', function (e) {
+            var href = this.getAttribute('href');
+            if (!href || this.getAttribute('target') === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+            e.preventDefault();
+            document.body.classList.add('page-exit');
+            window.setTimeout(function () {
+              window.location.href = href;
+            }, 480);
+          });
+        }
+      }
+      bindPageTransitions();
+
+      var cursorEl = document.getElementById('customCursor');
+      var cursorLabelEl = document.getElementById('cursorLabel');
+      var heroEl = document.getElementById('heroTilt');
+      var cursorHotspots = document.querySelectorAll('.js-cursor-hotspot');
+      var revealTargets = document.querySelectorAll('.js-project-reveal');
+
+      if (!cursorEl || !heroEl) return;
+
+      var CURSOR_OFFSET_X = 20;
+      var CURSOR_OFFSET_Y = 22;
+      var heroMaxX = 7;
+      var heroMaxY = 9;
+      var smoothing = 0.12;
+
+      var heroState = { cx: 0, cy: 0, tx: 0, ty: 0 };
+      var hotspotHoverDepth = 0;
+      var rafId = null;
+
+      function setCursorLabel() {
+        if (!cursorLabelEl) return;
+        cursorLabelEl.textContent = hotspotHoverDepth > 0 ? 'view' : 'scroll';
+      }
+
+      function onHotspotEnter() {
+        hotspotHoverDepth++;
+        setCursorLabel();
+      }
+
+      function onHotspotLeave() {
+        hotspotHoverDepth = Math.max(0, hotspotHoverDepth - 1);
+        setCursorLabel();
+      }
+
+      function setTargetsFromNormalized(nx, ny, maxRx, maxRy, state) {
+        state.ty = nx * maxRy * 2;
+        state.tx = -ny * maxRx * 2;
+      }
+
+      function moveCustomCursor(clientX, clientY) {
+        var x = clientX + CURSOR_OFFSET_X;
+        var y = clientY + CURSOR_OFFSET_Y;
+        cursorEl.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
+        cursorEl.classList.add('is-visible');
+      }
+
+      function lerpState(state) {
+        state.cx += (state.tx - state.cx) * smoothing;
+        state.cy += (state.ty - state.cy) * smoothing;
+      }
+
+      function applyHeroTransform() {
+        heroEl.style.transform =
+          'rotateX(' + heroState.cx.toFixed(3) + 'deg) rotateY(' + heroState.cy.toFixed(3) + 'deg)';
+      }
+
+      function tick() {
+        lerpState(heroState);
+        applyHeroTransform();
+
+        var heroMoving =
+          Math.abs(heroState.tx - heroState.cx) > 0.002 ||
+          Math.abs(heroState.ty - heroState.cy) > 0.002;
+
+        if (heroMoving) {
+          rafId = requestAnimationFrame(tick);
+        } else {
+          rafId = null;
+        }
+      }
+
+      function scheduleTick() {
+        if (rafId === null) rafId = requestAnimationFrame(tick);
+      }
+
+      function onMouseMove(e) {
+        moveCustomCursor(e.clientX, e.clientY);
+
+        var w = window.innerWidth || 1;
+        var h = window.innerHeight || 1;
+        setTargetsFromNormalized(e.clientX / w - 0.5, e.clientY / h - 0.5, heroMaxX, heroMaxY, heroState);
+
+        scheduleTick();
+      }
+
+      function onDocumentLeave() {
+        hotspotHoverDepth = 0;
+        setCursorLabel();
+        heroState.tx = heroState.ty = 0;
+        cursorEl.classList.remove('is-visible');
+        scheduleTick();
+      }
+
+      for (var i = 0; i < cursorHotspots.length; i++) {
+        cursorHotspots[i].addEventListener('mouseenter', onHotspotEnter);
+        cursorHotspots[i].addEventListener('mouseleave', onHotspotLeave);
+      }
+
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(
+          function (entries) {
+            for (var r = 0; r < entries.length; r++) {
+              var entry = entries[r];
+              if (!entry.isIntersecting || entry.intersectionRatio < 0.15) continue;
+              var el = entry.target;
+              el.classList.add('visible');
+              revealObserver.unobserve(el);
+            }
+          },
+          {
+            root: null,
+            rootMargin: '0px',
+            threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5, 0.75, 1],
+          }
+        );
+        for (var j = 0; j < revealTargets.length; j++) {
+          revealObserver.observe(revealTargets[j]);
+        }
+      } else {
+        for (var k = 0; k < revealTargets.length; k++) {
+          revealTargets[k].classList.add('visible');
+        }
+      }
+
+      window.addEventListener('mousemove', onMouseMove);
+      document.documentElement.addEventListener('mouseleave', onDocumentLeave);
+      window.addEventListener('blur', onDocumentLeave);
+
+      setCursorLabel();
+      scheduleTick();
+    })();
+  </script>
+</body>
+</html>
