@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en" class="case-study-page health-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Cigarette — Kamil Fogel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="typography.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --container-pad: 24px;
+      --case-section-gap: 100px;
+      --case-health-centered-band: 600px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--container-pad);
+      padding-right: var(--container-pad);
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    html.health-page {
+      background-color: #ffffff;
+    }
+
+    body.case-page {
+      background: #ffffff;
+      color: #000000;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    body.case-page.is-entering {
+      opacity: 0;
+    }
+
+    html.case-study-page,
+    html.case-study-page body.case-study-page {
+      cursor: auto !important;
+    }
+
+    body.case-study-page .custom-cursor {
+      display: none !important;
+    }
+
+    body.health-page nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 10000;
+      padding: 0;
+      background: transparent;
+      color: #000000;
+    }
+
+    body.health-page nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    body.health-page nav .brand {
+      color: #000000;
+      text-decoration: none;
+      transition: filter 0.4s ease;
+    }
+
+    body.health-page nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    body.health-page nav ul a {
+      color: #000000;
+      text-decoration: none;
+      transition: filter 0.4s ease;
+    }
+
+    @media (hover: hover) {
+      body.health-page nav .brand:hover,
+      body.health-page nav ul a:hover {
+        filter: blur(4px);
+      }
+    }
+
+    body.health-page nav a:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    .case-main {
+      width: 100%;
+      padding-top: 5.5rem;
+      padding-bottom: 6rem;
+    }
+
+    .case-reveal-block:not(.visible) .case-reveal-item {
+      opacity: 0;
+      transform: translate3d(0, 48px, 0);
+    }
+
+    .case-reveal-item {
+      transition:
+        opacity 0.9s cubic-bezier(0.2, 0.6, 0.2, 1),
+        transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+
+    .case-reveal-block.visible .case-reveal-item {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .case-reveal-block.visible > .case-reveal-item:nth-child(1) { transition-delay: 0.04s; }
+    .case-reveal-block.visible > .case-reveal-item:nth-child(2) { transition-delay: 0.12s; }
+
+    .case-hero-meta-shell {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .case-hero-meta-shell.case-reveal-item {
+      transition:
+        opacity 0.9s cubic-bezier(0.2, 0.6, 0.2, 1),
+        transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+
+    .case-meta-row {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    .case-block {
+      margin-bottom: var(--case-section-gap);
+    }
+
+    .case-block.case-hero-intro {
+      margin-bottom: 0;
+    }
+
+    .case-block.case-health-gallery-block {
+      margin-bottom: 0;
+    }
+
+    .case-block.case-health-copy-block {
+      margin-bottom: var(--case-section-gap);
+    }
+
+    /* Centered L2 + L4 text; 80px between About / Concept / Art direction; image grid uses own top margin */
+    .case-health-copy-stack {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .case-health-text-section + .case-health-text-section {
+      margin-top: 80px;
+    }
+
+    .case-health-text-section .case-subhead {
+      text-align: center !important;
+      margin-top: 0 !important;
+      margin-bottom: 30px !important;
+    }
+
+    .case-health-text-section .case-body {
+      text-align: center !important;
+      max-width: var(--case-health-centered-band) !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    /* Cols 2–11: same inset as NOW screens / user flow */
+    .case-health-media-stack {
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 24px !important;
+      row-gap: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box;
+      margin-top: 60px !important;
+      padding: 0 !important;
+    }
+
+    .case-health-media-stack .case-health-still {
+      grid-column: 2 / 12 !important;
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+      margin: 0 !important;
+      padding: 0 !important;
+      justify-self: stretch !important;
+    }
+
+    /* 8-col band: cols 3–10 (1 col tighter inset than cover on each side) */
+    .case-health-media-stack .case-health-faces-video {
+      grid-column: 3 / 11 !important;
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+      margin: 60px 0 100px !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+    }
+
+    /*
+      Full-width 50/50 pairs: equal 1fr tracks, subtle gutter between halves, 24px between rows.
+    */
+    .case-health-triptych {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 20px;
+      row-gap: 24px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      margin-top: 100px;
+      margin-bottom: 0;
+      padding: 0;
+      text-align: left;
+    }
+
+    .case-health-triptych-still {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      margin: 0;
+      padding: 0;
+      min-width: 0;
+    }
+
+    /* Final video — play-overlay pattern as devill.html; 10-col band (lines 2–12 = cols 2–11) */
+    .case-health-final-video-grid {
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 24px !important;
+      row-gap: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box;
+      margin-top: 120px !important;
+      margin-bottom: 150px !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+    }
+
+    .case-health-final-video-grid .video-walkthrough-wrapper {
+      grid-column: 2 / 12 !important;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      width: 100% !important;
+      min-width: 0;
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 0;
+      box-sizing: border-box;
+    }
+
+    .case-health-final-video-grid .video-walkthrough-wrapper .video-walkthrough-embed {
+      width: 100% !important;
+      height: auto !important;
+      display: block;
+      margin: 0 !important;
+      padding: 0 !important;
+      object-fit: contain;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+
+    .case-health-final-video-grid .video-walkthrough-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .case-health-final-video-grid .video-walkthrough-wrapper.is-paused .video-walkthrough-overlay {
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+
+    .case-health-final-video-grid .video-walkthrough-wrapper:not(.is-paused) .video-walkthrough-overlay {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+
+    .case-health-final-video-grid .video-walkthrough-overlay-inner {
+      width: auto;
+      min-width: 240px;
+      max-width: min(90%, 420px);
+      min-height: 50px;
+      box-sizing: border-box;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      pointer-events: auto;
+      cursor: pointer;
+      transform-origin: center center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .case-health-final-video-grid .video-walkthrough-wrapper.is-paused:hover .video-walkthrough-overlay-inner {
+      transform: scale(1.05);
+    }
+
+    .case-health-final-video-grid .video-walkthrough-overlay-inner .case-subhead {
+      margin: 0 !important;
+      text-align: center !important;
+      line-height: 1.25 !important;
+    }
+
+    @media (max-width: 900px) {
+      .case-health-media-stack .case-health-still {
+        grid-column: 1 / -1 !important;
+      }
+
+      .case-health-media-stack .case-health-faces-video {
+        grid-column: 1 / -1 !important;
+      }
+
+      .case-health-text-section .case-body {
+        max-width: 100% !important;
+      }
+
+      .case-health-final-video-grid .video-walkthrough-wrapper {
+        grid-column: 2 / 12 !important;
+      }
+    }
+  </style>
+</head>
+<body class="case-page case-study-page health-page is-entering">
+
+  <nav>
+    <div class="container">
+      <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
+      <ul>
+        <li><a href="index.html#work">work</a></li>
+        <li><a href="index.html">about</a></li>
+        <li><a href="index.html#playground">playground</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="case-main">
+    <div class="container">
+      <section class="case-block case-reveal-block case-hero-intro" data-case-reveal aria-label="Project header">
+        <h1
+          class="case-health-hero-title case-reveal-item"
+          data-aos="fade-up"
+          data-aos-duration="900"
+          data-aos-once="true"
+        >
+          health cigarette
+        </h1>
+        <div
+          class="case-hero-meta-shell case-reveal-item"
+          aria-label="Project details"
+          data-aos="fade-up"
+          data-aos-duration="900"
+          data-aos-once="true"
+        >
+          <div class="case-meta-row case-health-meta">
+            <span class="case-meta-part">student project</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">title sequence</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">5 weeks</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">2026</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-block case-health-gallery-block" aria-label="Project cover and faces video">
+        <div class="case-health-media-stack">
+          <img
+            class="case-health-still"
+            src="helthcigaretteproject/cover.png"
+            alt="Health Cigarette — cover"
+            loading="eager"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          />
+          <video
+            class="case-health-faces-video"
+            src="helthcigaretteproject/faces.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+            aria-label="Faces — title sequence excerpt"
+          ></video>
+        </div>
+      </section>
+
+      <section class="case-block case-health-copy-block" aria-label="About, concept, art direction, and image grid">
+        <div class="case-health-copy-stack">
+          <div class="case-health-text-section">
+            <h2
+              class="case-subhead"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              About
+            </h2>
+            <p
+              class="case-body"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              A title sequence for a fictional cinematic adaptation of Etgar Keret's short story, &ldquo;Health Cigarette.&rdquo; The project explores the complex relationship between a son haunted by post-traumatic memories and his mother, who is gradually losing her identity to Alzheimer's. The visual narrative highlights the tension between two opposing states of memory: a son trapped by a traumatic past he can never forget, and a mother losing her sense of self to a past she can no longer remember.
+            </p>
+          </div>
+          <div class="case-health-text-section">
+            <h2
+              class="case-subhead"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              Concept - &ldquo;The Erosion of Identity&rdquo;
+            </h2>
+            <p
+              class="case-body"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              The visual language treats memory as a physical space that is gradually being emptied. Using nostalgic Israeli archival footage, I created AI-generated &ldquo;doubles&rdquo; to depict a domestic environment losing its character. As the narrative progresses, windows vanish from walls, stoves burn aimlessly, and familiar faces blur into anonymity. These visual glitches represent the mother&rsquo;s mental decline.
+            </p>
+          </div>
+
+          <div class="case-health-text-section">
+            <h2
+              class="case-subhead"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              Art direction
+            </h2>
+            <p
+              class="case-body"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              Inspired by the Israeli aesthetic of the 1970s, utilizing a muted color palette and vintage-inspired typography to ground the abstract concept of memory loss in a specific, nostalgic cultural context.
+            </p>
+          </div>
+
+          <div class="case-health-triptych" aria-label="House and fire image pairs">
+            <img
+              class="case-health-triptych-still case-health-triptych-still--left"
+              src="helthcigaretteproject/house1.png"
+              alt="Health Cigarette — house study 1"
+              loading="lazy"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            />
+            <img
+              class="case-health-triptych-still case-health-triptych-still--right"
+              src="helthcigaretteproject/house.png"
+              alt="Health Cigarette — house"
+              loading="lazy"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            />
+            <img
+              class="case-health-triptych-still case-health-triptych-still--left"
+              src="helthcigaretteproject/fire1.png"
+              alt="Health Cigarette — fire study 1"
+              loading="lazy"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            />
+            <img
+              class="case-health-triptych-still case-health-triptych-still--right"
+              src="helthcigaretteproject/fire.png"
+              alt="Health Cigarette — fire"
+              loading="lazy"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            />
+          </div>
+
+          <div
+            class="case-health-final-video-grid"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
+            <div class="video-walkthrough-wrapper is-paused">
+              <video
+                id="projectVideo"
+                class="video-walkthrough-embed"
+                src="helthcigaretteproject/healthcigarette.mp4"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="Health Cigarette — final title sequence"
+              ></video>
+              <div class="video-walkthrough-overlay" aria-hidden="true">
+                <div class="video-walkthrough-overlay-inner">
+                  <span class="case-subhead">WATCH FINAL VIDEO</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    (function () {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 900,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 80,
+        });
+      }
+
+      function bindPageTransitions() {
+        var links = document.querySelectorAll('a.js-page-transition');
+        for (var i = 0; i < links.length; i++) {
+          links[i].addEventListener('click', function (e) {
+            var href = this.getAttribute('href');
+            if (!href || this.getAttribute('target') === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+            e.preventDefault();
+            document.body.classList.add('is-entering');
+            window.setTimeout(function () {
+              window.location.href = href;
+            }, 480);
+          });
+        }
+      }
+      bindPageTransitions();
+
+      (function bindHealthFinalVideoWalkthrough() {
+        var wrap = document.querySelector('.case-health-final-video-grid .video-walkthrough-wrapper');
+        var vid = document.getElementById('projectVideo');
+        var overlay = wrap ? wrap.querySelector('.video-walkthrough-overlay') : null;
+        if (!wrap || !vid || !overlay) return;
+
+        function syncPausedClass() {
+          if (vid.paused) {
+            wrap.classList.add('is-paused');
+          } else {
+            wrap.classList.remove('is-paused');
+          }
+        }
+
+        function togglePlayback() {
+          if (vid.paused) {
+            wrap.classList.remove('is-paused');
+            void vid.play();
+          } else {
+            wrap.classList.add('is-paused');
+            vid.pause();
+          }
+        }
+
+        vid.addEventListener('play', function () {
+          wrap.classList.remove('is-paused');
+        });
+        vid.addEventListener('pause', function () {
+          wrap.classList.add('is-paused');
+        });
+        vid.addEventListener('ended', function () {
+          wrap.classList.add('is-paused');
+        });
+
+        overlay.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          togglePlayback();
+        });
+
+        wrap.addEventListener('click', function (e) {
+          if (overlay.contains(e.target)) return;
+          if (e.target !== vid) return;
+          togglePlayback();
+        });
+
+        syncPausedClass();
+      })();
+
+      if ('IntersectionObserver' in window) {
+        var blocks = document.querySelectorAll('[data-case-reveal]');
+        var obs = new IntersectionObserver(
+          function (entries) {
+            for (var r = 0; r < entries.length; r++) {
+              var entry = entries[r];
+              if (!entry.isIntersecting || entry.intersectionRatio < 0.12) continue;
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          },
+          {
+            root: null,
+            rootMargin: '0px 0px -8% 0px',
+            threshold: [0, 0.08, 0.12, 0.2, 0.35, 0.5, 1],
+          }
+        );
+        for (var j = 0; j < blocks.length; j++) {
+          obs.observe(blocks[j]);
+        }
+      } else {
+        for (var k = 0; k < blocks.length; k++) {
+          blocks[k].classList.add('visible');
+        }
+      }
+
+      function endEnter() {
+        document.body.classList.remove('is-entering');
+      }
+      if (document.readyState === 'complete') {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(endEnter);
+        });
+      } else {
+        window.addEventListener('load', function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(endEnter);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -6,7 +6,8 @@
   <title>House of de Vill — Kamil Fogel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="typography.css" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -40,10 +41,6 @@
     body.case-page {
       background: #ffffff;
       color: #000000;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.6;
       opacity: 1;
       transition: opacity 0.5s ease;
     }
@@ -71,12 +68,6 @@
       z-index: 10000;
       padding: 0;
       background: transparent;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       color: #000000;
     }
 
@@ -143,21 +134,6 @@
 
     .case-reveal-block.visible > .case-reveal-item:nth-child(1) { transition-delay: 0.04s; }
 
-    .case-hero-title {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: 96px;
-      line-height: 1.08;
-      color: #000000;
-      text-align: center;
-      padding: 100px 0 0;
-      margin: 0 0 12px;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
     /* 12-col shell (24px gutters); row spans full width, flex-centers the metadata line */
     .case-hero-meta-shell {
       display: grid;
@@ -188,24 +164,6 @@
       box-sizing: border-box;
     }
 
-    .case-meta-part,
-    .case-meta-sep {
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 300 !important;
-      line-height: 1.35;
-      color: #000000;
-    }
-
-    .case-meta-part {
-      text-transform: lowercase;
-    }
-
-    .case-meta-sep {
-      flex-shrink: 0;
-      user-select: none;
-    }
-
     /* Centers inline-flex link; vertical rhythm; reveal target */
     .case-prototype-link-wrap {
       text-align: center;
@@ -221,19 +179,11 @@
       justify-content: center;
       box-sizing: border-box;
       max-width: 100%;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 400 !important;
-      line-height: 1.35;
-      text-transform: lowercase;
-      color: #000000;
       text-decoration: none;
       margin: 0;
       padding: 4px 8px;
       filter: none;
       transition: filter 0.3s ease;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     @media (hover: hover) {
@@ -253,24 +203,7 @@
     .case-reveal-block.visible > .case-reveal-item:nth-child(4) { transition-delay: 0.28s; }
     .case-reveal-block.visible.case-devill-alligator-section .devill-embed-video.case-reveal-item { transition-delay: 0.04s; }
     .case-reveal-block.visible.case-devill-alligator-section .devill-snake-crop-wrap.case-reveal-item { transition-delay: 0.12s; }
-    .case-subhead {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #000000;
-      text-align: left;
-      margin-bottom: 1.25rem;
-    }
-
     .case-body {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.5;
-      color: #000000;
       text-align: left;
       max-width: 52rem;
     }
@@ -347,13 +280,6 @@
     .case-about-block .case-subhead,
     .case-research-section > .case-subhead {
       margin-bottom: 16px;
-    }
-
-    /* About: Roboto Light 16px — fixed line height for this section only */
-    .case-about-block .case-body {
-      line-height: 1.4;
-      font-size: 16px;
-      font-weight: 300;
     }
 
     .about-grid-container {
@@ -535,11 +461,6 @@
 
     /* First research block: single paragraph, sentence case, no pre-line */
     .research-intro-para {
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      line-height: 1.4 !important;
-      font-weight: 300;
-      color: #000000;
       text-align: left;
       white-space: normal;
       margin: 0 !important;
@@ -707,22 +628,12 @@
     }
 
     .video-walkthrough-overlay-inner span {
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      color: #000000;
       text-align: center;
       text-transform: none;
       line-height: 1.25;
     }
 
     @media (max-width: 900px) {
-      .case-hero-title {
-        font-size: clamp(2.5rem, 12vw, 96px);
-        padding: 64px 0 0;
-        margin-bottom: 12px;
-      }
-
       .devill-embed-video {
         max-width: 100%;
       }

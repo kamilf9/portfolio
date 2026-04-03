@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="typography.css" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -36,11 +37,6 @@
 
     body {
       background: #ffffff;
-      color: #000000;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.6;
       transition: opacity 0.5s ease;
     }
 
@@ -74,11 +70,6 @@
       justify-content: center;
       text-align: center;
       background: #000000;
-      color: #ffffff;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.6;
       letter-spacing: -0.01em;
       text-transform: lowercase;
       white-space: nowrap;
@@ -99,12 +90,6 @@
       z-index: 5000;
       padding: 0;
       background: transparent;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
     }
 
     nav .container {
@@ -156,7 +141,6 @@
       text-align: left;
       align-items: flex-start;
       color: #000000;
-      font-family: 'Roboto', sans-serif;
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
@@ -164,18 +148,10 @@
 
     .site-contact__label {
       margin: 0;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
     }
 
     .site-contact__line {
       margin: 0;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.6;
     }
 
     .page-main {
@@ -200,16 +176,6 @@
 
     .hero-tilt {
       transform-style: preserve-3d;
-      text-align: center;
-      font-family: 'Instrument Serif', serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 120px;
-      line-height: 1.04;
-      color: #000000;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     .hero-tilt__line {
@@ -282,7 +248,6 @@
       margin: 0;
       width: 100%;
       text-align: center;
-      font-family: 'Roboto', sans-serif;
       color: #000000;
       filter: blur(0);
       transition: filter 0.4s ease;
@@ -292,31 +257,10 @@
       filter: blur(4px);
     }
 
-    .project-card__caption-name {
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
     .project-card__caption-sep {
       display: inline-block;
       padding: 0 8px;
       vertical-align: baseline;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .project-card__caption-type {
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.6;
-      text-transform: none;
-      letter-spacing: normal;
     }
 
     .project-card__media {
@@ -338,10 +282,6 @@
     }
 
     @media (max-width: 900px) {
-      .hero-tilt {
-        font-size: clamp(3.25rem, 11vw, 120px);
-      }
-
       .projects-grid {
         grid-template-columns: 1fr;
       }
@@ -462,8 +402,9 @@
           </p>
         </article>
 
-        <article
-          class="project-card project-item js-project-reveal js-cursor-hotspot"
+        <a
+          href="health.html"
+          class="project-card project-item js-project-reveal js-cursor-hotspot js-page-transition"
           data-project-id="health-cigarette"
         >
           <div class="project-card__media">
@@ -478,7 +419,7 @@
           <p class="project-card__caption">
             <span class="project-card__caption-name">Health Cigarette</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">title sequence</span>
           </p>
-        </article>
+        </a>
 
         <article
           class="project-card project-item js-project-reveal js-cursor-hotspot"

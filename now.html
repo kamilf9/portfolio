@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="typography.css" />
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -18,6 +19,7 @@
     :root {
       --container-pad: 24px;
       --case-section-gap: 100px;
+      --case-now-centered-band: 600px;
     }
 
     .container {
@@ -41,10 +43,6 @@
     body.case-page {
       background: #ffffff;
       color: #000000;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      line-height: 1.6;
       opacity: 1;
       transition: opacity 0.5s ease;
     }
@@ -71,12 +69,6 @@
       z-index: 10000;
       padding: 0;
       background: transparent;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
       color: #000000;
     }
 
@@ -144,23 +136,6 @@
     .case-reveal-block.visible > .case-reveal-item:nth-child(2) { transition-delay: 0.12s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(3) { transition-delay: 0.2s; }
 
-    /* Style 1 — matches devill / other case hero titles */
-    .case-hero-title {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-weight: 400;
-      font-size: 96px;
-      line-height: 1.08;
-      color: #000000;
-      text-align: center;
-      text-transform: none;
-      padding: 100px 0 0;
-      margin: 0 0 12px;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
     .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -190,24 +165,6 @@
       box-sizing: border-box;
     }
 
-    .case-meta-part,
-    .case-meta-sep {
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 300 !important;
-      line-height: 1.35;
-      color: #000000;
-    }
-
-    .case-meta-part {
-      text-transform: lowercase;
-    }
-
-    .case-meta-sep {
-      flex-shrink: 0;
-      user-select: none;
-    }
-
     /* Centers inline-flex link; vertical rhythm; reveal target (matches devill.html) */
     .case-prototype-link-wrap {
       text-align: center;
@@ -223,19 +180,11 @@
       justify-content: center;
       box-sizing: border-box;
       max-width: 100%;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 400 !important;
-      line-height: 1.35;
-      text-transform: lowercase;
-      color: #000000;
       text-decoration: none;
       margin: 0;
       padding: 4px 8px;
       filter: none;
       transition: filter 0.3s ease;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     @media (hover: hover) {
@@ -319,117 +268,126 @@
       margin-bottom: var(--case-section-gap);
     }
 
-    /* Step layout: title row 1 col 1; body row 2 from col 2, 24px below title */
+    /* Center axis: block + auto margins + fixed max width (avoids asymmetric 12-col band) */
     .case-now-about-stack {
-      display: grid !important;
-      grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
-      row-gap: 24px !important;
-      align-items: start !important;
+      display: block !important;
       width: 100% !important;
+      max-width: 100% !important;
       box-sizing: border-box;
-      margin-top: 100px !important;
+      margin: 100px auto 0 !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding: 0 !important;
+      text-align: center !important;
+      float: none !important;
     }
 
     .case-now-about-stack .case-subhead {
-      grid-column: 1 / 2 !important;
-      grid-row: 1 !important;
-      margin: 0 !important;
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 0 auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding: 0 !important;
+      padding-left: 0 !important;
+      text-align: center !important;
+      float: none !important;
+      position: static !important;
     }
 
-    /* Style 4 body: columns 2–7 (six tracks); 8–12 empty */
     .case-now-about-stack .case-body {
-      grid-column: 2 / 8 !important;
-      grid-row: 2 !important;
-      margin: 0 !important;
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 24px auto 0 !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding: 0 !important;
-      max-width: none !important;
+      text-align: center !important;
+      float: none !important;
+      position: static !important;
     }
 
-    /* Style 2 — section headers (about, research, …): Roboto Regular, not bold */
-    .case-subhead {
+    /* L3 lead inline with L4 body — one paragraph, no break */
+    .case-now-about-stack .case-now-about-lead {
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
       font-size: 16px;
-      line-height: 1.35;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      line-height: 1.4;
       color: #000000;
-      text-align: left;
     }
 
     .case-body {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.4;
-      color: #000000;
       text-align: left;
     }
 
     .case-block.case-now-research-block {
-      margin-bottom: var(--case-section-gap);
-    }
-
-    /* Step layout; 100px below About (collapses with about block margin) */
-    .case-now-research-stack {
-      display: grid !important;
-      grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
-      row-gap: 24px !important;
-      align-items: start !important;
-      width: 100% !important;
-      box-sizing: border-box;
-      margin-top: 100px !important;
-      padding: 0 !important;
-    }
-
-    .case-now-research-stack .case-subhead {
-      grid-column: 1 / 2 !important;
-      grid-row: 1 !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    .case-now-research-stack .case-now-research-copy {
-      grid-column: 2 / 8 !important;
-      grid-row: 2 !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      max-width: none !important;
-    }
-
-    /* 24px row-gap + 36px margin = 60px from copy; cols 4-8 (5 tracks); flex centers bitmap in cell */
-    .case-now-research-figure-wrap {
-      grid-column: 4 / 9 !important;
-      grid-row: 3 !important;
-      justify-self: stretch !important;
-      width: 100% !important;
-      min-width: 0;
-      margin-top: 36px !important;
       margin-bottom: 0 !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
+    }
+
+    /* Header → copy → image; same center axis + band width as About */
+    .case-now-research-stack {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
+      margin: 100px auto 0 !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding: 0 !important;
+      text-align: center !important;
+      float: none !important;
+    }
+
+    .case-now-research-figure-wrap {
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 60px auto 0 !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding: 0 !important;
       box-sizing: border-box;
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
+      line-height: 0;
+      float: none !important;
+      position: static !important;
     }
 
     .case-now-research-image {
-      width: auto !important;
-      max-width: 100% !important;
+      width: 100% !important;
       height: auto !important;
-      display: block;
-      margin: 0 !important;
+      display: block !important;
+      margin: 0 auto !important;
       padding: 0 !important;
+      float: none !important;
     }
 
-    .case-now-research-copy .case-research-label {
-      font-weight: 400;
+    .case-now-research-stack .case-subhead {
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 0 auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding: 0 !important;
+      padding-left: 0 !important;
+      text-align: center !important;
+      float: none !important;
+      position: static !important;
+    }
+
+    .case-now-research-stack .case-now-research-copy {
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 24px auto 0 !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      padding: 0 !important;
+      text-align: center !important;
+      float: none !important;
+      position: static !important;
     }
 
     .case-now-cs-after-flow {
@@ -443,49 +401,72 @@
       margin-top: 100px !important;
     }
 
-    .case-now-cs-after-flow + .case-now-ds-typography {
-      margin-top: 120px !important;
-    }
-
-    /* Challenge then solution, after user flow; bodies centered band cols 4-9 */
+    /* Challenge / solution: 12-col grid; solution title + body span cols 4–9 (6 tracks) */
     .case-now-cs-stack.case-now-cs-stack--vertical {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
       column-gap: 24px !important;
-      row-gap: 0 !important;
-      align-items: start !important;
       width: 100% !important;
+      max-width: 100% !important;
       box-sizing: border-box;
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: center !important;
+      float: none !important;
+    }
+
+    .case-now-cs-stack--vertical .case-now-cs-style3-heading {
+      text-align: center !important;
       margin: 0 !important;
       padding: 0 !important;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-challenge-title {
-      grid-column: 1 / 2 !important;
-      grid-row: 1 !important;
-      margin: 0 !important;
+      grid-column: 1 / -1 !important;
+      justify-self: center !important;
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 0 auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding: 0 !important;
+      float: none !important;
+      position: static !important;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-challenge-body {
-      grid-column: 4 / 10 !important;
-      grid-row: 2 !important;
-      margin: 24px 0 0 !important;
+      grid-column: 1 / -1 !important;
+      justify-self: center !important;
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 24px auto 0 !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding: 0 !important;
-      max-width: none !important;
+      text-align: center !important;
+      float: none !important;
+      position: static !important;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-arrow {
-      grid-column: 6 / 8 !important;
-      grid-row: 3 !important;
+      grid-column: 1 / -1 !important;
       justify-self: center !important;
-      margin: 30px 0 !important;
+      display: flex !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 30px auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
       padding: 0 !important;
       color: #000000;
       line-height: 0;
-      display: flex !important;
       align-items: center !important;
       justify-content: center !important;
+      float: none !important;
+      position: static !important;
+      box-sizing: border-box;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-arrow svg {
@@ -495,23 +476,278 @@
     }
 
     .case-now-cs-stack--vertical .case-now-cs-solution-title {
-      grid-column: 1 / 2 !important;
-      grid-row: 4 !important;
+      grid-column: 1 / -1 !important;
+      justify-self: center !important;
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+      text-align: center !important;
+      float: none !important;
+      position: static !important;
+    }
+
+    .case-now-cs-stack--vertical .case-now-cs-solution-body {
+      grid-column: 1 / -1 !important;
+      justify-self: center !important;
+      display: block !important;
+      width: 100% !important;
+      max-width: var(--case-now-centered-band) !important;
+      margin: 24px auto 0 !important;
+      padding: 0 !important;
+      text-align: center !important;
+      float: none !important;
+      position: static !important;
+    }
+
+    /* Style guide block; bottom spacing finished by search image margin */
+    .case-now-style-guide {
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 24px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
+      margin-top: 120px !important;
+      margin-bottom: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+    }
+
+    .case-now-style-guide .case-now-style-guide-heading {
+      grid-column: 1 / -1 !important;
+      justify-self: stretch !important;
+      width: 100% !important;
+      margin: 0 0 60px !important;
+      padding: 0 !important;
+      text-align: center !important;
+    }
+
+    .case-now-style-guide-figure-wrap {
+      grid-column: 2 / 12 !important;
+      width: 100% !important;
+      min-width: 0;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box;
+      line-height: 0;
+    }
+
+    .case-now-style-guide-figure-wrap .case-now-style-guide-image {
+      width: 100% !important;
+      height: auto !important;
+      display: block;
       margin: 0 !important;
       padding: 0 !important;
     }
 
-    .case-now-cs-stack--vertical .case-now-cs-solution-body {
-      grid-column: 4 / 10 !important;
-      grid-row: 5 !important;
-      margin: 24px 0 0 !important;
+    /*
+      Same reading band as About / Solution (--case-now-centered-band); centered stack, 100px between sections, 100px below styleguide image.
+    */
+    .case-now-style-guide-breakdown {
+      grid-column: 1 / -1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 100px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
+      margin-top: 100px !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-bottom: 0 !important;
       padding: 0 !important;
-      max-width: none !important;
+    }
+
+    .case-now-style-guide-breakdown-col {
+      min-width: 0;
+      width: 100%;
+      max-width: var(--case-now-centered-band) !important;
+      box-sizing: border-box;
+    }
+
+    /* L3 — centered; 20px to body */
+    .case-now-sg-breakdown-heading {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      color: #000000;
+      margin: 0 0 20px !important;
+      padding: 0 !important;
+      text-align: center !important;
+      text-transform: none;
+    }
+
+    .case-now-sg-breakdown-body-wrap {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 !important;
+      margin: 0;
+    }
+
+    .case-now-style-guide-breakdown-col .case-body {
+      text-align: center !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+
+    /* Screens mosaic: overlapping 1-2-1 diamond; row-gap 0 + negative margins (~175px pull); center z-index above sides */
+    .screens-mosaic {
+      grid-column: 1 / -1 !important;
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 40px !important;
+      row-gap: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 120px 0 200px !important;
+      padding: 0 0 120px !important;
+      box-sizing: border-box;
+      align-items: start !important;
+    }
+
+    .screens-mosaic__cell {
+      position: relative;
+      min-width: 0;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+    }
+
+    /* Rows 2+: pull up into previous row; right column keeps ~70px stagger vs left */
+    .screens-mosaic__cell--loader,
+    .screens-mosaic__cell--uv,
+    .screens-mosaic__cell--recipe1,
+    .screens-mosaic__cell--home,
+    .screens-mosaic__cell--precip,
+    .screens-mosaic__cell--search {
+      margin-top: -175px !important;
+    }
+
+    .screens-mosaic__cell--diamond-offset {
+      margin-top: calc(-175px + 70px) !important;
+    }
+
+    .screens-mosaic__cell--open,
+    .screens-mosaic__cell--home,
+    .screens-mosaic__cell--precip,
+    .screens-mosaic__cell--search {
+      z-index: 10;
+    }
+
+    .screens-mosaic__cell--loader,
+    .screens-mosaic__cell--winds,
+    .screens-mosaic__cell--uv,
+    .screens-mosaic__cell--visibility,
+    .screens-mosaic__cell--recipe1,
+    .screens-mosaic__cell--recipe2 {
+      z-index: 5;
+    }
+
+    .screens-mosaic__frame {
+      width: 100%;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      line-height: 0;
+    }
+
+    .screens-mosaic__frame video,
+    .screens-mosaic__frame img {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 75vh !important;
+      object-fit: contain !important;
+      object-position: center;
+      display: block;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Row 1 center */
+    .screens-mosaic__cell--open {
+      grid-column: 4 / 10;
+      grid-row: 1;
+      margin-top: 0 !important;
+      z-index: 10;
+    }
+
+    /* Row 2 sides */
+    .screens-mosaic__cell--loader {
+      grid-column: 1 / 6;
+      grid-row: 2;
+    }
+
+    .screens-mosaic__cell--winds {
+      grid-column: 8 / 13;
+      grid-row: 2;
+    }
+
+    /* Row 3 center */
+    .screens-mosaic__cell--home {
+      grid-column: 4 / 10;
+      grid-row: 3;
+    }
+
+    /* Row 4 sides */
+    .screens-mosaic__cell--uv {
+      grid-column: 1 / 6;
+      grid-row: 4;
+    }
+
+    .screens-mosaic__cell--visibility {
+      grid-column: 8 / 13;
+      grid-row: 4;
+    }
+
+    /* Row 5 center */
+    .screens-mosaic__cell--precip {
+      grid-column: 4 / 10;
+      grid-row: 5;
+    }
+
+    /* Row 6 sides */
+    .screens-mosaic__cell--recipe1 {
+      grid-column: 1 / 6;
+      grid-row: 6;
+    }
+
+    .screens-mosaic__cell--recipe2 {
+      grid-column: 8 / 13;
+      grid-row: 6;
+    }
+
+    /* Row 7 center — final search screen */
+    .screens-mosaic__cell--search {
+      grid-column: 4 / 10;
+      grid-row: 7;
+      margin-bottom: 200px !important;
+      z-index: 10;
     }
 
     .case-block.case-now-ds-showcase-block {
-      margin-top: 120px !important;
+      margin-top: 0 !important;
       margin-bottom: var(--case-section-gap);
+    }
+
+    /* 120px below eyal.png to userflow.png (research block has no bottom margin) */
+    .case-now-ds-item.case-now-ds-userflow {
+      margin-top: 120px !important;
+    }
+
+    .case-now-ds-item.case-now-ds-userflow .case-now-ds-figure-wrap--inset-10 {
+      grid-row: 1 !important;
+      grid-column: 2 / 12 !important;
+      margin-top: 0 !important;
     }
 
     .case-now-ds-item + .case-now-ds-item {
@@ -553,9 +789,14 @@
       line-height: 0;
     }
 
-    /* User flow + typography: full 12-column band (container handles 24px side padding) */
+    /* Typography: full 12-column band */
     .case-now-ds-item .case-now-ds-figure-wrap--full {
       grid-column: 1 / -1 !important;
+    }
+
+    /* User flow: cols 2-11 (10 tracks); same inset as screens video */
+    .case-now-ds-item .case-now-ds-figure-wrap--inset-10 {
+      grid-column: 2 / 12 !important;
     }
 
     .case-now-ds-image {
@@ -567,60 +808,72 @@
     }
 
     @media (max-width: 900px) {
-      .case-hero-title {
-        font-size: clamp(2.5rem, 12vw, 96px);
-        padding: 64px 0 0;
-        margin-bottom: 12px;
-      }
-
       .case-now-opening-stack .case-opening-image,
       .case-now-screens-wrap {
         grid-column: 1 / -1 !important;
       }
 
       .case-now-about-stack .case-subhead,
-      .case-now-about-stack .case-body {
+      .case-now-about-stack .case-body,
+      .case-now-research-figure-wrap,
+      .case-now-research-stack .case-subhead,
+      .case-now-research-stack .case-now-research-copy {
+        max-width: 100% !important;
+      }
+
+      .case-now-cs-stack--vertical .case-now-cs-challenge-title,
+      .case-now-cs-stack--vertical .case-now-cs-challenge-body,
+      .case-now-cs-stack--vertical .case-now-cs-arrow {
+        max-width: 100% !important;
+      }
+
+      .case-now-cs-stack--vertical .case-now-cs-solution-title,
+      .case-now-cs-stack--vertical .case-now-cs-solution-body {
+        grid-column: 1 / -1 !important;
+        max-width: 100% !important;
+      }
+
+      .case-now-style-guide-figure-wrap {
         grid-column: 1 / -1 !important;
       }
 
-      .case-now-about-stack .case-body {
+      .screens-mosaic {
+        column-gap: 40px !important;
+        row-gap: 100px !important;
+        padding-bottom: 0 !important;
+      }
+
+      .screens-mosaic__cell--open,
+      .screens-mosaic__cell--uv,
+      .screens-mosaic__cell--recipe1,
+      .screens-mosaic__cell--home,
+      .screens-mosaic__cell--precip,
+      .screens-mosaic__cell--search,
+      .screens-mosaic__cell--diamond-offset {
         margin-top: 0 !important;
       }
 
-      .case-now-research-stack .case-subhead,
-      .case-now-research-stack .case-now-research-copy,
-      .case-now-research-stack .case-now-research-figure-wrap {
+      .screens-mosaic__cell--loader,
+      .screens-mosaic__cell--open,
+      .screens-mosaic__cell--winds,
+      .screens-mosaic__cell--uv,
+      .screens-mosaic__cell--home,
+      .screens-mosaic__cell--visibility,
+      .screens-mosaic__cell--precip,
+      .screens-mosaic__cell--recipe1,
+      .screens-mosaic__cell--recipe2,
+      .screens-mosaic__cell--search {
         grid-column: 1 / -1 !important;
+        grid-row: auto !important;
+        z-index: auto !important;
       }
 
-      .case-now-research-stack .case-now-research-figure-wrap {
-        justify-self: stretch !important;
-        width: 100% !important;
+      .case-now-style-guide-breakdown {
+        gap: 100px !important;
       }
 
-      .case-now-cs-stack--vertical .case-now-cs-challenge-title {
-        grid-column: 1 / -1 !important;
-        grid-row: 1 !important;
-      }
-
-      .case-now-cs-stack--vertical .case-now-cs-challenge-body {
-        grid-column: 1 / -1 !important;
-        grid-row: 2 !important;
-      }
-
-      .case-now-cs-stack--vertical .case-now-cs-arrow {
-        grid-column: 1 / -1 !important;
-        grid-row: 3 !important;
-      }
-
-      .case-now-cs-stack--vertical .case-now-cs-solution-title {
-        grid-column: 1 / -1 !important;
-        grid-row: 4 !important;
-      }
-
-      .case-now-cs-stack--vertical .case-now-cs-solution-body {
-        grid-column: 1 / -1 !important;
-        grid-row: 5 !important;
+      .case-now-style-guide-breakdown-col {
+        max-width: 100% !important;
       }
 
       .case-now-ds-item .case-subhead {
@@ -708,7 +961,7 @@
         >
           <h2 class="case-subhead">about</h2>
           <p class="case-body">
-            The app creates a connection between climate, emotion, and food, providing users with culinary content and recipes tailored to the current atmospheric conditions.
+            <span class="case-now-about-lead">Weather app inspired by chef eyal shani.</span> The app creates a connection between weather, emotions, and food, providing users with culinary content and recipes tailored to the current atmospheric conditions.
           </p>
         </div>
       </section>
@@ -717,12 +970,7 @@
         <div class="case-now-research-stack">
           <h2 class="case-subhead">research</h2>
           <div class="case-body case-now-research-copy">
-            As part of the research process, I analyzed interviews with Eyal Shani which served as the foundation for the app&rsquo;s copywriting, aiming to build a unique tone of voice that breaks away from generic weather forecast language.<br /><br />
-            In parallel, I identified four prominent characteristics of his persona that formed the basis for the design system:<br />
-            <span class="case-research-label">Rawness:</span> Simple cooking with few spices, eating with hands or over cardboard.<br />
-            <span class="case-research-label">Folklore:</span> Granting &ldquo;high-status&rdquo; to street food.<br />
-            <span class="case-research-label">Respect for the ingredient:</span> An emotional admiration for basic raw materials and the belief that they have a soul and essence that must be revealed through cooking.<br />
-            <span class="case-research-label">Poetic language:</span> Describing food in philosophical and emotional terms, treating food as art.
+            I analyzed interviews with Eyal Shani which became the foundation for the app&rsquo;s copywriting, aiming to build a unique tone of voice that breaks away from generic weather forecast language. In parallel, I identified prominent characteristics of his persona that formed the basis for the design system: Rawness, Folklore, Respect for every ingredient and Poetic language.
           </div>
           <div
             class="case-now-research-figure-wrap"
@@ -740,11 +988,10 @@
         </div>
       </section>
 
-      <section class="case-block case-now-ds-showcase-block" aria-label="Design system showcase">
+      <section class="case-block case-now-ds-showcase-block" aria-label="User flow, challenge and solution, and style guide">
         <div class="case-now-ds-item case-now-ds-userflow">
-          <h2 class="case-subhead">user flow</h2>
           <div
-            class="case-now-ds-figure-wrap case-now-ds-figure-wrap--full"
+            class="case-now-ds-figure-wrap case-now-ds-figure-wrap--inset-10"
             data-aos="fade-up"
             data-aos-duration="900"
             data-aos-once="true"
@@ -760,15 +1007,14 @@
 
         <div class="case-now-cs-after-flow" aria-label="Challenge and solution">
           <div class="case-now-cs-stack case-now-cs-stack--vertical">
-            <h2 class="case-subhead case-now-cs-challenge-title">the challenge</h2>
+            <h2 class="case-now-cs-style3-heading case-now-cs-challenge-title">the challenge</h2>
             <div
               class="case-body case-now-cs-challenge-body"
               data-aos="fade-up"
               data-aos-duration="900"
               data-aos-once="true"
             >
-              -Translating meteorological data into an emotional experience in a digital interface.<br />
-              -Building a design system that represents a colorful character while maintaining a raw, minimalist aesthetic.
+              Translating meteorological data into an emotional experience in a digital interface. Building a design system that represents a colorful character while maintaining a raw, minimalist aesthetic.
             </div>
             <div
               class="case-now-cs-arrow"
@@ -781,65 +1027,238 @@
                 <path d="M12 5v14M19 12l-7 7-7-7" />
               </svg>
             </div>
-            <h2 class="case-subhead case-now-cs-solution-title">the solution</h2>
+            <h2 class="case-now-cs-style3-heading case-now-cs-solution-title">the solution</h2>
             <div
               class="case-body case-now-cs-solution-body"
               data-aos="fade-up"
               data-aos-duration="900"
               data-aos-once="true"
             >
-              -Typography-focused design: Changing the information hierarchy common in weather apps. Cleaning up complicated graphs and replacing them with large, unique font and copywriting to turn dry data into a poetic story.
+              A typography-focused design that redefines the standard weather app hierarchy. By replacing complex graphs with bold, poetic type and copywriting, dry meteorological data is transformed into a compelling story.
             </div>
           </div>
         </div>
 
-        <div class="case-now-ds-item case-now-ds-typography">
-          <h2 class="case-subhead">typography</h2>
+        <div class="case-now-style-guide" aria-label="Style guide">
+          <h2
+            class="case-subhead case-now-style-guide-heading"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
+            style guide
+          </h2>
           <div
-            class="case-now-ds-figure-wrap case-now-ds-figure-wrap--full"
+            class="case-now-style-guide-figure-wrap"
             data-aos="fade-up"
             data-aos-duration="900"
             data-aos-once="true"
           >
             <img
-              class="case-now-ds-image"
-              src="nowproject/typography.png"
-              alt="Now — typography in the design system"
+              class="case-now-style-guide-image"
+              src="nowproject/styleguide.png"
+              alt="Now — design system style guide"
               loading="lazy"
             />
           </div>
-        </div>
-        <div class="case-now-ds-item">
-          <h2 class="case-subhead">colors</h2>
-          <div
-            class="case-now-ds-figure-wrap"
-            data-aos="fade-up"
-            data-aos-duration="900"
-            data-aos-once="true"
-          >
-            <img
-              class="case-now-ds-image"
-              src="nowproject/colors.png"
-              alt="Now — color system"
-              loading="lazy"
-            />
+
+          <div class="case-now-style-guide-breakdown">
+            <div
+              class="case-now-style-guide-breakdown-col"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              <h3 class="case-now-sg-breakdown-heading">Iconography</h3>
+              <div class="case-now-sg-breakdown-body-wrap">
+                <p class="case-body">
+                  I developed a &ldquo;raw&rdquo; iconography style based on simple geometric shapes, drawing inspiration from the intentional simplicity and directness of his cooking techniques.
+                </p>
+              </div>
+            </div>
+            <div
+              class="case-now-style-guide-breakdown-col"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              <h3 class="case-now-sg-breakdown-heading">Information Architecture</h3>
+              <div class="case-now-sg-breakdown-body-wrap">
+                <p class="case-body">
+                  Unlike standard weather apps, I separated each meteorological data point into its own independent screen. This decision was inspired by Eyal Shani&rsquo;s deep admiration for raw ingredients, giving each element its own exclusive stage.
+                </p>
+              </div>
+            </div>
+            <div
+              class="case-now-style-guide-breakdown-col"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              <h3 class="case-now-sg-breakdown-heading">Color Palette</h3>
+              <div class="case-now-sg-breakdown-body-wrap">
+                <p class="case-body">
+                  I selected highly saturated background colors that shift between screens, reflecting his vibrant and surprising persona. The bold colors represent his unique character while creating a clear visual distinction between different data points.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="case-now-ds-item">
-          <h2 class="case-subhead">icons</h2>
-          <div
-            class="case-now-ds-figure-wrap"
-            data-aos="fade-up"
-            data-aos-duration="900"
-            data-aos-once="true"
-          >
-            <img
-              class="case-now-ds-image"
-              src="nowproject/icons.png"
-              alt="Now — icons"
-              loading="lazy"
-            />
-          </div>
+
+          <section class="screens-mosaic" aria-label="Now project final screens">
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--open"
+              data-aos="fade-up"
+              data-aos-duration="1200"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <img src="nowproject/open.png" alt="Now — open screen" loading="lazy" />
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--loader"
+              data-aos="fade-up"
+              data-aos-duration="850"
+              data-aos-offset="200"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <video
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label="Now — visibility screen"
+                >
+                  <source src="nowproject/visabillety.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--winds screens-mosaic__cell--diamond-offset"
+              data-aos="fade-up"
+              data-aos-duration="1600"
+              data-aos-offset="400"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <video
+                  src="nowproject/winds.mp4"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label="Now — winds screen"
+                ></video>
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--home"
+              data-aos="fade-up"
+              data-aos-duration="1200"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <img src="nowproject/home.png" alt="Now — home screen" loading="lazy" />
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--uv"
+              data-aos="fade-up"
+              data-aos-duration="850"
+              data-aos-offset="200"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <video
+                  src="nowproject/uvindex.mp4"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label="Now — UV index screen"
+                ></video>
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--visibility screens-mosaic__cell--diamond-offset"
+              data-aos="fade-up"
+              data-aos-duration="1600"
+              data-aos-offset="400"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <video
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label="Now — loader screen"
+                >
+                  <source src="nowproject/loader.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--precip"
+              data-aos="fade-up"
+              data-aos-duration="1200"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <video
+                  src="nowproject/precipitation.mp4"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-label="Now — precipitation screen"
+                ></video>
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--recipe1"
+              data-aos="fade-up"
+              data-aos-duration="850"
+              data-aos-offset="200"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <img src="nowproject/recipe1.png" alt="Now — recipe screen 1" loading="lazy" />
+              </div>
+            </div>
+            <div
+              class="screens-mosaic__cell screens-mosaic__cell--recipe2 screens-mosaic__cell--diamond-offset"
+              data-aos="fade-up"
+              data-aos-duration="1600"
+              data-aos-offset="400"
+              data-aos-once="true"
+            >
+              <div class="screens-mosaic__frame">
+                <img src="nowproject/recipe2.png" alt="Now — recipe screen 2" loading="lazy" />
+              </div>
+            </div>
+            <div class="screens-mosaic__cell screens-mosaic__cell--search">
+              <div class="screens-mosaic__frame">
+                <img
+                  class="mosaic-item"
+                  src="nowproject/search.png"
+                  alt="Now — search interface"
+                  loading="lazy"
+                  data-aos="fade-up"
+                  data-aos-duration="2000"
+                  data-aos-delay="400"
+                  data-aos-offset="300"
+                  data-aos-once="true"
+                />
+              </div>
+            </div>
+          </section>
         </div>
       </section>
     </div>
