@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en" class="case-study-page scnd-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>scnd — Kamil Fogel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="typography.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --container-pad: 24px;
+      --case-section-gap: 100px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: var(--container-pad);
+      padding-right: var(--container-pad);
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    html.scnd-page {
+      background-color: #ffffff;
+    }
+
+    body.case-page {
+      background: #ffffff;
+      color: #000000;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    body.case-page.is-entering {
+      opacity: 0;
+    }
+
+    html.case-study-page,
+    html.case-study-page body.case-study-page {
+      cursor: auto !important;
+    }
+
+    body.case-study-page .custom-cursor {
+      display: none !important;
+    }
+
+    body.scnd-page nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      z-index: 10000;
+      padding: 0;
+      background: transparent;
+      color: #000000;
+    }
+
+    body.scnd-page nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    body.scnd-page nav .brand {
+      color: #000000;
+      text-decoration: none;
+      transition: filter 0.4s ease;
+    }
+
+    body.scnd-page nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+    }
+
+    body.scnd-page nav ul a {
+      color: #000000;
+      text-decoration: none;
+      transition: filter 0.4s ease;
+    }
+
+    @media (hover: hover) {
+      body.scnd-page nav .brand:hover,
+      body.scnd-page nav ul a:hover {
+        filter: blur(4px);
+      }
+    }
+
+    body.scnd-page nav a:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    .case-main {
+      width: 100%;
+      padding-top: 5.5rem;
+      padding-bottom: 6rem;
+    }
+
+    .case-block {
+      margin-bottom: var(--case-section-gap);
+    }
+
+    .case-block.case-hero-intro {
+      margin-bottom: 0;
+    }
+
+    /* L1 — same rhythm as balanced.html / typography.css .case-hero-title */
+    .scnd-page h1.case-hero-title.style1 {
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    /* L3 metadata row — same as balanced (typography .case-meta-part / Style 3 rhythm) */
+    .scnd-page .case-scnd-hero .case-hero-meta-shell {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 0;
+      margin-bottom: 0;
+      text-align: center;
+    }
+
+    /* ~3-space gap around | — same as balanced */
+    .scnd-page .case-scnd-hero .case-meta-row--balanced {
+      grid-column: 2 / 12;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 12px;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    /* Hero visuals: 8-col + 6-col + full-width opening below poster2 */
+    .scnd-hero-visuals {
+      margin-top: 60px;
+    }
+
+    .scnd-visuals-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      row-gap: 60px;
+      width: 100%;
+      box-sizing: border-box;
+      align-items: start;
+    }
+
+    .scnd-figure {
+      margin: 0;
+      padding: 0;
+      border: none;
+      line-height: 0;
+      overflow: hidden;
+      border-radius: 0;
+      min-width: 0;
+    }
+
+    /* Central 8 columns (3–10) */
+    .scnd-figure--8 {
+      grid-column: 3 / 11;
+    }
+
+    /* Central 6 columns (4–9) */
+    .scnd-figure--6 {
+      grid-column: 4 / 10;
+    }
+
+    /* Full 12-column width */
+    .scnd-figure--full {
+      grid-column: 1 / -1;
+    }
+
+    /* Central 10 columns (2–11) — digital web showcase */
+    .scnd-figure--10 {
+      grid-column: 2 / 12;
+    }
+
+    /* App mockup: 3-column width, centered in row (flex centers the block) */
+    .scnd-closing-app-band {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .scnd-closing-app-band .scnd-figure--3 {
+      width: calc(3 * (100% - 11 * 24px) / 12 + 48px);
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .scnd-closing-app-band .scnd-figure--3 img {
+      object-position: center;
+    }
+
+    .scnd-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: top center;
+      border-radius: 0;
+    }
+
+    /* Closing: shop stack (8-col + 6-col) + labels/bags split (6+6) */
+    .scnd-closing-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .scnd-closing-shop-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .scnd-closing-band-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .scnd-closing-detail-row {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+      align-items: start;
+    }
+
+    .scnd-closing-detail-row .scnd-detail-fig--left {
+      grid-column: 1 / 7;
+    }
+
+    .scnd-closing-detail-row .scnd-detail-fig--right {
+      grid-column: 7 / 13;
+    }
+
+    .scnd-closing-digital {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Poster after WHY: same 6-col band, spaced from paragraph */
+    .scnd-page .scnd-content-shell > .scnd-figure--after-copy {
+      margin-top: 60px;
+    }
+
+    /* L2 — section titles centered (matches balanced.html) */
+    .scnd-page .case-subhead {
+      text-align: center;
+    }
+
+    /* L4 body — center in main (matches balanced.html) */
+    .scnd-page main .case-body {
+      text-align: center;
+    }
+
+    /* 12-col shell + text band cols 2–11 (matches balanced .balanced-content-shell) */
+    .scnd-page .scnd-content-shell {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .scnd-page .scnd-content-band {
+      grid-column: 2 / 12;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .scnd-page .scnd-content-section .scnd-content-band > .case-subhead {
+      margin-bottom: 16px;
+    }
+
+    .scnd-page .scnd-content-section .case-body {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 48rem;
+    }
+
+    .scnd-page .scnd-content-section .case-body + .case-body {
+      margin-top: 1.25rem;
+    }
+
+    /* Style 3 — same metrics as metadata row (L3): Roboto Regular 16px, sentence case */
+    .scnd-page .scnd-how-title {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      color: #000000;
+      text-transform: none;
+      text-align: center;
+      margin: 0 0 8px;
+    }
+
+    /* HOW intro: central 8 columns (3–10), centered */
+    .scnd-page .scnd-how-intro.case-body {
+      grid-column: 3 / 11;
+      max-width: none;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: center;
+    }
+
+    /*
+      HOW: outer shell centers inner flex row (mx-auto + max-width); three equal flex columns, gap-x-12.
+    */
+    .scnd-page .scnd-how-grid {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 2.5rem 0 0;
+    }
+
+    .scnd-page .scnd-how-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 3rem;
+      width: 100%;
+      max-width: min(72rem, 80%);
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+    }
+
+    .scnd-page .scnd-how-item {
+      flex: 1 1 0;
+      min-width: 0;
+      text-align: center;
+    }
+
+    .scnd-page .scnd-how-item .scnd-how-title {
+      text-align: center;
+    }
+
+    .scnd-page .scnd-how-item .case-body {
+      margin-top: 0;
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .scnd-footer {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 3rem 0 4rem;
+      margin-top: 0;
+    }
+
+    .scnd-footer__inner {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
+      color: #000000;
+    }
+
+    .scnd-footer__inner a {
+      color: #000000;
+      text-decoration: none;
+      transition: filter 0.3s ease;
+    }
+
+    @media (hover: hover) {
+      .scnd-footer__inner a:hover {
+        filter: blur(3px);
+      }
+    }
+
+    .scnd-footer__inner a:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .scnd-page .case-scnd-hero .case-meta-row--balanced {
+        grid-column: 1 / -1 !important;
+        justify-content: center;
+        gap: 8px 12px;
+      }
+
+      .scnd-visuals-grid {
+        row-gap: 48px;
+      }
+
+      .scnd-closing-stack {
+        gap: 48px;
+      }
+
+      .scnd-closing-shop-stack {
+        gap: 48px;
+      }
+
+      .scnd-closing-digital {
+        gap: 48px;
+      }
+
+      .scnd-closing-detail-row {
+        grid-template-columns: 1fr;
+        row-gap: 1rem;
+      }
+
+      .scnd-closing-detail-row .scnd-detail-fig--left,
+      .scnd-closing-detail-row .scnd-detail-fig--right {
+        grid-column: 1 / -1;
+      }
+
+      .scnd-figure--8,
+      .scnd-figure--6,
+      .scnd-figure--10 {
+        grid-column: 1 / -1;
+      }
+
+      .scnd-closing-app-band .scnd-figure--3 {
+        width: 100%;
+      }
+
+      .scnd-page .scnd-how-intro.case-body {
+        grid-column: 1 / -1;
+      }
+
+      .scnd-page .scnd-how-grid {
+        margin-top: 1.75rem;
+      }
+
+      .scnd-page .scnd-how-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        max-width: 100%;
+      }
+
+      .scnd-page .scnd-how-item {
+        flex: none;
+        width: 100%;
+        max-width: 36rem;
+      }
+    }
+  </style>
+</head>
+<body class="case-page case-study-page scnd-page is-entering">
+
+  <nav>
+    <div class="container">
+      <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
+      <ul>
+        <li><a href="index.html#work">work</a></li>
+        <li><a href="index.html">about</a></li>
+        <li><a href="index.html#playground">playground</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="case-main">
+    <div class="container">
+      <section class="case-block case-hero-intro case-scnd-hero" aria-label="Project header">
+        <h1
+          class="case-hero-title style1"
+          data-aos="fade-up"
+          data-aos-duration="900"
+          data-aos-once="true"
+        >
+          scnd
+        </h1>
+        <div
+          class="case-hero-meta-shell"
+          data-aos="fade-up"
+          data-aos-duration="900"
+          data-aos-once="true"
+          aria-label="Project details"
+        >
+          <div class="case-meta-row case-meta-row--balanced">
+            <span class="case-meta-part">student project</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">branding</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">4 weeks</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">2026</span>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="case-block scnd-hero-visuals"
+        aria-label="SCND hero visuals"
+        data-aos="fade-up"
+        data-aos-duration="900"
+        data-aos-once="true"
+      >
+        <div class="scnd-visuals-grid">
+          <figure class="scnd-figure scnd-figure--8">
+            <img
+              src="/scndproject/scnd.png"
+              alt="SCND"
+              loading="eager"
+            />
+          </figure>
+          <figure class="scnd-figure scnd-figure--6">
+            <img
+              src="/scndproject/poster2.png"
+              alt="SCND — poster 2"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="scnd-figure scnd-figure--full">
+            <img
+              src="/scndproject/opening.png"
+              alt="SCND — opening"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section
+        class="case-block scnd-content-section"
+        aria-label="About"
+        data-aos="fade-up"
+        data-aos-duration="900"
+        data-aos-once="true"
+      >
+        <div class="scnd-content-shell">
+          <div class="scnd-content-band">
+            <h2 class="case-subhead">about</h2>
+            <p class="case-body">
+              SCND is a groundbreaking fashion brand based on 3D printing technology. Unlike the common use of this technology for creating avant-garde and unwearable runway pieces, SCND makes technological innovation accessible and wearable for everyday life. The brand offers meticulous, clean, and timeless Ready-to-wear fashion, combining digital precision with high aesthetics.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="case-block scnd-content-section"
+        aria-label="Why"
+        data-aos="fade-up"
+        data-aos-duration="900"
+        data-aos-once="true"
+      >
+        <div class="scnd-content-shell">
+          <div class="scnd-content-band">
+            <h2 class="case-subhead">why</h2>
+            <p class="case-body">
+              The core problem in the traditional fashion industry is the consumer&apos;s need to adapt to generic sizes (S, M, L), which leads to discomfort, negative body image, and a waste of resources (overproduction and waste). At SCND, we flip the equation: instead of you adapting to the garment, we adapt the garment precisely to your measurements. The goal is to leverage the benefits of digital manufacturing&mdash;minimal waste and maximum body compatibility&mdash;to create more personal, sustainable, and accurate fashion.
+            </p>
+          </div>
+          <figure class="scnd-figure scnd-figure--6 scnd-figure--after-copy">
+            <img
+              src="/scndproject/poster1.png"
+              alt="SCND — poster 1"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section
+        class="case-block scnd-content-section"
+        aria-label="How"
+        data-aos="fade-up"
+        data-aos-duration="900"
+        data-aos-once="true"
+      >
+        <div class="scnd-content-shell">
+          <div class="scnd-content-band">
+            <h2 class="case-subhead">how</h2>
+          </div>
+          <p class="case-body scnd-how-intro">
+            The connection between technology and the user is established through an intuitive interface bridging the physical and digital experience:
+          </p>
+          <div class="scnd-how-grid">
+            <div class="scnd-how-row">
+              <div class="scnd-how-item">
+                <h3 class="scnd-how-title">Interactive scanning</h3>
+                <p class="case-body">
+                  Interactive fitting rooms featuring smart mirrors and cameras that scan the user&apos;s body dimensions with maximum precision.
+                </p>
+              </div>
+              <div class="scnd-how-item">
+                <h3 class="scnd-how-title">Digital ecosystem</h3>
+                <p class="case-body">
+                  A dedicated website and app that allow users to scan themselves from home, choose designs, and order a custom-fit garment.
+                </p>
+              </div>
+              <div class="scnd-how-item">
+                <h3 class="scnd-how-title">3D precision</h3>
+                <p class="case-body">
+                  Scanned measurements translate directly into printing files, ensuring a perfect fit and efficient, waste-free production.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="case-block scnd-closing-visuals"
+        aria-label="SCND shop, packaging, and digital showcase"
+        data-aos="fade-up"
+        data-aos-duration="900"
+        data-aos-once="true"
+      >
+        <div class="scnd-closing-stack">
+          <div class="scnd-closing-shop-stack" aria-label="SCND shop views">
+            <div class="scnd-closing-band-grid">
+              <figure class="scnd-figure scnd-figure--8">
+                <img
+                  src="/scndproject/shop1.png"
+                  alt="SCND — shop 1"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+            <div class="scnd-closing-band-grid">
+              <figure class="scnd-figure scnd-figure--6">
+                <img
+                  src="/scndproject/shop2.png"
+                  alt="SCND — shop 2"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+          </div>
+          <div class="scnd-closing-detail-row" aria-label="SCND labels and bags">
+            <figure class="scnd-figure scnd-detail-fig scnd-detail-fig--left">
+              <img
+                src="/scndproject/bags.png"
+                alt="SCND — bags"
+                loading="lazy"
+              />
+            </figure>
+            <figure class="scnd-figure scnd-detail-fig scnd-detail-fig--right">
+              <img
+                src="/scndproject/labels.png"
+                alt="SCND — labels"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+          <div class="scnd-closing-digital" aria-label="SCND website and app">
+            <div class="scnd-closing-band-grid">
+              <figure class="scnd-figure scnd-figure--10">
+                <img
+                  src="/scndproject/web.png"
+                  alt="SCND — website"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+            <div class="scnd-closing-app-band">
+              <figure class="scnd-figure scnd-figure--3">
+                <img
+                  src="/scndproject/app.png"
+                  alt="SCND — app"
+                  loading="lazy"
+                />
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="scnd-footer">
+    <div class="container">
+      <p class="scnd-footer__inner">
+        <a class="js-page-transition" href="index.html#work">Back to work</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    (function () {
+      if (typeof AOS !== 'undefined') {
+        AOS.init({
+          duration: 900,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 80,
+        });
+      }
+
+      function bindPageTransitions() {
+        var links = document.querySelectorAll('a.js-page-transition');
+        for (var i = 0; i < links.length; i++) {
+          links[i].addEventListener('click', function (e) {
+            var href = this.getAttribute('href');
+            if (!href || this.getAttribute('target') === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;
+            e.preventDefault();
+            document.body.classList.add('is-entering');
+            window.setTimeout(function () {
+              window.location.href = href;
+            }, 480);
+          });
+        }
+      }
+      bindPageTransitions();
+
+      function endEnter() {
+        document.body.classList.remove('is-entering');
+      }
+      if (document.readyState === 'complete') {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(endEnter);
+        });
+      } else {
+        window.addEventListener('load', function () {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(endEnter);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

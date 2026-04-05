@@ -170,8 +170,43 @@
       box-sizing: border-box;
     }
 
-    .balanced-page .case-balanced-visuals {
+    /* Matches now.html — prototype CTA below meta (60px / 20px rhythm) */
+    .balanced-page .case-balanced-hero .case-prototype-link-wrap {
+      text-align: center;
       margin-top: 60px;
+      margin-bottom: 20px;
+      padding: 0;
+    }
+
+    .balanced-page .case-balanced-hero .case-prototype-link {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      max-width: 100%;
+      text-decoration: none;
+      margin: 0;
+      padding: 4px 8px;
+      filter: none;
+      transition: filter 0.3s ease;
+      text-transform: none;
+    }
+
+    @media (hover: hover) {
+      .balanced-page .case-balanced-hero .case-prototype-link:hover {
+        filter: blur(4px);
+      }
+    }
+
+    .balanced-page .case-balanced-hero .case-prototype-link:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+      filter: none;
+    }
+
+    /* Opening block sits under hero; link wrap supplies 20px above images (same as now) */
+    .balanced-page .case-balanced-visuals {
+      margin-top: 0;
     }
 
     .case-balanced-visuals-grid {
@@ -389,6 +424,93 @@
       border-radius: 0;
     }
 
+    /*
+      Full-app video — replicated from now.html (screens-mosaic fullapp cell).
+      Grid: cols 4–10 (6 tracks); wrap + play control match nowproject sizing.
+    */
+    .balanced-video-section .balanced-video-shell {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .balanced-fullapp-cell {
+      grid-column: 4 / 10;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .balanced-fullapp-wrap {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .balanced-fullapp-wrap .balanced-full-app-video {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 75vh !important;
+      object-fit: contain !important;
+      object-position: center;
+      display: block;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .balanced-fullapp-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+      padding: 1rem 1.35rem;
+      min-width: 11rem;
+      border: none;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.16);
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.25;
+      letter-spacing: 0.04em;
+      text-align: center;
+      color: #000000;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        opacity 0.35s ease,
+        visibility 0.35s ease,
+        background 0.25s ease;
+      z-index: 2;
+    }
+
+    .balanced-fullapp-play:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.22);
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .balanced-fullapp-play:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    .balanced-fullapp-cell.is-playing .balanced-fullapp-play {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
     .balanced-footer {
       border-top: 1px solid rgba(0, 0, 0, 0.08);
       padding: 3rem 0 4rem;
@@ -431,6 +553,11 @@
       /* Keep 10-column band (inset 1 col each side) on small viewports */
       .case-balanced-figure {
         grid-column: 2 / 12 !important;
+      }
+
+      .balanced-page .balanced-fullapp-cell {
+        grid-column: 1 / -1 !important;
+        margin-bottom: 120px !important;
       }
 
       .balanced-page .balanced-ps-grid {
@@ -490,6 +617,21 @@
             <span class="case-meta-sep" aria-hidden="true">|</span>
             <span class="case-meta-part">2026</span>
           </div>
+        </div>
+        <div
+          class="case-prototype-link-wrap"
+          data-aos="fade-up"
+          data-aos-duration="900"
+          data-aos-once="true"
+        >
+          <a
+            class="case-prototype-link"
+            href="https://balanced-dun.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LAUNCH APP ↗
+          </a>
         </div>
       </section>
 
@@ -618,6 +760,35 @@
           </figure>
         </div>
       </section>
+
+      <section class="case-block balanced-video-section" aria-label="Full project video">
+        <div class="balanced-video-shell">
+          <div
+            class="balanced-fullapp-cell"
+            data-aos="fade-up"
+            data-aos-duration="2000"
+            data-aos-delay="400"
+            data-aos-offset="300"
+            data-aos-once="true"
+          >
+            <div class="balanced-fullapp-wrap">
+              <video
+                class="balanced-full-app-video"
+                src="balancedproject/fullapp.mp4"
+                preload="metadata"
+                loop
+                playsinline
+                loading="lazy"
+                tabindex="0"
+                aria-label="Balanced — full project walkthrough. Press Space to play or pause."
+              ></video>
+              <button type="button" class="balanced-fullapp-play" aria-label="Watch full project video">
+                WATCH FULL PROJECT
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -656,6 +827,58 @@
         }
       }
       bindPageTransitions();
+
+      (function bindBalancedFullAppVideo() {
+        var cells = document.querySelectorAll('.balanced-fullapp-cell');
+        for (var i = 0; i < cells.length; i++) {
+          (function (wrap) {
+            var inner = wrap.querySelector('.balanced-fullapp-wrap');
+            var video = wrap.querySelector('.balanced-full-app-video');
+            var btn = wrap.querySelector('.balanced-fullapp-play');
+            if (!inner || !video) return;
+
+            function syncPlayingClass() {
+              if (video.paused) {
+                wrap.classList.remove('is-playing');
+              } else {
+                wrap.classList.add('is-playing');
+              }
+            }
+
+            video.addEventListener('play', syncPlayingClass);
+            video.addEventListener('pause', syncPlayingClass);
+
+            function togglePlayback() {
+              if (video.paused) {
+                video.play();
+              } else {
+                video.pause();
+              }
+            }
+
+            inner.addEventListener('click', function () {
+              togglePlayback();
+            });
+
+            if (btn) {
+              btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (video.paused) {
+                  video.play();
+                } else {
+                  video.pause();
+                }
+              });
+            }
+
+            video.addEventListener('keydown', function (e) {
+              if (e.key !== ' ' && e.key !== 'Spacebar') return;
+              e.preventDefault();
+              togglePlayback();
+            });
+          })(cells[i]);
+        }
+      })();
 
       function endEnter() {
         document.body.classList.remove('is-entering');
