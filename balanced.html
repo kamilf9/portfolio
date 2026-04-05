@@ -256,20 +256,29 @@
     }
 
     /*
-      Problem & Solution: symmetric 1fr | arrow | 1fr — arrow at horizontal midpoint,
-      equal column widths; arrow column stretches and centers vertically.
+      Problem & Solution: 12-col row — col 1 empty | problem (4) | arrow (2) | solution (4) | col 12 empty.
+      Tighter text bands; group stays centered in the grid.
     */
     .balanced-ps-grid {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: repeat(12, 1fr);
       column-gap: 24px;
       width: 100%;
       box-sizing: border-box;
       align-items: stretch;
     }
 
-    .balanced-ps-problem,
+    .balanced-ps-problem {
+      grid-column: 2 / 6;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
     .balanced-ps-solution {
+      grid-column: 8 / 12;
       min-width: 0;
       display: flex;
       flex-direction: column;
@@ -316,6 +325,7 @@
     }
 
     .balanced-ps-connector {
+      grid-column: 6 / 8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -330,11 +340,19 @@
       user-select: none;
     }
 
+    /* L2 — USERFLOW, between Problem/Solution row and diagram */
+    .balanced-ps-block > .balanced-userflow-heading {
+      grid-column: 1 / -1;
+      margin-top: 80px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
     /* userflow.png: full 12-col track inside container (24px gutters via .container) */
     .balanced-ps-block > .balanced-ps-userflow {
       grid-column: 1 / -1;
       min-width: 0;
-      margin: 120px 0 0;
+      margin: 0;
       padding: 0;
       border: none;
       line-height: 0;
@@ -417,6 +435,12 @@
 
       .balanced-page .balanced-ps-grid {
         grid-template-columns: 1fr;
+      }
+
+      .balanced-page .balanced-ps-problem,
+      .balanced-page .balanced-ps-solution,
+      .balanced-page .balanced-ps-connector {
+        grid-column: 1 / -1;
       }
 
       .balanced-page .balanced-ps-connector {
@@ -561,6 +585,7 @@
             </p>
           </div>
         </div>
+        <h2 class="case-subhead balanced-userflow-heading">userflow</h2>
         <figure class="balanced-ps-userflow" aria-label="User flow">
           <img
             src="balancedproject/userflow.png"
