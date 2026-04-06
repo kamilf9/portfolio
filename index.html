@@ -82,7 +82,7 @@
       opacity: 1;
     }
 
-    nav {
+    nav.site-header {
       position: fixed;
       top: 0;
       left: 0;
@@ -90,6 +90,12 @@
       z-index: 5000;
       padding: 0;
       background: transparent;
+      transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      will-change: transform;
+    }
+
+    nav.site-header.is-header-hidden {
+      transform: translateY(-100%);
     }
 
     nav .container {
@@ -144,6 +150,17 @@
       display: flex;
       flex-direction: column;
       gap: 0.15rem;
+      transform: translateY(0);
+      transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+        transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+        visibility 0.4s ease;
+    }
+
+    .site-contact.is-hidden-on-scroll {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(12px);
     }
 
     .site-contact__label {
@@ -182,11 +199,20 @@
       display: block;
     }
 
-    .hero-tilt__caps {
-      text-transform: uppercase;
+    .hero-view .hero-tilt {
+      font-family: 'Instrument Serif', serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: clamp(2.75rem, 18vw, 250px);
+      line-height: 1.06;
+      color: #000000;
+      text-align: center;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .hero-tilt__italic {
+    .hero-view .hero-tilt__italic {
       font-style: italic;
     }
 
@@ -197,8 +223,8 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(
-        3,
-        calc((100% - 2 * var(--project-grid-column-gap)) / 3)
+        2,
+        calc((100% - var(--project-grid-column-gap)) / 2)
       );
       gap: var(--project-grid-row-gap) var(--project-grid-column-gap);
       align-items: start;
@@ -224,16 +250,11 @@
       filter: none;
     }
 
-    .projects-grid .project-item:nth-child(3n + 2).visible {
+    .projects-grid .project-item:nth-child(2n).visible {
       transition-delay: 0.1s;
     }
 
-    .projects-grid .project-item:nth-child(3n + 3).visible {
-      transition-delay: 0.2s;
-    }
-
-    .projects-grid .project-item:nth-child(3n + 2):not(.visible),
-    .projects-grid .project-item:nth-child(3n + 3):not(.visible) {
+    .projects-grid .project-item:nth-child(2n):not(.visible) {
       transition-delay: 0s;
     }
 
@@ -286,8 +307,7 @@
         grid-template-columns: 1fr;
       }
 
-      .projects-grid .project-item:nth-child(3n + 2).visible,
-      .projects-grid .project-item:nth-child(3n + 3).visible {
+      .projects-grid .project-item:nth-child(2n).visible {
         transition-delay: 0s;
       }
     }
@@ -298,13 +318,13 @@
     <span class="custom-cursor__label" id="cursorLabel">scroll</span>
   </div>
 
-  <nav>
+  <nav class="site-header" aria-label="Primary">
     <div class="container">
       <a class="brand" href="#">Kamil Fogel</a>
       <ul>
-        <li><a href="#work">work</a></li>
-        <li><a href="#">about</a></li>
-        <li><a href="#playground">playground</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#playground">Playground</a></li>
       </ul>
     </div>
   </nav>
@@ -313,13 +333,13 @@
     <section class="hero-view">
       <div class="container hero-view__inner">
         <div class="hero-stage">
-          <div class="hero-tilt" id="heroTilt" aria-label="HEY, I'm kamil, a UX/UI designer">
-            <span class="hero-tilt__line"><span class="hero-tilt__caps hero-tilt__italic">hey,</span> I'm <span class="hero-tilt__italic">kamil</span></span>
-            <span class="hero-tilt__line">a <span class="hero-tilt__caps hero-tilt__italic">ux/ui</span> designer</span>
+          <div class="hero-tilt" id="heroTilt" aria-label="Hi, I'm Kamil, UX/UI designer and creative thinker">
+            <span class="hero-tilt__line">Hi, im <span class="hero-tilt__italic">Kamil</span>,</span>
+            <span class="hero-tilt__line"><span class="hero-tilt__italic">UX/UI designer</span> &amp; <span class="hero-tilt__italic">Creative thinker</span></span>
           </div>
         </div>
         <div class="site-contact" aria-label="Contact information">
-          <p class="site-contact__label">contact</p>
+          <p class="site-contact__label">Contact</p>
           <p class="site-contact__line">kamil.fogel@gmail.com</p>
           <p class="site-contact__line">+972 52 666 2494</p>
         </div>
@@ -337,13 +357,13 @@
             <img
               class="project-card__img"
               src="images/devill.png"
-              alt="House of de Vill project"
+              alt="House of de vill project"
               width="828"
               height="622"
             />
           </div>
           <p class="project-card__caption">
-            <span class="project-card__caption-name">House of de Vill</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">Web design</span>
+            <span class="project-card__caption-name">House of de vill</span><span class="project-card__caption-sep"> / </span><span class="project-card__caption-type">ux.ui, branding</span>
           </p>
         </a>
 
@@ -362,7 +382,7 @@
             />
           </div>
           <p class="project-card__caption">
-            <span class="project-card__caption-name">Now</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">App design</span>
+            <span class="project-card__caption-name">Now</span><span class="project-card__caption-sep"> / </span><span class="project-card__caption-type">ux.ui</span>
           </p>
         </a>
 
@@ -381,26 +401,7 @@
             />
           </div>
           <p class="project-card__caption">
-            <span class="project-card__caption-name">Balanced</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">Vibe coding, app design</span>
-          </p>
-        </a>
-
-        <a
-          href="scnd.html"
-          class="project-card project-item js-project-reveal js-cursor-hotspot js-page-transition"
-          data-project-id="scnd"
-        >
-          <div class="project-card__media">
-            <img
-              class="project-card__img"
-              src="images/scnd.png"
-              alt="SCND branding project"
-              width="828"
-              height="622"
-            />
-          </div>
-          <p class="project-card__caption">
-            <span class="project-card__caption-name">SCND</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">branding</span>
+            <span class="project-card__caption-name">Balanced</span><span class="project-card__caption-sep"> / </span><span class="project-card__caption-type">ux.ui, ai-powered development</span>
           </p>
         </a>
 
@@ -413,13 +414,32 @@
             <img
               class="project-card__img"
               src="images/healthcigarette.png"
-              alt="Health Cigarette title sequence project"
+              alt="Health cigarette motion project"
               width="828"
               height="622"
             />
           </div>
           <p class="project-card__caption">
-            <span class="project-card__caption-name">Health Cigarette</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">title sequence</span>
+            <span class="project-card__caption-name">Health cigarette</span><span class="project-card__caption-sep"> / </span><span class="project-card__caption-type">motion</span>
+          </p>
+        </a>
+
+        <a
+          href="scnd.html"
+          class="project-card project-item js-project-reveal js-cursor-hotspot js-page-transition"
+          data-project-id="scnd"
+        >
+          <div class="project-card__media">
+            <img
+              class="project-card__img"
+              src="images/scnd.png"
+              alt="Scnd branding project"
+              width="828"
+              height="622"
+            />
+          </div>
+          <p class="project-card__caption">
+            <span class="project-card__caption-name">Scnd</span><span class="project-card__caption-sep"> / </span><span class="project-card__caption-type">branding</span>
           </p>
         </a>
 
@@ -432,13 +452,13 @@
             <img
               class="project-card__img"
               src="images/metgala.png"
-              alt="The Met Gala project"
+              alt="The met gala archive project"
               width="828"
               height="622"
             />
           </div>
           <p class="project-card__caption">
-            <span class="project-card__caption-name">The Met Gala</span><span class="project-card__caption-sep">/</span><span class="project-card__caption-type">Web design</span>
+            <span class="project-card__caption-name">The met gala archive</span><span class="project-card__caption-sep"> / </span><span class="project-card__caption-type">ux.ui</span>
           </p>
         </a>
       </div>
@@ -594,6 +614,35 @@
 
       setCursorLabel();
       scheduleTick();
+    })();
+
+    (function () {
+      var header = document.querySelector('nav.site-header');
+      var contact = document.querySelector('.site-contact');
+      var lastY = window.scrollY || 0;
+      var threshold = 8;
+      var topRevealPx = 40;
+
+      function onScroll() {
+        var y = window.scrollY || 0;
+        var dy = y - lastY;
+
+        if (y <= topRevealPx) {
+          if (header) header.classList.remove('is-header-hidden');
+          if (contact) contact.classList.remove('is-hidden-on-scroll');
+        } else if (dy > threshold) {
+          if (header) header.classList.add('is-header-hidden');
+          if (contact) contact.classList.add('is-hidden-on-scroll');
+        } else if (dy < -threshold) {
+          if (header) header.classList.remove('is-header-hidden');
+          if (contact) contact.classList.remove('is-hidden-on-scroll');
+        }
+
+        lastY = y;
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
     })();
   </script>
 </body>

@@ -247,7 +247,7 @@
       grid-column: 2 / 12;
     }
 
-    /* Central 8 columns (3–10) — 3screens */
+    /* Central 8 columns (3–10) — screen1 */
     .metgala-figure--8 {
       grid-column: 3 / 11;
     }
@@ -259,6 +259,47 @@
       object-fit: contain;
       object-position: top center;
       border-radius: 0;
+    }
+
+    /* Mosaic: video left (cols 1–8), screen3 right (cols 5–12) */
+    .metgala-mosaic {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      row-gap: 60px;
+      width: 100%;
+      box-sizing: border-box;
+      align-items: start;
+    }
+
+    .metgala-mosaic__video {
+      grid-column: 2 / 10;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      line-height: 0;
+      border-radius: 0;
+      overflow: hidden;
+    }
+
+    .metgala-mosaic__fig--right {
+      grid-column: 4 / 12;
+    }
+
+    /* Same 8-col band as video (columns 2–9) */
+    .metgala-mosaic__fig--video-align {
+      grid-column: 2 / 10;
+    }
+
+    .metgala-screens-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 0;
+      object-fit: contain;
+      vertical-align: top;
     }
 
     /* ABOUT — matches scnd.html .scnd-content-shell / band rhythm */
@@ -330,8 +371,18 @@
         row-gap: 48px;
       }
 
+      .metgala-mosaic {
+        row-gap: 48px;
+      }
+
       .metgala-figure--10,
       .metgala-figure--8 {
+        grid-column: 1 / -1;
+      }
+
+      .metgala-mosaic__video,
+      .metgala-mosaic__fig--right,
+      .metgala-mosaic__fig--video-align {
         grid-column: 1 / -1;
       }
 
@@ -347,9 +398,9 @@
     <div class="container">
       <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
       <ul>
-        <li><a href="index.html#work">work</a></li>
-        <li><a href="index.html">about</a></li>
-        <li><a href="index.html#playground">playground</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html">About</a></li>
+        <li><a href="index.html#playground">Playground</a></li>
       </ul>
     </div>
   </nav>
@@ -397,7 +448,7 @@
 
       <section
         class="case-block metgala-hero-visuals"
-        aria-label="Met Gala archive visuals"
+        aria-label="Met Gala archive device and screen visuals"
         data-aos="fade-up"
         data-aos-duration="900"
         data-aos-once="true"
@@ -412,11 +463,39 @@
           </figure>
           <figure class="metgala-figure metgala-figure--8">
             <img
-              src="/metgalaproject/3screens.png"
-              alt="The met gala archive — screens"
+              src="/metgalaproject/screen1.png"
+              alt="The met gala archive — screen 1"
               loading="lazy"
             />
           </figure>
+          <div class="metgala-mosaic" aria-label="Screens mosaic">
+            <div class="metgala-mosaic__video">
+              <video
+                class="metgala-screens-video"
+                src="/metgalaproject/screens.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="The met gala archive — interface walkthrough"
+              ></video>
+            </div>
+            <figure class="metgala-figure metgala-mosaic__fig--right">
+              <img
+                src="/metgalaproject/screen3.png"
+                alt="The met gala archive — screen 3"
+                loading="lazy"
+              />
+            </figure>
+            <figure class="metgala-figure metgala-mosaic__fig--video-align">
+              <img
+                src="/metgalaproject/screen4.png"
+                alt="The met gala archive — screen 4"
+                loading="lazy"
+              />
+            </figure>
+          </div>
         </div>
       </section>
 

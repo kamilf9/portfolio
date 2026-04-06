@@ -3,8 +3,7 @@
  * Requires: Instrument Serif (italic), Roboto 300 & 400.
  */
 
-/* —— L1: Main titles — Instrument Serif Italic 96px —— */
-.hero-tilt,
+/* —— L1: Case study hero titles — Instrument Serif Italic 96px —— */
 .case-hero-title,
 .case-health-hero-title {
   font-family: 'Instrument Serif', serif;
@@ -18,10 +17,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.hero-tilt {
-  text-align: center;
-}
-
 .case-hero-title,
 .case-health-hero-title {
   text-align: center;
@@ -30,12 +25,8 @@
   margin: 0 0 12px;
 }
 
-/* —— L2: Section headers, nav, project names — Roboto Regular 20px, ALL CAPS —— */
-nav,
+/* —— L2: Section headers — Roboto Regular 20px, ALL CAPS —— */
 .case-subhead,
-.project-card__caption-name,
-.project-card__caption-sep,
-.site-contact__label,
 .case-now-ds-item .case-subhead,
 .case-now-cs-stack--vertical .case-now-cs-style3-heading {
   font-family: 'Roboto', sans-serif;
@@ -45,6 +36,38 @@ nav,
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: #000000;
+}
+
+/* —— L3: Nav, contact label, project names — Roboto Regular 16px, sentence case from markup —— */
+nav,
+nav .brand,
+.site-contact__label,
+.project-card__caption-name,
+.project-card__caption-sep {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.35;
+  letter-spacing: normal;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+nav ul a {
+  text-transform: none;
+}
+
+nav .brand {
+  text-transform: none;
+}
+
+.site-contact__label {
+  text-transform: none;
+}
+
+.project-card__caption-name {
+  text-transform: none;
 }
 
 .case-subhead {
@@ -112,7 +135,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: #000000;
-  text-transform: none;
+  text-transform: lowercase;
   letter-spacing: normal;
 }
 
@@ -142,7 +165,6 @@ body {
 }
 
 @media (max-width: 900px) {
-  .hero-tilt,
   .case-hero-title,
   .case-health-hero-title {
     font-size: clamp(2.5rem, 12vw, 96px);
