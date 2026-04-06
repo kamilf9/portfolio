@@ -155,7 +155,7 @@
       box-sizing: border-box;
     }
 
-    /* Hero visuals: 8-col + 6-col + full-width opening below poster2 */
+    /* Hero visuals: full package, 6-col poster2, full opening */
     .scnd-hero-visuals {
       margin-top: 60px;
     }
@@ -195,11 +195,6 @@
       grid-column: 1 / -1;
     }
 
-    /* Central 10 columns (2–11) — digital web showcase */
-    .scnd-figure--10 {
-      grid-column: 2 / 12;
-    }
-
     /* App mockup: 3-column width, centered in row (flex centers the block) */
     .scnd-closing-app-band {
       display: flex;
@@ -216,6 +211,10 @@
     }
 
     .scnd-closing-app-band .scnd-figure--3 img {
+      object-position: center;
+    }
+
+    .scnd-hero-visuals .scnd-visuals-grid > .scnd-figure--full:first-child img {
       object-position: center;
     }
 
@@ -268,14 +267,6 @@
 
     .scnd-closing-detail-row .scnd-detail-fig--right {
       grid-column: 7 / 13;
-    }
-
-    .scnd-closing-digital {
-      display: flex;
-      flex-direction: column;
-      gap: 60px;
-      width: 100%;
-      box-sizing: border-box;
     }
 
     /* Poster after WHY: same 6-col band, spaced from paragraph */
@@ -439,10 +430,6 @@
         gap: 48px;
       }
 
-      .scnd-closing-digital {
-        gap: 48px;
-      }
-
       .scnd-closing-detail-row {
         grid-template-columns: 1fr;
         row-gap: 1rem;
@@ -454,8 +441,7 @@
       }
 
       .scnd-figure--8,
-      .scnd-figure--6,
-      .scnd-figure--10 {
+      .scnd-figure--6 {
         grid-column: 1 / -1;
       }
 
@@ -537,10 +523,10 @@
         data-aos-once="true"
       >
         <div class="scnd-visuals-grid">
-          <figure class="scnd-figure scnd-figure--8">
+          <figure class="scnd-figure scnd-figure--full">
             <img
-              src="/scndproject/scnd.png"
-              alt="SCND"
+              src="/scndproject/package.png"
+              alt="SCND — package"
               loading="eager"
             />
           </figure>
@@ -643,7 +629,7 @@
 
       <section
         class="case-block scnd-closing-visuals"
-        aria-label="SCND shop, packaging, and digital showcase"
+        aria-label="SCND shop, bags, labels, and app"
         data-aos="fade-up"
         data-aos-duration="900"
         data-aos-once="true"
@@ -685,25 +671,14 @@
               />
             </figure>
           </div>
-          <div class="scnd-closing-digital" aria-label="SCND website and app">
-            <div class="scnd-closing-band-grid">
-              <figure class="scnd-figure scnd-figure--10">
-                <img
-                  src="/scndproject/web.png"
-                  alt="SCND — website"
-                  loading="lazy"
-                />
-              </figure>
-            </div>
-            <div class="scnd-closing-app-band">
-              <figure class="scnd-figure scnd-figure--3">
-                <img
-                  src="/scndproject/app.png"
-                  alt="SCND — app"
-                  loading="lazy"
-                />
-              </figure>
-            </div>
+          <div class="scnd-closing-app-band" aria-label="SCND app">
+            <figure class="scnd-figure scnd-figure--3">
+              <img
+                src="/scndproject/app.png"
+                alt="SCND — app"
+                loading="lazy"
+              />
+            </figure>
           </div>
         </div>
       </section>
