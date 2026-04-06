@@ -21,8 +21,6 @@
 
     :root {
       --container-pad: 24px;
-      --project-grid-row-gap: 40px;
-      --project-grid-column-gap: 16px;
     }
 
     .container {
@@ -201,10 +199,9 @@
 
     .hero-view .hero-tilt {
       font-family: 'Instrument Serif', serif;
-      font-style: normal;
       font-weight: 400;
-      font-size: clamp(2.75rem, 18vw, 250px);
-      line-height: 1.06;
+      font-size: clamp(2.5rem, 14vw, 200px);
+      line-height: 0.92;
       color: #000000;
       text-align: center;
       text-rendering: optimizeLegibility;
@@ -212,25 +209,50 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    .hero-view .hero-tilt__italic {
-      font-style: italic;
+    /* Hero dynamic type: Instrument Serif 200px — S1 lead, S2 lowercase regular, S3 lowercase italic */
+    .hero-view .hero-style-1 {
+      text-transform: uppercase;
+      font-style: normal;
+      font-weight: 400;
     }
 
+    .hero-view .hero-style-2 {
+      text-transform: lowercase;
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .hero-view .hero-style-3 {
+      text-transform: lowercase;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* Mixed casing in markup (beats S1–S3 text-transform) */
+    .hero-view .hero-style-1.hero-preserve-case,
+    .hero-view .hero-style-2.hero-preserve-case,
+    .hero-view .hero-style-3.hero-preserve-case {
+      text-transform: none;
+    }
+
+    /*
+     * Projects: full width inside site container (same horizontal inset as nav `.container`).
+     * Column gap = 1.5rem (50% of previous 3rem / gap-x-6 vs gap-x-12).
+     */
     .projects-wrap {
+      --project-col-gap: 1.5rem;
+      --project-row-gap: 3.5rem;
       margin-top: 40px;
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(
-        2,
-        calc((100% - var(--project-grid-column-gap)) / 2)
-      );
-      gap: var(--project-grid-row-gap) var(--project-grid-column-gap);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--project-col-gap);
+      row-gap: var(--project-row-gap);
       align-items: start;
       width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
+      min-width: 0;
     }
 
     .project-item {
@@ -286,11 +308,13 @@
 
     .project-card__media {
       width: 100%;
+      max-width: 100%;
       overflow: hidden;
     }
 
     .project-card__img {
       width: 100%;
+      max-width: 100%;
       height: auto;
       display: block;
       transform: scale(1);
@@ -305,6 +329,8 @@
     @media (max-width: 900px) {
       .projects-grid {
         grid-template-columns: 1fr;
+        column-gap: 0;
+        row-gap: var(--project-row-gap);
       }
 
       .projects-grid .project-item:nth-child(2n).visible {
@@ -333,9 +359,10 @@
     <section class="hero-view">
       <div class="container hero-view__inner">
         <div class="hero-stage">
-          <div class="hero-tilt" id="heroTilt" aria-label="Hi, I'm Kamil, UX/UI designer and creative thinker">
-            <span class="hero-tilt__line">Hi, im <span class="hero-tilt__italic">Kamil</span>,</span>
-            <span class="hero-tilt__line"><span class="hero-tilt__italic">UX/UI designer</span> &amp; <span class="hero-tilt__italic">Creative thinker</span></span>
+          <div class="hero-tilt" id="heroTilt" aria-label="Hi, I'm Kamil, a creative thinker and UX/UI designer">
+            <span class="hero-tilt__line"><span class="hero-style-1 hero-preserve-case">Hi,</span><span class="hero-style-2 hero-preserve-case"> I'm </span><span class="hero-style-3 hero-preserve-case">Kamil</span><span class="hero-style-3">,</span></span>
+            <span class="hero-tilt__line"><span class="hero-style-2 hero-preserve-case">A </span><span class="hero-style-3">creative </span><span class="hero-style-2">thinker </span></span>
+            <span class="hero-tilt__line"><span class="hero-style-2">&amp; ux.ui </span><span class="hero-style-3">designer</span></span>
           </div>
         </div>
         <div class="site-contact" aria-label="Contact information">
@@ -346,7 +373,7 @@
       </div>
     </section>
 
-    <section class="projects-wrap container" id="work" aria-label="Selected work">
+    <section class="container projects-wrap" id="work" aria-label="Selected work">
       <div class="projects-grid">
         <a
           href="devill.html"
