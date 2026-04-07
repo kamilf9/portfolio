@@ -158,44 +158,9 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 24px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
-    }
-
-    /* Centers inline-flex link; vertical rhythm; reveal target */
-    .case-prototype-link-wrap {
-      text-align: center;
-      margin-top: 60px;
-      margin-bottom: 20px;
-      padding: 0;
-    }
-
-    /* Style 3 — prototype CTA; hit area = text + arrow only */
-    .case-prototype-link {
-      display: inline-flex !important;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      max-width: 100%;
-      text-decoration: none;
-      margin: 0;
-      padding: 4px 8px;
-      filter: none;
-      transition: filter 0.3s ease;
-    }
-
-    @media (hover: hover) {
-      .case-prototype-link:hover {
-        filter: blur(4px);
-      }
-    }
-
-    .case-prototype-link:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-      filter: none;
     }
 
     .case-reveal-block.visible > .case-reveal-item:nth-child(2) { transition-delay: 0.12s; }
@@ -564,6 +529,25 @@
       padding: 0 !important;
     }
 
+    /* Next link: directly under fullweb.mp4, normal scroll (no sticky) */
+    .devill-page .video-walkthrough-grid .case-next-project {
+      grid-column: 2 / 12 !important;
+      width: 100% !important;
+      position: relative !important;
+      top: auto !important;
+      z-index: 1;
+      box-sizing: border-box;
+      margin-top: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .devill-page .video-walkthrough-grid .case-next-project__link {
+      position: relative !important;
+    }
+
+    .devill-page .video-walkthrough-grid {
+      margin-bottom: 0 !important;
+    }
+
     .video-walkthrough-wrapper {
       position: relative;
       overflow: hidden;
@@ -666,6 +650,10 @@
         grid-column: 1 / -1 !important;
       }
 
+      .devill-page .video-walkthrough-grid .case-next-project {
+        grid-column: 1 / -1 !important;
+      }
+
       .case-opening-poster-grid .case-opening-image-poster {
         grid-column: 1 / -1 !important;
       }
@@ -711,7 +699,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            EXPLORE PROTOTYPE ↗
+            explore prototype
           </a>
         </div>
       </section>
@@ -873,6 +861,9 @@
               </div>
             </div>
           </div>
+          <nav class="case-next-project" aria-label="Next project">
+            <a href="now.html" class="case-next-project__link js-page-transition">Next project</a>
+          </nav>
         </div>
       </section>
     </div>

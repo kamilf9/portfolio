@@ -155,72 +155,13 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 24px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
     }
 
-    /* L4 — hero subtitles (Roboto Light 16px, centered) */
-    .metgala-page .metagala-hero-meta__part,
-    .metgala-page .metagala-hero-meta__sep {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.6;
-      color: #000000;
-    }
-
-    .metgala-page .metagala-hero-meta__part {
-      text-transform: lowercase;
-    }
-
-    .metgala-page .metagala-hero-meta__sep {
-      flex-shrink: 0;
-      user-select: none;
-    }
-
-    /* Header vertical rhythm — matches now.html .case-prototype-link-wrap */
-    .metgala-page .case-metagala-hero .case-prototype-link-wrap {
-      text-align: center;
-      margin-top: 60px;
-      margin-bottom: 60px;
-      padding: 0;
-    }
-
-    /* L3 — sentence case (not typography .case-prototype-link lowercase) */
     .metgala-page .case-metagala-hero .case-prototype-link {
-      display: inline-flex !important;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      max-width: 100%;
-      text-decoration: none;
-      margin: 0;
-      padding: 4px 8px;
-      filter: none;
-      transition: filter 0.3s ease;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.35;
-      color: #000000;
       text-transform: none;
-      letter-spacing: normal;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    @media (hover: hover) {
-      .metgala-page .case-metagala-hero .case-prototype-link:hover {
-        filter: blur(4px);
-      }
-    }
-
-    .metgala-page .case-metagala-hero .case-prototype-link:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-      filter: none;
     }
 
     .metgala-visuals-grid {
@@ -330,38 +271,6 @@
       width: 100%;
     }
 
-    .metgala-footer {
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-      padding: 3rem 0 4rem;
-      margin-top: 0;
-    }
-
-    .metgala-footer__inner {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 1.5;
-      text-align: center;
-      color: #000000;
-    }
-
-    .metgala-footer__inner a {
-      color: #000000;
-      text-decoration: none;
-      transition: filter 0.3s ease;
-    }
-
-    @media (hover: hover) {
-      .metgala-footer__inner a:hover {
-        filter: blur(3px);
-      }
-    }
-
-    .metgala-footer__inner a:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-    }
-
     @media (max-width: 900px) {
       .metgala-page .case-metagala-hero .case-meta-row--balanced {
         grid-column: 1 / -1 !important;
@@ -424,11 +333,11 @@
           aria-label="Project details"
         >
           <div class="case-meta-row case-meta-row--balanced">
-            <span class="metagala-hero-meta__part">personal project</span>
-            <span class="metagala-hero-meta__sep" aria-hidden="true">|</span>
-            <span class="metagala-hero-meta__part">ux/ui</span>
-            <span class="metagala-hero-meta__sep" aria-hidden="true">|</span>
-            <span class="metagala-hero-meta__part">2026</span>
+            <span class="case-meta-part">personal project</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">ux/ui</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">2026</span>
           </div>
         </div>
         <div class="case-prototype-link-wrap">
@@ -441,7 +350,7 @@
             data-aos-duration="900"
             data-aos-once="true"
           >
-            Explore prototype ↗
+            Explore prototype
           </a>
         </div>
       </section>
@@ -512,19 +421,14 @@
             <p class="case-body">
               The Met Gala, also known as &ldquo;Fashion&rsquo;s Biggest Night,&rdquo; is a global phenomenon that has redefined fashion as an art form. I created the first digital archive of its kind to curate and preserve the annual highlights from the event&apos;s iconic red carpet. Through digital Curation, this project documents the power of the fashion industry and its influence on our world.
             </p>
+            <nav class="case-next-project" aria-label="Next project">
+              <a href="devill.html" class="case-next-project__link js-page-transition">Next project</a>
+            </nav>
           </div>
         </div>
       </section>
     </div>
   </main>
-
-  <footer class="metgala-footer">
-    <div class="container">
-      <p class="metgala-footer__inner">
-        <a class="js-page-transition" href="index.html#work">Back to work</a>
-      </p>
-    </div>
-  </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>

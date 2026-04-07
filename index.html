@@ -80,6 +80,11 @@
       opacity: 1;
     }
 
+    .custom-cursor.is-suppressed-in-about {
+      opacity: 0 !important;
+      transition: opacity 0.25s ease;
+    }
+
     nav.site-header {
       position: fixed;
       top: 0;
@@ -170,6 +175,7 @@
     }
 
     .page-main {
+      position: relative;
       padding-top: 5.5rem;
       width: 100%;
     }
@@ -184,6 +190,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-top: 10vh;
+      box-sizing: border-box;
       perspective: 1200px;
       perspective-origin: 50% 50%;
       transform: translateY(-25%);
@@ -237,12 +245,101 @@
 
     /*
      * Projects: full width inside site container (same horizontal inset as nav `.container`).
-     * Column gap = 1.5rem (50% of previous 3rem / gap-x-6 vs gap-x-12).
+     * Column gap = 1.5rem (gap-x-6).
      */
     .projects-wrap {
       --project-col-gap: 1.5rem;
       --project-row-gap: 3.5rem;
+      position: relative;
+      z-index: 0;
       margin-top: 40px;
+      padding-bottom: clamp(2.5rem, 6vh, 4rem);
+      box-sizing: border-box;
+      background: #ffffff;
+    }
+
+    /*
+     * About: sticky full-viewport stack over projects (z-index 999), solid white.
+     */
+    .about-overlap-section {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      box-sizing: border-box;
+      padding: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .about-fullbleed {
+      width: 100vw;
+      max-width: 100vw;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .about-fullbleed__img {
+      display: block;
+      width: 100vw;
+      max-width: 100vw;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    /* Same horizontal inset as nav .container → aligns with “Kamil Fogel” */
+    .about-back-to-top-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 1.5rem;
+      z-index: 1000;
+      width: 100%;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+
+    .about-back-to-top-wrap .about-back-to-top {
+      pointer-events: auto;
+    }
+
+    .about-back-to-top {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      color: #000000;
+      background: transparent;
+      border: none;
+      padding: 0.25rem 0;
+      margin: 0;
+      cursor: pointer;
+      text-align: left;
+      text-decoration: none;
+      -webkit-font-smoothing: antialiased;
+      transition: filter 0.3s ease;
+    }
+
+    .about-back-to-top:hover {
+      filter: blur(4px);
+    }
+
+    .about-back-to-top:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    #about {
+      scroll-margin-top: 5.5rem;
     }
 
     .projects-grid {
@@ -349,7 +446,7 @@
       <a class="brand" href="#">Kamil Fogel</a>
       <ul>
         <li><a href="#work">Work</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="#about">About</a></li>
         <li><a href="#playground">Playground</a></li>
       </ul>
     </div>
@@ -359,10 +456,9 @@
     <section class="hero-view">
       <div class="container hero-view__inner">
         <div class="hero-stage">
-          <div class="hero-tilt" id="heroTilt" aria-label="Hi, I'm Kamil, a creative thinker and UX/UI designer">
+          <div class="hero-tilt" id="heroTilt" aria-label="Hi, I'm Kamil, UX/UI designer and creative thinker">
             <span class="hero-tilt__line"><span class="hero-style-1 hero-preserve-case">Hi,</span><span class="hero-style-2 hero-preserve-case"> I'm </span><span class="hero-style-3 hero-preserve-case">Kamil</span><span class="hero-style-3">,</span></span>
-            <span class="hero-tilt__line"><span class="hero-style-2 hero-preserve-case">A </span><span class="hero-style-3">creative </span><span class="hero-style-2">thinker </span></span>
-            <span class="hero-tilt__line"><span class="hero-style-2">&amp; ux.ui </span><span class="hero-style-3">designer</span></span>
+            <span class="hero-tilt__line"><span class="hero-style-2">ux.ui </span><span class="hero-style-3">designer </span><span class="hero-style-2">&amp; </span><span class="hero-style-3">creative </span><span class="hero-style-2">thinker</span></span>
           </div>
         </div>
         <div class="site-contact" aria-label="Contact information">
@@ -491,6 +587,27 @@
       </div>
     </section>
 
+    <section
+      id="about"
+      class="about-overlap-section"
+      aria-label="About Kamil Fogel"
+    >
+      <div class="about-fullbleed">
+        <img
+          class="about-fullbleed__img"
+          src="/images/about.png"
+          alt="About Kamil Fogel — visual communication, UX/UI, and brand identity"
+          width="1920"
+          height="1080"
+        />
+      </div>
+      <div class="container about-back-to-top-wrap">
+        <button type="button" class="about-back-to-top" id="backToTop" aria-label="Back to top">
+          Back to top ↑
+        </button>
+      </div>
+    </section>
+
     <section id="playground" class="container" aria-label="Playground"></section>
   </main>
 
@@ -515,10 +632,71 @@
       var cursorEl = document.getElementById('customCursor');
       var cursorLabelEl = document.getElementById('cursorLabel');
       var heroEl = document.getElementById('heroTilt');
+      var aboutSection = document.getElementById('about');
+      var backToTopEl = document.getElementById('backToTop');
       var cursorHotspots = document.querySelectorAll('.js-cursor-hotspot');
       var revealTargets = document.querySelectorAll('.js-project-reveal');
 
-      if (!cursorEl || !heroEl) return;
+      function runRevealObservers() {
+        if ('IntersectionObserver' in window) {
+          var revealObserver = new IntersectionObserver(
+            function (entries) {
+              for (var r = 0; r < entries.length; r++) {
+                var entry = entries[r];
+                if (!entry.isIntersecting || entry.intersectionRatio < 0.15) continue;
+                var el = entry.target;
+                el.classList.add('visible');
+                revealObserver.unobserve(el);
+              }
+            },
+            {
+              root: null,
+              rootMargin: '0px',
+              threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5, 0.75, 1],
+            }
+          );
+          for (var j = 0; j < revealTargets.length; j++) {
+            revealObserver.observe(revealTargets[j]);
+          }
+        } else {
+          for (var k = 0; k < revealTargets.length; k++) {
+            revealTargets[k].classList.add('visible');
+          }
+        }
+      }
+
+      if (aboutSection && cursorEl && 'IntersectionObserver' in window) {
+        var aboutCursorIO = new IntersectionObserver(
+          function (entries) {
+            for (var a = 0; a < entries.length; a++) {
+              var en = entries[a];
+              var inAbout =
+                en.isIntersecting &&
+                en.intersectionRatio > 0.02 &&
+                en.boundingClientRect.top < (window.innerHeight || 1) * 0.95;
+              if (inAbout) {
+                cursorEl.classList.add('is-suppressed-in-about');
+                cursorEl.classList.remove('is-visible');
+              } else {
+                cursorEl.classList.remove('is-suppressed-in-about');
+              }
+            }
+          },
+          { root: null, rootMargin: '0px', threshold: [0, 0.02, 0.06, 0.12, 0.2, 0.35, 0.5] }
+        );
+        aboutCursorIO.observe(aboutSection);
+      }
+
+      if (backToTopEl) {
+        backToTopEl.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      if (!cursorEl || !heroEl) {
+        runRevealObservers();
+        return;
+      }
 
       var CURSOR_OFFSET_X = 20;
       var CURSOR_OFFSET_Y = 22;
@@ -554,7 +732,9 @@
         var x = clientX + CURSOR_OFFSET_X;
         var y = clientY + CURSOR_OFFSET_Y;
         cursorEl.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
-        cursorEl.classList.add('is-visible');
+        if (!cursorEl.classList.contains('is-suppressed-in-about')) {
+          cursorEl.classList.add('is-visible');
+        }
       }
 
       function lerpState(state) {
@@ -609,31 +789,7 @@
         cursorHotspots[i].addEventListener('mouseleave', onHotspotLeave);
       }
 
-      if ('IntersectionObserver' in window) {
-        var revealObserver = new IntersectionObserver(
-          function (entries) {
-            for (var r = 0; r < entries.length; r++) {
-              var entry = entries[r];
-              if (!entry.isIntersecting || entry.intersectionRatio < 0.15) continue;
-              var el = entry.target;
-              el.classList.add('visible');
-              revealObserver.unobserve(el);
-            }
-          },
-          {
-            root: null,
-            rootMargin: '0px',
-            threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.5, 0.75, 1],
-          }
-        );
-        for (var j = 0; j < revealTargets.length; j++) {
-          revealObserver.observe(revealTargets[j]);
-        }
-      } else {
-        for (var k = 0; k < revealTargets.length; k++) {
-          revealTargets[k].classList.add('visible');
-        }
-      }
+      runRevealObservers();
 
       window.addEventListener('mousemove', onMouseMove);
       document.documentElement.addEventListener('mouseleave', onDocumentLeave);

@@ -158,7 +158,6 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 24px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
@@ -297,6 +296,18 @@
       box-sizing: border-box;
     }
 
+    .health-page .case-health-final-video-grid .case-next-project {
+      grid-column: 2 / 12 !important;
+      position: relative;
+      width: 100%;
+      margin-top: clamp(2rem, 5vw, 4rem) !important;
+      box-sizing: border-box;
+    }
+
+    .health-page .case-health-final-video-grid .case-next-project__link {
+      position: relative;
+    }
+
     .case-health-final-video-grid .video-walkthrough-wrapper .video-walkthrough-embed {
       width: 100% !important;
       height: auto !important;
@@ -371,6 +382,10 @@
       }
 
       .case-health-final-video-grid .video-walkthrough-wrapper {
+        grid-column: 2 / 12 !important;
+      }
+
+      .health-page .case-health-final-video-grid .case-next-project {
         grid-column: 2 / 12 !important;
       }
     }
@@ -565,6 +580,9 @@
                 </div>
               </div>
             </div>
+            <nav class="case-next-project" aria-label="Next project">
+              <a href="scnd.html" class="case-next-project__link js-page-transition">Next project</a>
+            </nav>
           </div>
         </div>
       </section>

@@ -75,14 +75,17 @@ nav .brand {
   margin-bottom: 1.25rem;
 }
 
-/* —— L3: Project metadata row only — Roboto Regular 16px —— */
+/* —— L4: Project hero metadata (type, field, time, year) — Roboto Light 16px —— */
 .case-meta-part,
 .case-meta-sep {
   font-family: 'Roboto', sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 1.35;
+  letter-spacing: normal;
   color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .case-meta-part {
@@ -94,7 +97,19 @@ nav .brand {
   user-select: none;
 }
 
-/* CTA under metadata: 16px regular, lowercase */
+.case-main .case-meta-row {
+  gap: 12px 16px;
+}
+
+/* Uniform rhythm: title (L1 margin-bottom 12px) → metadata (L4) → external link (L3) */
+.case-main .case-prototype-link-wrap {
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+/* L3: External project links — Roboto Regular 16px, ↗ via ::after */
 .case-prototype-link {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
@@ -102,11 +117,45 @@ nav .brand {
   line-height: 1.35;
   color: #000000;
   text-transform: lowercase;
+  text-decoration: none;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0;
+  padding: 4px 8px;
+  filter: none;
+  transition: all 0.3s ease;
+  letter-spacing: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* —— L4: Body, footer detail, project type, UI chrome —— */
+.case-prototype-link::after {
+  content: '\00a0↗';
+  display: inline-block;
+  font-weight: 400;
+  font-size: 0.82em;
+  line-height: 1;
+  margin-left: 0.12em;
+  vertical-align: 0.2em;
+}
+
+@media (hover: hover) {
+  .case-prototype-link:hover {
+    filter: blur(2px);
+  }
+}
+
+.case-prototype-link:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 4px;
+  filter: none;
+}
+
+/* —— L4: Body, footer detail, UI chrome —— */
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -164,6 +213,43 @@ body {
   font-weight: 400;
 }
 
+/* —— L1: “Next project” (Instrument Serif Italic 96px), after final page media —— */
+.case-next-project {
+  width: 100%;
+  margin: 0;
+  margin-top: clamp(6rem, 14vw, 15rem);
+  padding: 0 0 5rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.case-next-project__link {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 96px;
+  line-height: 1.08;
+  color: #000000;
+  text-decoration: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+@media (hover: hover) {
+  .case-next-project__link:hover {
+    opacity: 0.65;
+    transform: scale(1.02);
+  }
+}
+
+.case-next-project__link:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 10px;
+}
+
 @media (max-width: 900px) {
   .case-hero-title,
   .case-health-hero-title {
@@ -174,5 +260,14 @@ body {
   .case-health-hero-title {
     padding: 64px 0 0;
     margin-bottom: 12px;
+  }
+
+  .case-next-project {
+    margin-top: clamp(4rem, 12vw, 10rem);
+    padding-bottom: 5rem;
+  }
+
+  .case-next-project__link {
+    font-size: clamp(2.5rem, 12vw, 96px);
   }
 }

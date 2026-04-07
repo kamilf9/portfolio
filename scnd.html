@@ -129,7 +129,6 @@
       text-align: center;
     }
 
-    /* L3 metadata row — same as balanced (typography .case-meta-part / Style 3 rhythm) */
     .scnd-page .case-scnd-hero .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -141,7 +140,6 @@
       text-align: center;
     }
 
-    /* ~3-space gap around | — same as balanced */
     .scnd-page .case-scnd-hero .case-meta-row--balanced {
       grid-column: 2 / 12;
       display: flex;
@@ -149,7 +147,6 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 8px 12px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
@@ -195,13 +192,26 @@
       grid-column: 1 / -1;
     }
 
-    /* App mockup: 3-column width, centered in row (flex centers the block) */
+    /* App mockup: 3-col figure centered; “Next project” stacks below app.png */
     .scnd-closing-app-band {
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
       width: 100%;
       box-sizing: border-box;
+    }
+
+    .scnd-page .scnd-closing-app-band .case-next-project {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin-top: clamp(2rem, 5vw, 4rem) !important;
+      box-sizing: border-box;
+    }
+
+    .scnd-page .scnd-closing-app-band .case-next-project__link {
+      position: relative;
     }
 
     .scnd-closing-app-band .scnd-figure--3 {
@@ -379,43 +389,10 @@
       text-align: center;
     }
 
-    .scnd-footer {
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-      padding: 3rem 0 4rem;
-      margin-top: 0;
-    }
-
-    .scnd-footer__inner {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 1.5;
-      text-align: center;
-      color: #000000;
-    }
-
-    .scnd-footer__inner a {
-      color: #000000;
-      text-decoration: none;
-      transition: filter 0.3s ease;
-    }
-
-    @media (hover: hover) {
-      .scnd-footer__inner a:hover {
-        filter: blur(3px);
-      }
-    }
-
-    .scnd-footer__inner a:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-    }
-
     @media (max-width: 900px) {
       .scnd-page .case-scnd-hero .case-meta-row--balanced {
         grid-column: 1 / -1 !important;
         justify-content: center;
-        gap: 8px 12px;
       }
 
       .scnd-visuals-grid {
@@ -679,19 +656,14 @@
                 loading="lazy"
               />
             </figure>
+            <nav class="case-next-project" aria-label="Next project">
+              <a href="metgala.html" class="case-next-project__link js-page-transition">Next project</a>
+            </nav>
           </div>
         </div>
       </section>
     </div>
   </main>
-
-  <footer class="scnd-footer">
-    <div class="container">
-      <p class="scnd-footer__inner">
-        <a class="js-page-transition" href="index.html#work">Back to work</a>
-      </p>
-    </div>
-  </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>

@@ -139,7 +139,7 @@
       text-align: center;
     }
 
-    /* L3: Roboto Regular 16px, normal case (typography .case-meta-part is lowercase globally) */
+    /* L4 metadata: normal case for this page (global .case-meta-part is lowercase) */
     .balanced-page .case-meta-row--balanced .case-meta-part {
       text-transform: none;
     }
@@ -156,7 +156,6 @@
       text-align: center;
     }
 
-    /* Same flow as devill .case-meta-row (centered, uniform gap) — tighter ~3-space feel around | */
     .balanced-page .case-balanced-hero .case-meta-row--balanced {
       grid-column: 2 / 12;
       display: flex;
@@ -164,44 +163,13 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 8px 12px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
     }
 
-    /* Matches now.html — prototype CTA below meta (60px / 20px rhythm) */
-    .balanced-page .case-balanced-hero .case-prototype-link-wrap {
-      text-align: center;
-      margin-top: 60px;
-      margin-bottom: 20px;
-      padding: 0;
-    }
-
     .balanced-page .case-balanced-hero .case-prototype-link {
-      display: inline-flex !important;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      max-width: 100%;
-      text-decoration: none;
-      margin: 0;
-      padding: 4px 8px;
-      filter: none;
-      transition: filter 0.3s ease;
       text-transform: none;
-    }
-
-    @media (hover: hover) {
-      .balanced-page .case-balanced-hero .case-prototype-link:hover {
-        filter: blur(4px);
-      }
-    }
-
-    .balanced-page .case-balanced-hero .case-prototype-link:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-      filter: none;
     }
 
     /* Opening block sits under hero; link wrap supplies 20px above images (same as now) */
@@ -440,6 +408,26 @@
       grid-column: 4 / 10;
       width: 100%;
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .balanced-page .balanced-fullapp-cell .case-next-project {
+      position: relative;
+      width: 100%;
+      margin-top: clamp(2rem, 5vw, 4rem) !important;
+      flex-shrink: 0;
+    }
+
+    .balanced-page .balanced-fullapp-cell .case-next-project__link {
+      position: relative;
+    }
+
+    /* Single ↗ in markup; turn off typography ::after (avoids double arrow) */
+    .balanced-page .case-balanced-hero .case-prototype-link::after {
+      content: none;
+      display: none;
     }
 
     .balanced-fullapp-wrap {
@@ -511,43 +499,10 @@
       pointer-events: none;
     }
 
-    .balanced-footer {
-      border-top: 1px solid rgba(0, 0, 0, 0.08);
-      padding: 3rem 0 4rem;
-      margin-top: 0;
-    }
-
-    .balanced-footer__inner {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      line-height: 1.5;
-      text-align: center;
-      color: #000000;
-    }
-
-    .balanced-footer__inner a {
-      color: #000000;
-      text-decoration: none;
-      transition: filter 0.3s ease;
-    }
-
-    @media (hover: hover) {
-      .balanced-footer__inner a:hover {
-        filter: blur(3px);
-      }
-    }
-
-    .balanced-footer__inner a:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-    }
-
     @media (max-width: 900px) {
       .balanced-page .case-balanced-hero .case-meta-row--balanced {
         grid-column: 1 / -1 !important;
         justify-content: center;
-        gap: 8px 12px;
       }
 
       /* Keep 10-column band (inset 1 col each side) on small viewports */
@@ -630,7 +585,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            LAUNCH APP ↗
+            launch app ↗
           </a>
         </div>
       </section>
@@ -786,19 +741,14 @@
                 WATCH FULL PROJECT
               </button>
             </div>
+            <nav class="case-next-project" aria-label="Next project">
+              <a href="health.html" class="case-next-project__link js-page-transition">Next project</a>
+            </nav>
           </div>
         </div>
       </section>
     </div>
   </main>
-
-  <footer class="balanced-footer">
-    <div class="container">
-      <p class="balanced-footer__inner">
-        <a class="js-page-transition" href="index.html#work">Back to work</a>
-      </p>
-    </div>
-  </footer>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>

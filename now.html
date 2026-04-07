@@ -159,44 +159,9 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 24px;
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
-    }
-
-    /* Centers inline-flex link; vertical rhythm; reveal target (matches devill.html) */
-    .case-prototype-link-wrap {
-      text-align: center;
-      margin-top: 60px;
-      margin-bottom: 20px;
-      padding: 0;
-    }
-
-    /* Style 3 — prototype CTA; hit area = text + arrow only */
-    .case-prototype-link {
-      display: inline-flex !important;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      max-width: 100%;
-      text-decoration: none;
-      margin: 0;
-      padding: 4px 8px;
-      filter: none;
-      transition: filter 0.3s ease;
-    }
-
-    @media (hover: hover) {
-      .case-prototype-link:hover {
-        filter: blur(4px);
-      }
-    }
-
-    .case-prototype-link:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-      filter: none;
     }
 
     .case-block {
@@ -803,6 +768,30 @@
       pointer-events: none;
     }
 
+    /* Stack “Next project” under fullapp.mp4; scrolls with mosaic (no sticky) */
+    .now-page .screens-mosaic__cell--fullapp {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .now-page .screens-mosaic__cell--fullapp .case-next-project {
+      position: relative;
+      width: 100%;
+      margin-top: clamp(2rem, 5vw, 4rem) !important;
+      flex-shrink: 0;
+    }
+
+    .now-page .screens-mosaic__cell--fullapp .case-next-project__link {
+      position: relative;
+    }
+
+    /* Single ↗ in HTML; remove typography ::after to avoid double arrow */
+    .now-page .case-hero-intro .case-prototype-link::after {
+      content: none;
+      display: none;
+    }
+
     .case-block.case-now-ds-showcase-block {
       margin-top: 0 !important;
       margin-bottom: var(--case-section-gap);
@@ -994,7 +983,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            EXPLORE PROTOTYPE ↗
+            explore prototype ↗
           </a>
         </div>
       </section>
@@ -1346,6 +1335,9 @@
                   WATCH FULL APP
                 </button>
               </div>
+              <nav class="case-next-project" aria-label="Next project">
+                <a href="balanced.html" class="case-next-project__link js-page-transition">Next project</a>
+              </nav>
             </div>
           </section>
         </div>
