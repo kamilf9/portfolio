@@ -8,6 +8,11 @@
   --container-pad: clamp(20px, 2.2vw, 24px);
   --grid-gutter: clamp(16px, 2vw, 24px);
   --case-section-gap: 100px;
+  /*
+   * Shared NE arrow (45° shaft + two-segment head). Same stroke/geometry everywhere;
+   * scale only via width/height on each ::after. vector-effect keeps hairline consistent.
+   */
+  --arrow-ne-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28' fill='none'%3E%3Cpath vector-effect='non-scaling-stroke' d='M3.5 24.5L24.5 3.5M24.5 3.5L13.5 3.5M24.5 3.5L24.5 14.5' stroke='%23000000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 @media (max-width: 1024px) {
@@ -212,7 +217,7 @@ body.case-page > nav:not(.case-next-project).is-header-hidden {
   padding: 0;
 }
 
-/* L3: External project links — Roboto Regular 16px, ↗ via ::after */
+/* L3: External project links — Roboto Regular 16px, NE arrow via ::after (same asset as next-project / about) */
 .case-prototype-link {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
@@ -237,13 +242,14 @@ body.case-page > nav:not(.case-next-project).is-header-hidden {
 }
 
 .case-prototype-link::after {
-  content: '\00a0↗';
-  display: inline-block;
-  font-weight: 400;
-  font-size: 0.82em;
-  line-height: 1;
-  margin-left: 0.12em;
-  vertical-align: 0.2em;
+  content: '';
+  display: block;
+  width: 0.88em;
+  height: 0.8em;
+  flex-shrink: 0;
+  margin-left: 0.22em;
+  align-self: center;
+  background: var(--arrow-ne-svg) no-repeat center / contain;
 }
 
 @media (hover: hover) {
@@ -353,21 +359,15 @@ video {
   transition: filter 0.4s ease;
 }
 
-/*
- * North-east arrow: longer shaft (~45°), hairline stroke (non-scaling) ~ Roboto Light;
- * box sized to cap height like the uppercase label.
- */
+/* “Next project”: same NE arrow as .case-prototype-link; larger box (cap-sized title) */
 .case-next-project__link::after {
   content: '';
   display: block;
-  width: 0.95em;
-  height: 0.82em;
   width: 1.15cap;
   height: 1cap;
   flex-shrink: 0;
   margin-bottom: 0.04em;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28' fill='none'%3E%3Cpath vector-effect='non-scaling-stroke' d='M3.5 24.5L24.5 3.5M24.5 3.5L13.5 3.5M24.5 3.5L24.5 14.5' stroke='%23000000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
-    no-repeat center / contain;
+  background: var(--arrow-ne-svg) no-repeat center / contain;
 }
 
 @media (hover: hover) {

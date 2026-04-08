@@ -492,6 +492,21 @@
       text-decoration: none;
       -webkit-font-smoothing: antialiased;
       transition: filter 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 0.22em;
+    }
+
+    .about-back-to-top::after {
+      content: '';
+      display: block;
+      width: 0.88em;
+      height: 0.8em;
+      flex-shrink: 0;
+      background: var(--arrow-ne-svg) no-repeat center / contain;
+      transform: rotate(-45deg);
+      transform-origin: center center;
     }
 
     .about-back-to-top:hover {
@@ -803,7 +818,7 @@
       </div>
       <div class="container about-back-to-top-wrap">
         <button type="button" class="about-back-to-top" id="backToTop" aria-label="Back to top">
-          Back to top ↑
+          Back to top
         </button>
       </div>
     </section>
@@ -865,6 +880,18 @@
       var backToTopEl = document.getElementById('backToTop');
       var revealTargets = document.querySelectorAll('.js-project-reveal');
       var heroSectionForCursor = document.querySelector('.hero-view');
+      var projectsSectionForCursor = document.getElementById('work');
+
+      function isPointerOverProjects(clientX, clientY) {
+        if (!projectsSectionForCursor || !projectsSectionForCursor.getBoundingClientRect) return false;
+        var r = projectsSectionForCursor.getBoundingClientRect();
+        return (
+          clientX >= r.left &&
+          clientX <= r.right &&
+          clientY >= r.top &&
+          clientY <= r.bottom
+        );
+      }
 
       function runRevealObservers() {
         if ('IntersectionObserver' in window) {
@@ -1081,7 +1108,11 @@
       }
 
       function onMouseMove(e) {
-        if (document.body.classList.contains('is-hero-cursor-active')) {
+        var overProjects = isPointerOverProjects(e.clientX, e.clientY);
+
+        if (overProjects) {
+          cursorEl.classList.remove('is-visible');
+        } else if (document.body.classList.contains('is-hero-cursor-active')) {
           moveCustomCursor(e.clientX, e.clientY);
         } else {
           cursorEl.classList.remove('is-visible');
@@ -1089,6 +1120,14 @@
 
         if (!heroFloatInner) return;
         if (!document.body.classList.contains('is-hero-cursor-active')) return;
+
+        if (overProjects) {
+          resetParallaxTargets();
+          snapHeroParallax();
+          scheduleParallaxTick();
+          return;
+        }
+
         if (isHeroMotionEnabled()) {
           setParallaxTargetsFromMouse(e.clientX, e.clientY);
           scheduleParallaxTick();
