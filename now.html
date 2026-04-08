@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="typography.css" />
+  <script src="nav-auto-hide.js" defer></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -17,8 +18,6 @@
     }
 
     :root {
-      --container-pad: 24px;
-      --case-section-gap: 100px;
       --case-now-centered-band: 600px;
     }
 
@@ -72,24 +71,10 @@
       color: #000000;
     }
 
-    body.now-page nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-
     body.now-page nav .brand {
       color: #000000;
       text-decoration: none;
       transition: filter 0.4s ease;
-    }
-
-    body.now-page nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.75rem;
     }
 
     body.now-page nav ul a {
@@ -141,10 +126,17 @@
     .case-reveal-block.visible > .case-reveal-item:nth-child(2) { transition-delay: 0.12s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(3) { transition-delay: 0.2s; }
 
+    .case-opening-image-block.visible .case-now-opening-stack .case-reveal-item:nth-child(1) {
+      transition-delay: 0.04s;
+    }
+    .case-opening-image-block.visible .case-now-opening-stack .case-reveal-item:nth-child(2) {
+      transition-delay: 0.12s;
+    }
+
     .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
       margin-top: 0;
@@ -191,7 +183,7 @@
     .case-now-opening-stack {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       row-gap: 0 !important;
       width: 100% !important;
       box-sizing: border-box;
@@ -242,8 +234,8 @@
     .case-now-about-stack {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
-      row-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
+      row-gap: var(--grid-gutter) !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
@@ -306,8 +298,8 @@
     .case-now-research-stack {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
-      row-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
+      row-gap: var(--grid-gutter) !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
@@ -388,8 +380,8 @@
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
       grid-template-rows: auto auto !important;
-      column-gap: 24px !important;
-      row-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
+      row-gap: var(--grid-gutter) !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
@@ -398,7 +390,7 @@
       text-align: left !important;
       float: none !important;
       align-items: start !important;
-      transform: translateX(calc((100% - 11 * 24px) / 24));
+      transform: translateX(calc((100% - 11 * var(--grid-gutter)) / 24));
     }
 
     .case-now-cs-stack--vertical .case-now-cs-style3-heading {
@@ -493,7 +485,7 @@
     .case-now-style-guide {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
@@ -535,7 +527,7 @@
       grid-column: 1 / -1 !important;
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       row-gap: 0 !important;
       align-items: start !important;
       justify-items: stretch !important;
@@ -547,7 +539,7 @@
       margin-right: 0 !important;
       margin-bottom: 0 !important;
       padding: 0 !important;
-      transform: translateX(calc((100% - 11 * 24px) / 24));
+      transform: translateX(calc((100% - 11 * var(--grid-gutter)) / 24));
     }
 
     .case-now-style-guide-breakdown-col {
@@ -892,7 +884,7 @@
     .case-now-ds-item {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       row-gap: 0 !important;
       align-items: start !important;
       width: 100% !important;
@@ -960,7 +952,7 @@
       .case-now-cs-stack.case-now-cs-stack--vertical {
         grid-template-columns: 1fr !important;
         grid-template-rows: none !important;
-        row-gap: 24px !important;
+        row-gap: var(--grid-gutter) !important;
         transform: none !important;
       }
 
@@ -1051,8 +1043,7 @@
       <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
       <ul>
         <li><a href="index.html#work">Work</a></li>
-        <li><a href="index.html">About</a></li>
-        <li><a href="index.html#playground">Playground</a></li>
+        <li><a href="index.html#site-bottom">About</a></li>
       </ul>
     </div>
   </nav>
@@ -1065,7 +1056,7 @@
           <div class="case-meta-row">
             <span class="case-meta-part">student project</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
-            <span class="case-meta-part">app design</span>
+            <span class="case-meta-part">ux.ui</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
             <span class="case-meta-part">4 weeks</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
@@ -1092,11 +1083,8 @@
             alt="Now — opening"
             loading="eager"
             fetchpriority="high"
-            data-aos="fade-up"
-            data-aos-duration="900"
-            data-aos-once="true"
           />
-          <div class="case-now-screens-wrap" data-aos="fade-up" data-aos-duration="900" data-aos-once="true">
+          <div class="case-now-screens-wrap case-reveal-item">
             <video
               class="case-now-screens-video"
               src="nowproject/screens.mp4"
@@ -1128,8 +1116,20 @@
 
       <section class="case-block case-now-research-block" aria-label="Research">
         <div class="case-now-research-stack">
-          <h2 class="case-subhead">research</h2>
-          <div class="case-body case-now-research-copy">
+          <h2
+            class="case-subhead"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
+            research
+          </h2>
+          <div
+            class="case-body case-now-research-copy"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
             I analyzed interviews with Eyal Shani which became the foundation for the app&rsquo;s copywriting, aiming to build a unique tone of voice that breaks away from generic weather forecast language. In parallel, I identified prominent characteristics of his persona that formed the basis for the design system: Rawness, Folklore, Respect for every ingredient and Poetic language.
           </div>
           <div
@@ -1151,7 +1151,14 @@
       <section class="case-block case-now-ds-showcase-block" aria-label="User flow, challenge and solution, and style guide">
         <div class="case-now-cs-after-flow" aria-label="Challenge and solution">
           <div class="case-now-cs-stack case-now-cs-stack--vertical">
-            <h2 class="case-now-cs-style3-heading case-now-cs-challenge-title">the design challenge</h2>
+            <h2
+              class="case-now-cs-style3-heading case-now-cs-challenge-title"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              the design challenge
+            </h2>
             <div
               class="case-body case-now-cs-challenge-body"
               data-aos="fade-up"
@@ -1171,7 +1178,14 @@
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </div>
-            <h2 class="case-now-cs-style3-heading case-now-cs-solution-title">the solution</h2>
+            <h2
+              class="case-now-cs-style3-heading case-now-cs-solution-title"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              the solution
+            </h2>
             <div
               class="case-body case-now-cs-solution-body"
               data-aos="fade-up"

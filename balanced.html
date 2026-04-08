@@ -9,16 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="typography.css" />
+  <script src="nav-auto-hide.js" defer></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    :root {
-      --container-pad: 24px;
-      --case-section-gap: 100px;
     }
 
     .container {
@@ -71,24 +67,10 @@
       color: #000000;
     }
 
-    body.balanced-page nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-
     body.balanced-page nav .brand {
       color: #000000;
       text-decoration: none;
       transition: filter 0.4s ease;
-    }
-
-    body.balanced-page nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.75rem;
     }
 
     body.balanced-page nav ul a {
@@ -156,7 +138,7 @@
     .balanced-page .case-balanced-hero .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
       margin-top: 0;
@@ -188,7 +170,7 @@
     .case-balanced-visuals-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
     }
@@ -225,7 +207,7 @@
     .balanced-page .balanced-content-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
     }
@@ -294,7 +276,7 @@
 
     .balanced-page .balanced-content-shell > .balanced-research-social-figure img {
       width: auto;
-      max-width: min(100%, calc((100% - 11 * 24px) / 12 * 3 + 2 * 24px));
+      max-width: min(100%, calc((100% - 11 * var(--grid-gutter)) / 12 * 3 + 2 * var(--grid-gutter)));
       height: auto;
       display: block;
       object-fit: contain;
@@ -305,7 +287,7 @@
     .balanced-ps-block {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
     }
@@ -322,7 +304,7 @@
     .balanced-ps-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
       align-items: stretch;
@@ -414,7 +396,7 @@
     .balanced-video-section .balanced-video-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
     }
@@ -562,8 +544,7 @@
       <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
       <ul>
         <li><a href="index.html#work">Work</a></li>
-        <li><a href="index.html">About</a></li>
-        <li><a href="index.html#playground">Playground</a></li>
+        <li><a href="index.html#site-bottom">About</a></li>
       </ul>
     </div>
   </nav>
@@ -589,7 +570,7 @@
           <div class="case-meta-row case-meta-row--balanced">
             <span class="case-meta-part">personal project</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
-            <span class="case-meta-part">ux/ui design &amp; ai-powered development</span>
+            <span class="case-meta-part">ux.ui, ai-powered development</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
             <span class="case-meta-part">2 weeks</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>

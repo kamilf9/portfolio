@@ -9,16 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="typography.css" />
+  <script src="nav-auto-hide.js" defer></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    :root {
-      --container-pad: 24px;
-      --case-section-gap: 100px;
     }
 
     .container {
@@ -69,34 +65,13 @@
       padding: 0;
       background: transparent;
       color: #000000;
-      transition: transform 0.3s ease, opacity 0.3s ease;
       will-change: transform;
-    }
-
-    body.metgala-page nav.is-nav-hidden {
-      transform: translateY(-100%);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    body.metgala-page nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
     }
 
     body.metgala-page nav .brand {
       color: #000000;
       text-decoration: none;
       transition: filter 0.4s ease;
-    }
-
-    body.metgala-page nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.75rem;
     }
 
     body.metgala-page nav ul a {
@@ -123,6 +98,18 @@
       padding-bottom: 6rem;
     }
 
+    .metgala-page .case-main {
+      padding-bottom: 1.5rem;
+    }
+
+    .metgala-page .metgala-hero-visuals.case-block {
+      margin-bottom: 0;
+    }
+
+    .metgala-page .metgala-closing-visuals.case-block {
+      margin-bottom: 0;
+    }
+
     .case-block {
       margin-bottom: var(--case-section-gap);
     }
@@ -140,7 +127,7 @@
     .metgala-page .case-metagala-hero .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
       margin-top: 0;
@@ -167,7 +154,7 @@
     .metgala-visuals-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       row-gap: 60px;
       width: 100%;
       box-sizing: border-box;
@@ -188,7 +175,7 @@
       grid-column: 2 / 12;
     }
 
-    /* Central 8 columns (3–10) — screen1 */
+    /* Central 8 columns (3–10) — e.g. iPad */
     .metgala-figure--8 {
       grid-column: 3 / 11;
     }
@@ -202,20 +189,20 @@
       border-radius: 0;
     }
 
-    /* Mosaic: video left (cols 1–8), screen3 right (cols 5–12) */
+    /* Screens video — 6 cols centered (4–10) */
     .metgala-mosaic {
       grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
-      row-gap: 60px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
       align-items: start;
+      justify-items: stretch;
     }
 
     .metgala-mosaic__video {
-      grid-column: 2 / 10;
+      grid-column: 4 / 10;
       width: 100%;
       min-width: 0;
       margin: 0;
@@ -223,15 +210,6 @@
       line-height: 0;
       border-radius: 0;
       overflow: hidden;
-    }
-
-    .metgala-mosaic__fig--right {
-      grid-column: 4 / 12;
-    }
-
-    /* Same 8-col band as video (columns 2–9) */
-    .metgala-mosaic__fig--video-align {
-      grid-column: 2 / 10;
     }
 
     .metgala-screens-video {
@@ -243,30 +221,147 @@
       vertical-align: top;
     }
 
-    /* ABOUT — matches scnd.html .scnd-content-shell / band rhythm */
-    .metgala-page .metgala-content-shell {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+    /*
+      Fullweb + Next project — same idea as scnd .scnd-closing-app-band:
+      flex column, centered widths, normal document flow (not inside hero grid).
+    */
+    .metgala-closing-app-band {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
       width: 100%;
+      box-sizing: border-box;
+      margin-top: clamp(3rem, 6vw, 5.5rem);
+    }
+
+    .metgala-closing-app-band .metgala-fullweb-block {
+      width: calc(8 * (100% - 11 * var(--grid-gutter)) / 12 + 7 * var(--grid-gutter));
+      max-width: 100%;
+      min-width: 0;
       box-sizing: border-box;
     }
 
-    .metgala-page .metgala-content-band {
-      grid-column: 3 / 11;
+    .metgala-page .metgala-closing-app-band .case-next-project {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin-top: clamp(2rem, 5vw, 4rem) !important;
+      margin-bottom: 0 !important;
+      padding: 0 0 1.5rem !important;
+      box-sizing: border-box;
+    }
+
+    .metgala-page .metgala-closing-app-band .case-next-project__link {
+      position: relative;
+    }
+
+    .metgala-fullweb-block .metgala-fullweb-wrap {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
       min-width: 0;
-      text-align: center;
+      margin: 0;
+      padding: 0;
+      line-height: 0;
+      cursor: pointer;
     }
 
-    .metgala-page .metgala-content-section .metgala-content-band > .case-subhead {
+    .metgala-fullweb-block .metgala-fullweb-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0;
+      padding: 0;
+      object-fit: contain;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+
+    .metgala-fullweb-block .metgala-fullweb-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      cursor: pointer;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .metgala-fullweb-block .metgala-fullweb-wrap.is-paused .metgala-fullweb-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .metgala-fullweb-block .metgala-fullweb-wrap:not(.is-paused) .metgala-fullweb-overlay {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .metgala-fullweb-play {
+      position: relative;
+      z-index: 2;
+      margin: 0;
+      padding: 0;
+      width: 4.5rem;
+      height: 4.5rem;
+      min-width: 0;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000000;
+      flex-shrink: 0;
+      pointer-events: auto;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .metgala-fullweb-play__icon {
+      display: block;
+      margin-left: 3px;
+    }
+
+    .metgala-fullweb-block .metgala-fullweb-wrap.is-paused .metgala-fullweb-play:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.24);
+    }
+
+    .metgala-fullweb-play:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
+    }
+
+    /* About after screens: 6 cols centered (4–10), title + body left; body Roboto 20px */
+    .metgala-visuals-grid > .metgala-about-band {
+      grid-column: 4 / 10;
+      min-width: 0;
+      text-align: left;
+      margin-top: clamp(3rem, 6vw, 5.5rem);
+    }
+
+    .metgala-page .metgala-visuals-grid .metgala-about-band > .case-subhead {
+      text-align: left;
       margin-bottom: 16px;
-      text-align: center;
     }
 
-    .metgala-page .metgala-content-section .case-body {
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
+    .metgala-page .metgala-visuals-grid .metgala-about-band > .case-body {
+      font-family: 'Roboto', sans-serif;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1.45;
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
       max-width: none;
       width: 100%;
     }
@@ -280,23 +375,21 @@
         row-gap: 48px;
       }
 
-      .metgala-mosaic {
-        row-gap: 48px;
-      }
-
       .metgala-figure--10,
       .metgala-figure--8 {
         grid-column: 1 / -1;
       }
 
-      .metgala-mosaic__video,
-      .metgala-mosaic__fig--right,
-      .metgala-mosaic__fig--video-align {
+      .metgala-mosaic__video {
         grid-column: 1 / -1;
       }
 
-      .metgala-page .metgala-content-band {
-        grid-column: 1 / -1;
+      .metgala-visuals-grid > .metgala-about-band {
+        grid-column: 1 / -1 !important;
+      }
+
+      .metgala-closing-app-band .metgala-fullweb-block {
+        width: 100%;
       }
     }
   </style>
@@ -308,8 +401,7 @@
       <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
       <ul>
         <li><a href="index.html#work">Work</a></li>
-        <li><a href="index.html">About</a></li>
-        <li><a href="index.html#playground">Playground</a></li>
+        <li><a href="index.html#site-bottom">About</a></li>
       </ul>
     </div>
   </nav>
@@ -337,7 +429,9 @@
             <span class="case-meta-sep" aria-hidden="true">|</span>
             <span class="case-meta-part">ux/ui</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
-            <span class="case-meta-part">2026</span>
+            <span class="case-meta-part">4 weeks</span>
+            <span class="case-meta-sep" aria-hidden="true">|</span>
+            <span class="case-meta-part">2025</span>
           </div>
         </div>
         <div class="case-prototype-link-wrap">
@@ -358,26 +452,39 @@
       <section
         class="case-block metgala-hero-visuals"
         aria-label="Met Gala archive device and screen visuals"
-        data-aos="fade-up"
-        data-aos-duration="900"
-        data-aos-once="true"
       >
         <div class="metgala-visuals-grid">
-          <figure class="metgala-figure metgala-figure--10">
+          <figure
+            class="metgala-figure metgala-figure--10"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
+            <img
+              src="/metgalaproject/opening1.png"
+              alt="The met gala archive — opening"
+              loading="eager"
+            />
+          </figure>
+          <figure
+            class="metgala-figure metgala-figure--8"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
             <img
               src="/metgalaproject/ipad.png"
               alt="The met gala archive — iPad"
               loading="eager"
             />
           </figure>
-          <figure class="metgala-figure metgala-figure--8">
-            <img
-              src="/metgalaproject/screen1.png"
-              alt="The met gala archive — screen 1"
-              loading="lazy"
-            />
-          </figure>
-          <div class="metgala-mosaic" aria-label="Screens mosaic">
+          <div
+            class="metgala-mosaic"
+            aria-label="Screens walkthrough video"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
             <div class="metgala-mosaic__video">
               <video
                 class="metgala-screens-video"
@@ -390,41 +497,67 @@
                 aria-label="The met gala archive — interface walkthrough"
               ></video>
             </div>
-            <figure class="metgala-figure metgala-mosaic__fig--right">
-              <img
-                src="/metgalaproject/screen3.png"
-                alt="The met gala archive — screen 3"
-                loading="lazy"
-              />
-            </figure>
-            <figure class="metgala-figure metgala-mosaic__fig--video-align">
-              <img
-                src="/metgalaproject/screen4.png"
-                alt="The met gala archive — screen 4"
-                loading="lazy"
-              />
-            </figure>
+          </div>
+          <div
+            class="metgala-about-band"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
+            <h2 class="case-subhead">about</h2>
+            <p class="case-body">
+              The Met Gala, also known as &ldquo;Fashion&rsquo;s Biggest Night,&rdquo; is a global phenomenon that has redefined fashion as an art form. I created the first digital archive of its kind to curate and preserve the annual highlights from the event&apos;s iconic red carpet. Through digital Curation, this project documents the power of the fashion industry and its influence on our world.
+            </p>
           </div>
         </div>
       </section>
 
       <section
-        class="case-block metgala-content-section"
-        aria-label="About"
-        data-aos="fade-up"
-        data-aos-duration="900"
-        data-aos-once="true"
+        class="case-block metgala-closing-visuals"
+        aria-label="Full web walkthrough and next project"
       >
-        <div class="metgala-content-shell">
-          <div class="metgala-content-band">
-            <h2 class="case-subhead">about</h2>
-            <p class="case-body">
-              The Met Gala, also known as &ldquo;Fashion&rsquo;s Biggest Night,&rdquo; is a global phenomenon that has redefined fashion as an art form. I created the first digital archive of its kind to curate and preserve the annual highlights from the event&apos;s iconic red carpet. Through digital Curation, this project documents the power of the fashion industry and its influence on our world.
-            </p>
-            <nav class="case-next-project" aria-label="Next project">
-              <a href="devill.html" class="case-next-project__link js-page-transition">Next project</a>
-            </nav>
+        <div class="metgala-closing-app-band">
+          <div
+            class="metgala-fullweb-block"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
+            <div class="metgala-fullweb-wrap is-paused">
+              <video
+                id="metgalaFullwebVideo"
+                class="metgala-fullweb-video"
+                src="/metgalaproject/fullweb.mp4"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="The met gala archive — full web walkthrough"
+              ></video>
+              <div class="metgala-fullweb-overlay">
+                <button type="button" class="metgala-fullweb-play" aria-label="Play full web walkthrough video">
+                  <svg
+                    class="metgala-fullweb-play__icon"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path fill="currentColor" d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
+          <nav
+            class="case-next-project"
+            aria-label="Next project"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            data-aos-once="true"
+          >
+            <a href="devill.html" class="case-next-project__link js-page-transition">Next project</a>
+          </nav>
         </div>
       </section>
     </div>
@@ -458,6 +591,45 @@
       }
       bindPageTransitions();
 
+      (function bindMetgalaFullwebVideo() {
+        var wrap = document.querySelector('.metgala-fullweb-block .metgala-fullweb-wrap');
+        var vid = document.getElementById('metgalaFullwebVideo');
+        var overlay = wrap ? wrap.querySelector('.metgala-fullweb-overlay') : null;
+        if (!wrap || !vid || !overlay) return;
+
+        function togglePlayback() {
+          if (vid.paused) {
+            wrap.classList.remove('is-paused');
+            void vid.play();
+          } else {
+            wrap.classList.add('is-paused');
+            vid.pause();
+          }
+        }
+
+        vid.addEventListener('play', function () {
+          wrap.classList.remove('is-paused');
+        });
+        vid.addEventListener('pause', function () {
+          wrap.classList.add('is-paused');
+        });
+        vid.addEventListener('ended', function () {
+          wrap.classList.add('is-paused');
+        });
+
+        overlay.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          togglePlayback();
+        });
+
+        wrap.addEventListener('click', function (e) {
+          if (overlay.contains(e.target)) return;
+          if (e.target !== vid) return;
+          togglePlayback();
+        });
+      })();
+
       function endEnter() {
         document.body.classList.remove('is-entering');
       }
@@ -473,39 +645,6 @@
         });
       }
 
-      var nav = document.querySelector('body.metgala-page nav');
-      if (!nav) return;
-
-      var lastScrollY = window.scrollY || document.documentElement.scrollTop || 0;
-      var scrollDeltaThreshold = 6;
-      var topRevealMax = 48;
-      var ticking = false;
-
-      function updateNavOnScroll() {
-        var y = window.scrollY || document.documentElement.scrollTop || 0;
-        var dy = y - lastScrollY;
-
-        if (Math.abs(dy) >= scrollDeltaThreshold) {
-          if (y <= topRevealMax) {
-            nav.classList.remove('is-nav-hidden');
-          } else if (dy > 0) {
-            nav.classList.add('is-nav-hidden');
-          } else {
-            nav.classList.remove('is-nav-hidden');
-          }
-        }
-        lastScrollY = y;
-        ticking = false;
-      }
-
-      function onScroll() {
-        if (!ticking) {
-          ticking = true;
-          requestAnimationFrame(updateNavOnScroll);
-        }
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
     })();
   </script>
 </body>

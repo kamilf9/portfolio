@@ -9,16 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="typography.css" />
+  <script src="nav-auto-hide.js" defer></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    :root {
-      --container-pad: 24px;
-      --case-section-gap: 100px;
     }
 
     .container {
@@ -71,24 +67,10 @@
       color: #000000;
     }
 
-    body.health-page nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-
     body.health-page nav .brand {
       color: #000000;
       text-decoration: none;
       transition: filter 0.4s ease;
-    }
-
-    body.health-page nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.75rem;
     }
 
     body.health-page nav ul a {
@@ -142,7 +124,7 @@
     .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
       margin-top: 0;
@@ -194,7 +176,7 @@
     .case-health-copy-stack {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
@@ -245,7 +227,7 @@
     .case-health-media-stack {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       row-gap: 0 !important;
       width: 100% !important;
       box-sizing: border-box;
@@ -281,7 +263,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 20px;
-      row-gap: 24px;
+      row-gap: var(--grid-gutter);
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
@@ -307,7 +289,7 @@
     .case-health-final-video-grid {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       row-gap: 0 !important;
       width: 100% !important;
       box-sizing: border-box;
@@ -449,8 +431,7 @@
       <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
       <ul>
         <li><a href="index.html#work">Work</a></li>
-        <li><a href="index.html">About</a></li>
-        <li><a href="index.html#playground">Playground</a></li>
+        <li><a href="index.html#site-bottom">About</a></li>
       </ul>
     </div>
   </nav>

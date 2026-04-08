@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="typography.css" />
+  <script src="nav-auto-hide.js" defer></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -17,10 +18,6 @@
 
     html, body {
       min-height: 100%;
-    }
-
-    :root {
-      --container-pad: 24px;
     }
 
     .container {
@@ -93,31 +90,12 @@
       z-index: 5000;
       padding: 0;
       background: transparent;
-      transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
       will-change: transform;
-    }
-
-    nav.site-header.is-header-hidden {
-      transform: translateY(-100%);
-    }
-
-    nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
     }
 
     nav .brand {
       color: inherit;
       text-decoration: none;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.75rem;
     }
 
     nav a {
@@ -208,7 +186,7 @@
     .hero-view .hero-tilt {
       font-family: 'Instrument Serif', serif;
       font-weight: 400;
-      font-size: clamp(2.5rem, 14vw, 200px);
+      font-size: clamp(2.5rem, 6vw + 1.75rem, 12.5rem);
       line-height: 0.92;
       color: #000000;
       text-align: center;
@@ -265,9 +243,10 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
+      width: 100%;
+      max-width: 100vw;
+      margin-left: 0;
+      margin-right: 0;
       box-sizing: border-box;
       padding: 0;
       min-height: 100vh;
@@ -280,20 +259,23 @@
     }
 
     .about-fullbleed {
-      width: 100vw;
-      max-width: 100vw;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      box-sizing: border-box;
     }
 
     .about-fullbleed__img {
       display: block;
-      width: 100vw;
-      max-width: 100vw;
+      width: 100%;
+      max-width: 100%;
       height: auto;
       margin: 0 auto;
+      object-fit: contain;
+      object-position: top center;
     }
 
     /* Same horizontal inset as nav .container → aligns with “Kamil Fogel” */
@@ -338,8 +320,15 @@
       outline-offset: 4px;
     }
 
-    #about {
+    #about,
+    #work {
       scroll-margin-top: 5.5rem;
+    }
+
+    .site-bottom-sentinel {
+      height: 0;
+      width: 100%;
+      pointer-events: none;
     }
 
     .projects-grid {
@@ -419,11 +408,27 @@
       transition: transform 0.4s ease;
     }
 
-    #playground {
-      scroll-margin-top: 5.5rem;
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .hero-view .hero-tilt {
+        font-size: clamp(2.25rem, min(10vw, 3.5rem + 5vw), 9rem);
+      }
+
+      .project-card__caption-name,
+      .project-card__caption-type {
+        font-size: 13px;
+      }
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 767px) {
+      .hero-view .hero-tilt {
+        font-size: clamp(2.25rem, 12vw, 5rem);
+      }
+
+      .hero-stage {
+        padding-top: 6vh;
+        transform: translateY(-12%);
+      }
+
       .projects-grid {
         grid-template-columns: 1fr;
         column-gap: 0;
@@ -432,6 +437,10 @@
 
       .projects-grid .project-item:nth-child(2n).visible {
         transition-delay: 0s;
+      }
+
+      .projects-wrap {
+        --project-col-gap: var(--grid-gutter, 16px);
       }
     }
   </style>
@@ -446,8 +455,7 @@
       <a class="brand" href="#">Kamil Fogel</a>
       <ul>
         <li><a href="#work">Work</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#playground">Playground</a></li>
+        <li><a href="#site-bottom" class="js-nav-about-bottom">About</a></li>
       </ul>
     </div>
   </nav>
@@ -607,11 +615,35 @@
         </button>
       </div>
     </section>
-
-    <section id="playground" class="container" aria-label="Playground"></section>
   </main>
 
+  <div id="site-bottom" class="site-bottom-sentinel" tabindex="-1" aria-hidden="true"></div>
+
   <script>
+    (function bindAboutNavScrollToBottom() {
+      function scrollPageBottomSmooth() {
+        var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        window.scrollTo({ top: h, behavior: 'smooth' });
+      }
+      var aboutNavLinks = document.querySelectorAll('a.js-nav-about-bottom');
+      for (var an = 0; an < aboutNavLinks.length; an++) {
+        aboutNavLinks[an].addEventListener('click', function (e) {
+          if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+          e.preventDefault();
+          scrollPageBottomSmooth();
+        });
+      }
+      if (window.location.hash === '#site-bottom') {
+        function runHashScroll() {
+          window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(scrollPageBottomSmooth);
+          });
+        }
+        if (document.readyState === 'complete') runHashScroll();
+        else window.addEventListener('load', runHashScroll);
+      }
+    })();
+
     (function () {
       function bindPageTransitions() {
         var pageLinks = document.querySelectorAll('a.js-page-transition');
@@ -799,34 +831,6 @@
       scheduleTick();
     })();
 
-    (function () {
-      var header = document.querySelector('nav.site-header');
-      var contact = document.querySelector('.site-contact');
-      var lastY = window.scrollY || 0;
-      var threshold = 8;
-      var topRevealPx = 40;
-
-      function onScroll() {
-        var y = window.scrollY || 0;
-        var dy = y - lastY;
-
-        if (y <= topRevealPx) {
-          if (header) header.classList.remove('is-header-hidden');
-          if (contact) contact.classList.remove('is-hidden-on-scroll');
-        } else if (dy > threshold) {
-          if (header) header.classList.add('is-header-hidden');
-          if (contact) contact.classList.add('is-hidden-on-scroll');
-        } else if (dy < -threshold) {
-          if (header) header.classList.remove('is-header-hidden');
-          if (contact) contact.classList.remove('is-hidden-on-scroll');
-        }
-
-        lastY = y;
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
   </script>
 </body>
 </html>

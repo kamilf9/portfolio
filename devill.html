@@ -8,16 +8,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="typography.css" />
+  <script src="nav-auto-hide.js" defer></script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    :root {
-      --container-pad: 24px;
-      --case-section-gap: 100px;
     }
 
     .container {
@@ -71,24 +67,10 @@
       color: #000000;
     }
 
-    body.devill-page nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-
     body.devill-page nav .brand {
       color: #000000;
       text-decoration: none;
       transition: filter 0.4s ease;
-    }
-
-    body.devill-page nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.75rem;
     }
 
     body.devill-page nav ul a {
@@ -115,6 +97,13 @@
       padding-bottom: 6rem;
     }
 
+    .devill-page .case-main {
+      padding-bottom: 0;
+    }
+
+    .devill-page .case-design-assets.case-block {
+      margin-bottom: 0;
+    }
 
     .case-reveal-block:not(.visible) .case-reveal-item {
       opacity: 0;
@@ -138,7 +127,7 @@
     .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
       margin-top: 0;
@@ -166,21 +155,6 @@
     .case-reveal-block.visible > .case-reveal-item:nth-child(2) { transition-delay: 0.12s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(3) { transition-delay: 0.2s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(4) { transition-delay: 0.28s; }
-    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(1) .devill-atmosphere-media-box.case-reveal-item {
-      transition-delay: 0.04s;
-    }
-
-    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(2) .devill-atmosphere-media-box.case-reveal-item {
-      transition-delay: 0.12s;
-    }
-
-    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(3) .devill-atmosphere-media-box.case-reveal-item {
-      transition-delay: 0.2s;
-    }
-
-    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(4) .devill-atmosphere-media-box.case-reveal-item {
-      transition-delay: 0.28s;
-    }
     .case-body {
       text-align: left;
       max-width: 52rem;
@@ -232,8 +206,8 @@
     .devill-page .case-about-block {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
-      row-gap: 24px;
+      column-gap: var(--grid-gutter);
+      row-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
     }
@@ -259,7 +233,7 @@
     .about-grid-container {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       align-items: start !important;
       width: 100% !important;
       margin-top: 0 !important;
@@ -297,8 +271,8 @@
     .devill-page .case-research-section.case-block {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
-      row-gap: 24px;
+      column-gap: var(--grid-gutter);
+      row-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
     }
@@ -312,7 +286,7 @@
     .devill-media-grid {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       width: 100% !important;
       box-sizing: border-box;
       margin-top: 80px !important;
@@ -333,7 +307,7 @@
     .case-devill-atmosphere-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      column-gap: 24px;
+      column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
     }
@@ -398,7 +372,7 @@
     .devill-embed-video {
       display: block;
       width: 100% !important;
-      max-width: calc((100% - 11 * 24px) * 7 / 12 + 6 * 24px);
+      max-width: calc((100% - 11 * var(--grid-gutter)) * 7 / 12 + 6 * var(--grid-gutter));
       height: auto !important;
       margin-left: auto;
       margin-right: auto;
@@ -444,7 +418,7 @@
     .research-grid {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       row-gap: 0 !important;
       align-items: start !important;
       width: 100% !important;
@@ -514,6 +488,11 @@
       column-gap: 0 !important;
     }
 
+    .case-design-assets > .case-reveal-block {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
     .case-styleguide {
       width: 100% !important;
       height: auto !important;
@@ -566,7 +545,7 @@
     .video-walkthrough-grid {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
+      column-gap: var(--grid-gutter) !important;
       row-gap: 0 !important;
       width: 100% !important;
       box-sizing: border-box;
@@ -585,7 +564,7 @@
       padding: 0 !important;
     }
 
-    /* Next link: directly under fullweb.mp4, normal scroll (no sticky) */
+    /* Next link: under fullweb; tight page end (typography.css adds large margin/padding) */
     .devill-page .video-walkthrough-grid .case-next-project {
       grid-column: 2 / 12 !important;
       width: 100% !important;
@@ -593,8 +572,9 @@
       top: auto !important;
       z-index: 1;
       box-sizing: border-box;
-      margin-top: clamp(4rem, 10vw, 7rem);
-      margin-bottom: 1.5rem;
+      margin-top: clamp(2rem, 5vw, 4rem) !important;
+      margin-bottom: 0 !important;
+      padding: 0 0 1.5rem !important;
     }
 
     .devill-page .video-walkthrough-grid .case-next-project__link {
@@ -783,8 +763,7 @@
       <a class="brand js-page-transition" href="index.html">Kamil Fogel</a>
       <ul>
         <li><a href="index.html#work">Work</a></li>
-        <li><a href="index.html">About</a></li>
-        <li><a href="index.html#playground">Playground</a></li>
+        <li><a href="index.html#site-bottom">About</a></li>
       </ul>
     </div>
   </nav>
@@ -797,7 +776,7 @@
           <div class="case-meta-row">
             <span class="case-meta-part">student project</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
-            <span class="case-meta-part">web design + branding</span>
+            <span class="case-meta-part">ux.ui, branding</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
             <span class="case-meta-part">6 weeks</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
@@ -844,14 +823,14 @@
 
       <section class="case-block case-reveal-block case-research-section" data-case-reveal aria-label="Research">
         <h2 class="case-subhead case-reveal-item devill-research-heading">research</h2>
-        <div class="research-grid case-reveal-item">
+        <div class="research-grid">
           <div class="research-stack">
-            <div class="research-left-col">
+            <div class="research-left-col case-reveal-item">
               <p class="research-intro-para">
                 My research focused on translating Cruella&apos;s physical and psychological traits into a structured design system. <span class="research-label">Narcissistic personality disorder, distinctive hair, extreme thinness, obsessive smoking, and chaotic driving</span> are all metaphors for her manic pursuit of the perfect coat, accompanied by an extreme worldview and a complete belief that her desires are more important than any moral or humane principle.
               </p>
             </div>
-            <div class="research-right-col">
+            <div class="research-right-col case-reveal-item">
               <p class="research-intro-para">
                 I used <span class="research-regular">AI-Generated Fashion</span> to create a high-fashion collection that incorporates real biological elements. The prompts were designed to explore the tension between luxury and visual discomfort. To showcase the collection, I created a series of fashion editorials set in a chaotic and melancholic environment—a visual metaphor for Cruella&apos;s internal world.
               </p>
@@ -861,12 +840,14 @@
       </section>
 
       <section
-        class="case-block case-reveal-block case-devill-atmosphere-grid"
-        data-case-reveal
+        class="case-block case-devill-atmosphere-grid"
         aria-label="Wolf, alligator, snake, and goose atmosphere videos"
       >
         <div class="devill-media-grid devill-media-grid--atmosphere-quad">
-          <div class="devill-video-span devill-video-span--atmosphere-cell">
+          <div
+            class="devill-video-span devill-video-span--atmosphere-cell case-reveal-block"
+            data-case-reveal
+          >
             <div class="devill-atmosphere-media-box case-reveal-item">
               <video
                 class="devill-embed-video"
@@ -880,7 +861,10 @@
               ></video>
             </div>
           </div>
-          <div class="devill-video-span devill-video-span--atmosphere-cell">
+          <div
+            class="devill-video-span devill-video-span--atmosphere-cell case-reveal-block"
+            data-case-reveal
+          >
             <div class="devill-atmosphere-media-box case-reveal-item">
               <video
                 class="devill-embed-video devill-atmosphere-ref"
@@ -894,7 +878,10 @@
               ></video>
             </div>
           </div>
-          <div class="devill-video-span devill-video-span--atmosphere-cell">
+          <div
+            class="devill-video-span devill-video-span--atmosphere-cell case-reveal-block"
+            data-case-reveal
+          >
             <div class="devill-atmosphere-media-box case-reveal-item">
               <video
                 class="devill-embed-video"
@@ -908,7 +895,10 @@
               ></video>
             </div>
           </div>
-          <div class="devill-video-span devill-video-span--atmosphere-cell">
+          <div
+            class="devill-video-span devill-video-span--atmosphere-cell case-reveal-block"
+            data-case-reveal
+          >
             <div class="devill-atmosphere-media-box case-reveal-item">
               <video
                 class="devill-embed-video"
@@ -925,64 +915,72 @@
         </div>
       </section>
 
-      <section class="case-block case-reveal-block case-design-assets" data-case-reveal>
-        <img
-          class="case-userflow case-reveal-item"
-          src="devillproject/userflow.png"
-          alt="House of de Vill user flow"
-          loading="lazy"
-        />
-        <img
-          class="case-styleguide case-reveal-item"
-          src="devillproject/styleguide.png"
-          alt="House of de Vill design system"
-          loading="lazy"
-        />
-        <div class="case-allanimals-packages-stack">
-          <div class="case-allanimals-video-wrap">
-            <video
-              class="case-allanimals-video case-reveal-item"
-              src="devillproject/allanimals.mp4"
-              autoplay
-              loop
-              muted
-              playsinline
-              webkit-playsinline
-              preload="metadata"
-              aria-label="House of de Vill — all animals motion study"
-            ></video>
-          </div>
-          <div class="case-packages-image-wrap case-reveal-item">
-            <img
-              class="case-devill-packages"
-              src="devillproject/packages.png"
-              alt="House of de Vill — packages"
-              loading="lazy"
-            />
-          </div>
+      <section class="case-block case-design-assets">
+        <div class="case-reveal-block" data-case-reveal>
+          <img
+            class="case-userflow case-reveal-item"
+            src="devillproject/userflow.png"
+            alt="House of de Vill user flow"
+            loading="lazy"
+          />
         </div>
-        <div class="video-walkthrough-grid">
-          <div class="video-walkthrough-wrapper is-paused case-reveal-item">
-            <video
-              class="video-walkthrough-embed"
-              src="devillproject/fullweb.mp4"
-              controls
-              playsinline
-              preload="metadata"
-              aria-label="House of de Vill — full site navigation walkthrough"
-            ></video>
-            <div class="video-walkthrough-overlay">
-              <div class="video-walkthrough-overlay-inner">
-                <button type="button" class="video-walkthrough-play-btn" aria-label="Play walkthrough video">
-                  <span class="video-walkthrough-play-icon" aria-hidden="true"></span>
-                </button>
-                <p class="video-walkthrough-label">full website</p>
-              </div>
+        <div class="case-reveal-block" data-case-reveal>
+          <img
+            class="case-styleguide case-reveal-item"
+            src="devillproject/styleguide.png"
+            alt="House of de Vill design system"
+            loading="lazy"
+          />
+        </div>
+        <div class="case-reveal-block" data-case-reveal>
+          <div class="case-allanimals-packages-stack">
+            <div class="case-allanimals-video-wrap">
+              <video
+                class="case-allanimals-video case-reveal-item"
+                src="devillproject/allanimals.mp4"
+                autoplay
+                loop
+                muted
+                playsinline
+                webkit-playsinline
+                preload="metadata"
+                aria-label="House of de Vill — all animals motion study"
+              ></video>
+            </div>
+            <div class="case-packages-image-wrap case-reveal-item">
+              <img
+                class="case-devill-packages"
+                src="devillproject/packages.png"
+                alt="House of de Vill — packages"
+                loading="lazy"
+              />
             </div>
           </div>
-          <nav class="case-next-project" aria-label="Next project">
-            <a href="now.html" class="case-next-project__link js-page-transition">Next project</a>
-          </nav>
+        </div>
+        <div class="case-reveal-block" data-case-reveal>
+          <div class="video-walkthrough-grid">
+            <div class="video-walkthrough-wrapper is-paused case-reveal-item">
+              <video
+                class="video-walkthrough-embed"
+                src="devillproject/fullweb.mp4"
+                controls
+                playsinline
+                preload="metadata"
+                aria-label="House of de Vill — full site navigation walkthrough"
+              ></video>
+              <div class="video-walkthrough-overlay">
+                <div class="video-walkthrough-overlay-inner">
+                  <button type="button" class="video-walkthrough-play-btn" aria-label="Play walkthrough video">
+                    <span class="video-walkthrough-play-icon" aria-hidden="true"></span>
+                  </button>
+                  <p class="video-walkthrough-label">full website</p>
+                </div>
+              </div>
+            </div>
+            <nav class="case-next-project case-reveal-item" aria-label="Next project">
+              <a href="now.html" class="case-next-project__link js-page-transition">Next project</a>
+            </nav>
+          </div>
         </div>
       </section>
     </div>

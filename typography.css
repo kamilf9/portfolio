@@ -3,13 +3,39 @@
  * Requires: Instrument Serif (italic), Roboto 300 & 400.
  */
 
-/* —— L1: Case study hero titles — Instrument Serif Italic 96px —— */
+/* —— Global layout tokens (shared: home + case studies). Use var(--grid-gutter) in page grids. —— */
+:root {
+  --container-pad: clamp(20px, 2.2vw, 24px);
+  --grid-gutter: clamp(16px, 2vw, 24px);
+  --case-section-gap: 100px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --grid-gutter: clamp(12px, 1.85vw, 20px);
+    --case-section-gap: clamp(72px, 9vw, 96px);
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --container-pad: 20px;
+    --grid-gutter: 16px;
+    --case-section-gap: clamp(48px, 10vw, 64px);
+  }
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* —— L1: Case study hero titles — fluid up to 96px —— */
 .case-hero-title,
 .case-health-hero-title {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 96px;
+  font-size: clamp(2.75rem, 4.8vw + 1.5rem, 96px);
   line-height: 1.08;
   color: #000000;
   text-rendering: optimizeLegibility;
@@ -62,6 +88,86 @@ nav .brand {
   text-transform: none;
 }
 
+/*
+ * Primary site nav: full-width bar, same side padding as `.container` (--container-pad).
+ * Optional cap: set --site-grid-max-width on :root to match a global content max-width.
+ * Brand (left) ↔ links (right): space-between; Work / About: fixed gap, never wrap.
+ */
+nav:not(.case-next-project) .container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(12px, 3vw, 24px);
+  width: 100%;
+  max-width: var(--site-grid-max-width, none);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding-left: var(--container-pad, 24px);
+  padding-right: var(--container-pad, 24px);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+nav:not(.case-next-project) .brand {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+nav:not(.case-next-project) .container > ul {
+  flex: 0 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+nav:not(.case-next-project) .container > ul > li {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+nav:not(.case-next-project) .container > ul > li > a {
+  white-space: nowrap;
+}
+
+/* Top strip: reveals scroll-hidden nav on hover (below nav z-index; hits pass through nav when pointer-events: none) */
+.site-nav-hover-zone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 4999;
+  pointer-events: auto;
+  background: transparent;
+}
+
+body.case-page .site-nav-hover-zone {
+  z-index: 9999;
+}
+
+/* Primary nav auto-hide (scroll) — home + case studies */
+nav.site-header,
+body.case-page > nav:not(.case-next-project) {
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+nav.site-header.is-header-hidden,
+body.case-page > nav:not(.case-next-project).is-header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
 .site-contact__label {
   text-transform: none;
 }
@@ -98,7 +204,7 @@ nav .brand {
 }
 
 .case-main .case-meta-row {
-  gap: 12px 16px;
+  gap: 12px var(--grid-gutter, 16px);
 }
 
 /* Uniform rhythm: title (L1 margin-bottom 12px) → metadata (L4) → external link (L3) */
@@ -162,6 +268,13 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: #000000;
+  overflow-x: hidden;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 .case-body,
@@ -227,7 +340,7 @@ body {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 96px;
+  font-size: clamp(2.5rem, 5vw + 1.5rem, 96px);
   line-height: 1.08;
   color: #000000;
   text-decoration: none;
@@ -249,24 +362,95 @@ body {
   outline-offset: 10px;
 }
 
-@media (max-width: 900px) {
-  .case-hero-title,
-  .case-health-hero-title {
-    font-size: clamp(2.5rem, 12vw, 96px);
+/* Tablet / small laptop: ~20% smaller type to reduce overlap */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .case-subhead,
+  .case-now-ds-item .case-subhead,
+  .case-now-cs-stack--vertical .case-now-cs-style3-heading {
+    font-size: 16px;
+  }
+
+  .case-body,
+  .case-now-research-copy,
+  .case-now-cs-stack--vertical .case-now-cs-challenge-body,
+  .case-now-cs-stack--vertical .case-now-cs-solution-body,
+  .case-meta-part,
+  .case-prototype-link,
+  .site-contact__line,
+  .project-card__caption-type {
+    font-size: 13px;
+  }
+
+  nav,
+  nav .brand,
+  nav ul a,
+  nav:not(.case-next-project) .container > ul > li > a,
+  .project-card__caption-name,
+  .project-card__caption-sep,
+  .site-contact__label {
+    font-size: 13px;
   }
 
   .case-hero-title,
   .case-health-hero-title {
-    padding: 64px 0 0;
+    font-size: clamp(2.5rem, 4vw + 1.25rem, 77px);
+  }
+
+  .case-next-project__link {
+    font-size: clamp(2.25rem, 4.5vw + 1rem, 77px);
+  }
+}
+
+/* Mobile: single-column case grids, tighter hero, compact nav */
+@media (max-width: 767px) {
+  .case-hero-title,
+  .case-health-hero-title {
+    font-size: clamp(2.25rem, 9vw, 5rem);
+    padding: 48px 0 0;
     margin-bottom: 12px;
   }
 
   .case-next-project {
-    margin-top: clamp(4rem, 12vw, 10rem);
-    padding-bottom: 5rem;
+    margin-top: clamp(3rem, 10vw, 8rem);
+    padding-bottom: clamp(2.5rem, 8vw, 4rem);
   }
 
   .case-next-project__link {
-    font-size: clamp(2.5rem, 12vw, 96px);
+    font-size: clamp(2.25rem, 9vw, 5rem);
+  }
+
+  nav:not(.case-next-project) .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  nav:not(.case-next-project) .container > ul {
+    gap: 24px;
+  }
+
+  nav,
+  nav .brand,
+  nav:not(.case-next-project) .container > ul > li > a {
+    font-size: 14px;
+  }
+
+  /* Collapse 12-col-style grids inside case studies to one column */
+  .case-page .case-main *[class*='grid'],
+  .case-page .case-main *[class*='-stack'],
+  .case-page .case-main .metgala-mosaic,
+  .case-page .case-main .case-health-triptych,
+  .case-page .case-main .screens-mosaic,
+  .case-page .case-main .case-hero-meta-shell {
+    grid-template-columns: 1fr !important;
+    column-gap: var(--grid-gutter) !important;
+  }
+
+  .case-page .case-main *[class*='grid'] > *,
+  .case-page .case-main *[class*='-stack'] > *,
+  .case-page .case-main .metgala-mosaic > *,
+  .case-page .case-main .case-health-triptych > *,
+  .case-page .case-main .screens-mosaic > *,
+  .case-page .case-main .case-hero-meta-shell > * {
+    grid-column: 1 / -1 !important;
   }
 }
