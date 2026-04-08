@@ -152,7 +152,7 @@
       box-sizing: border-box;
     }
 
-    /* Hero visuals: full package, 6-col poster2, full opening */
+    /* Hero visuals: 10-col package, 4-col poster2, full opening */
     .scnd-hero-visuals {
       margin-top: 60px;
     }
@@ -177,6 +177,11 @@
       min-width: 0;
     }
 
+    /* Central 10 columns (2–12) */
+    .scnd-figure--10 {
+      grid-column: 2 / 12;
+    }
+
     /* Central 8 columns (3–10) */
     .scnd-figure--8 {
       grid-column: 3 / 11;
@@ -185,6 +190,11 @@
     /* Central 6 columns (4–9) */
     .scnd-figure--6 {
       grid-column: 4 / 10;
+    }
+
+    /* Central 4 columns (5–9) */
+    .scnd-figure--4 {
+      grid-column: 5 / 9;
     }
 
     /* Full 12-column width */
@@ -224,7 +234,7 @@
       object-position: center;
     }
 
-    .scnd-hero-visuals .scnd-visuals-grid > .scnd-figure--full:first-child img {
+    .scnd-hero-visuals .scnd-visuals-grid > .scnd-figure--10:first-child img {
       object-position: center;
     }
 
@@ -307,6 +317,29 @@
       grid-column: 2 / 12;
       min-width: 0;
       text-align: center;
+    }
+
+    /* About + why: 6 cols centered (4–10), heading + body left-aligned */
+    .scnd-page .scnd-content-band--six-col {
+      grid-column: 4 / 10;
+      min-width: 0;
+      text-align: left;
+    }
+
+    /* Beat main .case-body + global .case-subhead center rules */
+    .scnd-page main .scnd-content-section .scnd-content-band--six-col > .case-subhead {
+      text-align: left;
+    }
+
+    .scnd-page main .scnd-content-section .scnd-content-band--six-col > .case-body {
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+    }
+
+    .scnd-page main .scnd-content-section--about .scnd-content-band--six-col > .case-body {
+      font-size: 20px;
     }
 
     .scnd-page .scnd-content-section .scnd-content-band > .case-subhead {
@@ -417,8 +450,10 @@
         grid-column: 1 / -1;
       }
 
+      .scnd-figure--10,
       .scnd-figure--8,
-      .scnd-figure--6 {
+      .scnd-figure--6,
+      .scnd-figure--4 {
         grid-column: 1 / -1;
       }
 
@@ -445,6 +480,10 @@
         flex: none;
         width: 100%;
         max-width: 36rem;
+      }
+
+      .scnd-page .scnd-content-section .scnd-content-band--six-col {
+        grid-column: 1 / -1 !important;
       }
     }
   </style>
@@ -500,14 +539,14 @@
         data-aos-once="true"
       >
         <div class="scnd-visuals-grid">
-          <figure class="scnd-figure scnd-figure--full">
+          <figure class="scnd-figure scnd-figure--10">
             <img
               src="/scndproject/package.png"
               alt="SCND — package"
               loading="eager"
             />
           </figure>
-          <figure class="scnd-figure scnd-figure--6">
+          <figure class="scnd-figure scnd-figure--4">
             <img
               src="/scndproject/poster2.png"
               alt="SCND — poster 2"
@@ -525,14 +564,14 @@
       </section>
 
       <section
-        class="case-block scnd-content-section"
+        class="case-block scnd-content-section scnd-content-section--about"
         aria-label="About"
         data-aos="fade-up"
         data-aos-duration="900"
         data-aos-once="true"
       >
         <div class="scnd-content-shell">
-          <div class="scnd-content-band">
+          <div class="scnd-content-band scnd-content-band--six-col">
             <h2 class="case-subhead">about</h2>
             <p class="case-body">
               SCND is a groundbreaking fashion brand based on 3D printing technology. Unlike the common use of this technology for creating avant-garde and unwearable runway pieces, SCND makes technological innovation accessible and wearable for everyday life. The brand offers meticulous, clean, and timeless Ready-to-wear fashion, combining digital precision with high aesthetics.
@@ -549,7 +588,7 @@
         data-aos-once="true"
       >
         <div class="scnd-content-shell">
-          <div class="scnd-content-band">
+          <div class="scnd-content-band scnd-content-band--six-col">
             <h2 class="case-subhead">why</h2>
             <p class="case-body">
               The core problem in the traditional fashion industry is the consumer&apos;s need to adapt to generic sizes (S, M, L), which leads to discomfort, negative body image, and a waste of resources (overproduction and waste). At SCND, we flip the equation: instead of you adapting to the garment, we adapt the garment precisely to your measurements. The goal is to leverage the benefits of digital manufacturing&mdash;minimal waste and maximum body compatibility&mdash;to create more personal, sustainable, and accurate fashion.

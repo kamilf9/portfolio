@@ -115,8 +115,16 @@
       padding-bottom: 6rem;
     }
 
+    .balanced-page .case-main {
+      padding-bottom: 0;
+    }
+
     .case-block {
       margin-bottom: var(--case-section-gap);
+    }
+
+    .balanced-page .case-block.balanced-video-section {
+      margin-bottom: 0;
     }
 
     .case-block.case-hero-intro {
@@ -196,7 +204,7 @@
       border-radius: 0;
     }
 
-    .case-balanced-figure--opening + .case-balanced-figure {
+    .case-balanced-visuals-grid > .case-balanced-figure + .case-balanced-figure {
       margin-top: 120px;
     }
 
@@ -228,6 +236,29 @@
       text-align: center;
     }
 
+    /* About + research: 6 cols centered (4–10), heading + body left-aligned */
+    .balanced-page .balanced-content-band--six-col {
+      grid-column: 4 / 10;
+      min-width: 0;
+      text-align: left;
+    }
+
+    /* Beat main .case-body + global .case-subhead center rules */
+    .balanced-page main .balanced-content-section .balanced-content-band--six-col > .case-subhead {
+      text-align: left;
+    }
+
+    .balanced-page main .balanced-content-section .balanced-content-band--six-col > .case-body {
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+    }
+
+    .balanced-page main .balanced-content-section--about .balanced-content-band--six-col > .case-body {
+      font-size: 20px;
+    }
+
     .balanced-page .balanced-content-section > .case-subhead {
       margin-bottom: 16px;
     }
@@ -243,7 +274,34 @@
       margin-top: 1.25rem;
     }
 
-    /* Problem/Solution block: 12-col shell; add.png in central 8 cols (3–10) */
+    /*
+      Research: social graphic — visually centered on the page (flex), not locked to grid lines.
+      ~3-col max width matches previous scale (3 tracks + 2 gutters in this shell’s 12-col math).
+    */
+    .balanced-page .balanced-content-shell > .balanced-research-social-figure {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+      margin: 48px 0 0;
+      padding: 0;
+      border: none;
+      line-height: 0;
+      overflow: hidden;
+      border-radius: 0;
+    }
+
+    .balanced-page .balanced-content-shell > .balanced-research-social-figure img {
+      width: auto;
+      max-width: min(100%, calc((100% - 11 * 24px) / 12 * 3 + 2 * 24px));
+      height: auto;
+      display: block;
+      object-fit: contain;
+      border-radius: 0;
+    }
+
+    /* Problem/Solution block: 12-col shell */
     .balanced-ps-block {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -254,8 +312,7 @@
 
     .balanced-ps-block > .balanced-ps-grid {
       grid-column: 1 / -1;
-      /* Match devill / balanced visual rhythm: clear separation from add.png above */
-      margin-top: 120px;
+      margin-top: 0;
     }
 
     /*
@@ -276,8 +333,8 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      align-items: flex-start;
+      text-align: left;
     }
 
     .balanced-ps-solution {
@@ -285,42 +342,19 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
+      align-items: flex-start;
+      text-align: left;
     }
 
-    /* add.png: columns 3–10 (inset 2 cols each side), centered in band */
-    .balanced-ps-block > .balanced-ps-illus {
-      grid-column: 3 / 11;
-      min-width: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      padding: 0;
-      border: none;
-      line-height: 0;
-      border-radius: 0;
-      overflow: hidden;
-    }
-
-    .balanced-ps-block > .balanced-ps-illus img {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-      border-radius: 0;
-    }
-
-    .balanced-ps-problem > .case-subhead,
-    .balanced-ps-solution > .case-subhead {
+    .balanced-page main .balanced-ps-problem > .case-subhead,
+    .balanced-page main .balanced-ps-solution > .case-subhead {
       margin-bottom: 16px;
+      text-align: left;
     }
 
-    .balanced-ps-problem .case-body,
-    .balanced-ps-solution .case-body {
-      text-align: center;
+    .balanced-page main .balanced-ps-problem .case-body,
+    .balanced-page main .balanced-ps-solution .case-body {
+      text-align: left;
       width: 100%;
       max-width: 100%;
       margin-left: 0;
@@ -343,47 +377,28 @@
       user-select: none;
     }
 
-    /* L2 — USERFLOW, between Problem/Solution row and diagram */
-    .balanced-ps-block > .balanced-userflow-heading {
-      grid-column: 1 / -1;
-      margin-top: 80px;
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    /* userflow.png: full 12-col track inside container (24px gutters via .container) */
-    .balanced-ps-block > .balanced-ps-userflow {
-      grid-column: 1 / -1;
-      min-width: 0;
-      margin: 0;
-      padding: 0;
-      border: none;
-      line-height: 0;
-      overflow: hidden;
-      border-radius: 0;
-    }
-
-    .balanced-ps-block > .balanced-ps-userflow img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-      border-radius: 0;
-    }
-
-    /* designsystem.png: full 12-col row in shell; spacing below L4 copy in band */
+    /*
+      userflow + design system images: full grid width (bleed cancels .container pad).
+      Stacked flush in .balanced-content-shell.
+    */
+    .balanced-page .balanced-content-shell > .balanced-ps-userflow,
     .balanced-page .balanced-content-shell > .balanced-design-system-figure {
       grid-column: 1 / -1;
       min-width: 0;
-      width: 100%;
-      margin: 120px 0 0;
+      width: calc(100% + 2 * var(--container-pad));
+      max-width: none;
+      margin: 0;
+      margin-left: calc(-1 * var(--container-pad));
+      margin-right: calc(-1 * var(--container-pad));
       padding: 0;
       border: none;
       line-height: 0;
       overflow: hidden;
       border-radius: 0;
+      box-sizing: border-box;
     }
 
+    .balanced-page .balanced-content-shell > .balanced-ps-userflow img,
     .balanced-page .balanced-content-shell > .balanced-design-system-figure img {
       width: 100%;
       height: auto;
@@ -417,6 +432,11 @@
       position: relative;
       width: 100%;
       margin-top: clamp(2rem, 5vw, 4rem) !important;
+      margin-bottom: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+      padding-bottom: 1.5rem !important;
       flex-shrink: 0;
     }
 
@@ -459,19 +479,18 @@
       top: 50%;
       transform: translate(-50%, -50%);
       margin: 0;
-      padding: 1rem 1.35rem;
-      min-width: 11rem;
+      padding: 0;
+      width: 4.5rem;
+      height: 4.5rem;
+      min-width: 0;
       border: none;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.16);
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.18);
       cursor: pointer;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.25;
-      letter-spacing: 0.04em;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #000000;
       transition:
         transform 0.25s ease,
@@ -482,10 +501,14 @@
       z-index: 2;
     }
 
+    .balanced-fullapp-play__icon {
+      display: block;
+      margin-left: 3px;
+    }
+
     .balanced-fullapp-play:hover {
-      transform: translate(-50%, -50%) scale(1.1);
-      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.22);
-      background: rgba(255, 255, 255, 0.98);
+      transform: translate(-50%, -50%) scale(1.08);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.24);
     }
 
     .balanced-fullapp-play:focus-visible {
@@ -512,7 +535,7 @@
 
       .balanced-page .balanced-fullapp-cell {
         grid-column: 1 / -1 !important;
-        margin-bottom: 120px !important;
+        margin-bottom: 0 !important;
       }
 
       .balanced-page .balanced-ps-grid {
@@ -609,10 +632,11 @@
             data-aos="fade-up"
             data-aos-duration="900"
             data-aos-once="true"
+            aria-label="Balanced — product screens"
           >
             <img
-              src="balancedproject/calender.png"
-              alt="Balanced — calendar"
+              src="balancedproject/screens.png"
+              alt="Balanced — screens"
               loading="lazy"
             />
           </figure>
@@ -620,17 +644,17 @@
       </section>
 
       <section
-        class="case-block balanced-content-section"
+        class="case-block balanced-content-section balanced-content-section--about"
         aria-label="About"
         data-aos="fade-up"
         data-aos-duration="900"
         data-aos-once="true"
       >
         <div class="balanced-content-shell">
-          <div class="balanced-content-band">
+          <div class="balanced-content-band balanced-content-band--six-col">
             <h2 class="case-subhead">about</h2>
             <p class="case-body">
-              Balanced is a smart work-calendar tool designed for independent fitness professionals. It bridges the gap between standard appointment calendars and invoicing, providing full automation for monthly salary calculations. The project was born out of personal necessity: reconciling scattered shifts, different employers, and variable rates without repeating the same spreadsheet work every month.
+              Balanced is a smart work-calendar tool designed for independent fitness professionals. It bridges the gap between standard calendars and invoicing, providing full automation for monthly salary calculations. The project was born out of personal necessity while I worked as a Pilates instructor throughout my degree studies, designed and developed by me using Figma and Cursor.
             </p>
           </div>
         </div>
@@ -644,12 +668,22 @@
         data-aos-once="true"
       >
         <div class="balanced-content-shell">
-          <div class="balanced-content-band">
+          <div class="balanced-content-band balanced-content-band--six-col">
             <h2 class="case-subhead">research</h2>
             <p class="case-body">
               I mapped out the existing market to understand why current solutions fall short for my colleagues and me. While Generic Calendars (Google/Apple) are excellent for time management, they lack a financial data layer and cannot perform &ldquo;hours x rate&rdquo; manipulations. On the other hand, Invoicing Software (Morning/Green Invoice) focuses only on the end of the process—document production—without helping the user calculate how much money they should actually demand, leaving the cross-referencing manual and tedious. The &ldquo;pain&rdquo; for trainers in Israel is not in managing the calendar itself, but in the wasted time and human errors created by the need to manually bridge the gap between their schedule and their bank account at the end of every month.
             </p>
           </div>
+          <figure
+            class="balanced-research-social-figure"
+            aria-label="Balanced — research"
+          >
+            <img
+              src="balancedproject/social.png"
+              alt="Balanced — research"
+              loading="lazy"
+            />
+          </figure>
         </div>
       </section>
 
@@ -660,13 +694,6 @@
         data-aos-duration="900"
         data-aos-once="true"
       >
-        <figure class="balanced-ps-illus">
-          <img
-            src="balancedproject/add.png"
-            alt=""
-            loading="lazy"
-          />
-        </figure>
         <div class="balanced-ps-grid">
           <div class="balanced-ps-problem">
             <h2 class="case-subhead">the problem</h2>
@@ -682,30 +709,23 @@
             </p>
           </div>
         </div>
-        <h2 class="case-subhead balanced-userflow-heading">userflow</h2>
-        <figure class="balanced-ps-userflow" aria-label="User flow">
-          <img
-            src="balancedproject/userflow.png"
-            alt="Balanced — user flow"
-            loading="lazy"
-          />
-        </figure>
       </section>
 
       <section
         class="case-block balanced-content-section"
-        aria-label="Design system"
+        aria-label="User flow and design system"
         data-aos="fade-up"
         data-aos-duration="900"
         data-aos-once="true"
       >
         <div class="balanced-content-shell">
-          <div class="balanced-content-band">
-            <h2 class="case-subhead">design system</h2>
-            <p class="case-body">
-              The design language is minimalist, calming, and functional: generous white space, restrained typography, and clear hierarchy so financial clarity feels approachable. Color and motion are used sparingly to signal status and completion without adding noise.
-            </p>
-          </div>
+          <figure class="balanced-ps-userflow" aria-label="User flow">
+            <img
+              src="balancedproject/userflow.png"
+              alt="Balanced — user flow"
+              loading="lazy"
+            />
+          </figure>
           <figure class="balanced-design-system-figure" aria-label="Design system">
             <img
               src="balancedproject/designsystem.png"
@@ -737,8 +757,17 @@
                 tabindex="0"
                 aria-label="Balanced — full project walkthrough. Press Space to play or pause."
               ></video>
-              <button type="button" class="balanced-fullapp-play" aria-label="Watch full project video">
-                WATCH FULL PROJECT
+              <button type="button" class="balanced-fullapp-play" aria-label="Play full project video">
+                <svg
+                  class="balanced-fullapp-play__icon"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path fill="currentColor" d="M8 5v14l11-7z" />
+                </svg>
               </button>
             </div>
             <nav class="case-next-project" aria-label="Next project">

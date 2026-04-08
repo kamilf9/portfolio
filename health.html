@@ -19,7 +19,6 @@
     :root {
       --container-pad: 24px;
       --case-section-gap: 100px;
-      --case-health-centered-band: 600px;
     }
 
     .container {
@@ -116,6 +115,11 @@
       padding-bottom: 6rem;
     }
 
+    /* Tight footer: only one line of space below Next project (no extra tail) */
+    .health-page .case-main {
+      padding-bottom: 0;
+    }
+
     .case-reveal-block:not(.visible) .case-reveal-item {
       opacity: 0;
       transform: translate3d(0, 48px, 0);
@@ -179,31 +183,62 @@
       margin-bottom: var(--case-section-gap);
     }
 
-    /* Centered L2 + L4 text; 80px between About / Concept / Art direction; image grid uses own top margin */
+    .health-page .case-block.case-health-copy-block {
+      margin-bottom: 0;
+    }
+
+    /*
+      12-col shell: About / Concept / Art direction = 6 cols centered (4–10), L4 left;
+      About body Roboto 20px. Triptych + final video span full grid width.
+    */
     .case-health-copy-stack {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      text-align: center;
+    }
+
+    .case-health-copy-stack > .case-health-text-section {
+      grid-column: 4 / 10;
+      min-width: 0;
+      text-align: left;
     }
 
     .case-health-text-section + .case-health-text-section {
       margin-top: 80px;
     }
 
-    .case-health-text-section .case-subhead {
-      text-align: center !important;
+    .case-health-copy-stack > .case-health-text-section .case-subhead {
+      text-align: left !important;
       margin-top: 0 !important;
       margin-bottom: 30px !important;
     }
 
-    .case-health-text-section .case-body {
-      text-align: center !important;
-      max-width: var(--case-health-centered-band) !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+    .case-health-copy-stack > .case-health-text-section .case-body {
+      text-align: left !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      width: 100%;
+    }
+
+    .case-health-copy-stack > .case-health-text-section--about .case-body {
+      font-size: 20px;
+    }
+
+    /* House / fire 2×2 grid — 10 cols centered (lines 2–12) */
+    .case-health-copy-stack > .case-health-triptych {
+      grid-column: 2 / 12;
+      min-width: 0;
+      justify-self: stretch;
+    }
+
+    .case-health-copy-stack > .case-health-final-video-grid {
+      grid-column: 1 / -1;
     }
 
     /* Cols 2–11: same inset as NOW screens / user flow */
@@ -277,7 +312,7 @@
       width: 100% !important;
       box-sizing: border-box;
       margin-top: 120px !important;
-      margin-bottom: 150px !important;
+      margin-bottom: 0 !important;
       margin-left: 0 !important;
       margin-right: 0 !important;
       padding: 0 !important;
@@ -301,6 +336,11 @@
       position: relative;
       width: 100%;
       margin-top: clamp(2rem, 5vw, 4rem) !important;
+      margin-bottom: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 0 !important;
+      padding-bottom: 1.5rem !important;
       box-sizing: border-box;
     }
 
@@ -341,31 +381,42 @@
       pointer-events: none;
     }
 
-    .case-health-final-video-grid .video-walkthrough-overlay-inner {
-      width: auto;
-      min-width: 240px;
-      max-width: min(90%, 420px);
-      min-height: 50px;
-      box-sizing: border-box;
+    /* Classic play-in-white-circle (same pattern as balanced full-app video) */
+    .case-health-final-play {
+      margin: 0;
+      padding: 0;
+      width: 4.5rem;
+      height: 4.5rem;
+      min-width: 0;
+      border: none;
+      border-radius: 50%;
       background: #ffffff;
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 12px 20px;
+      color: #000000;
+      flex-shrink: 0;
       pointer-events: auto;
-      cursor: pointer;
-      transform-origin: center center;
-      transition: transform 0.3s ease-in-out;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
-    .case-health-final-video-grid .video-walkthrough-wrapper.is-paused:hover .video-walkthrough-overlay-inner {
-      transform: scale(1.05);
+    .case-health-final-play__icon {
+      display: block;
+      margin-left: 3px;
     }
 
-    .case-health-final-video-grid .video-walkthrough-overlay-inner .case-subhead {
-      margin: 0 !important;
-      text-align: center !important;
-      line-height: 1.25 !important;
+    .case-health-final-video-grid .video-walkthrough-wrapper.is-paused .case-health-final-play:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.24);
+    }
+
+    .case-health-final-play:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
     }
 
     @media (max-width: 900px) {
@@ -377,8 +428,8 @@
         grid-column: 1 / -1 !important;
       }
 
-      .case-health-text-section .case-body {
-        max-width: 100% !important;
+      .case-health-copy-stack > .case-health-text-section {
+        grid-column: 1 / -1;
       }
 
       .case-health-final-video-grid .video-walkthrough-wrapper {
@@ -463,7 +514,7 @@
 
       <section class="case-block case-health-copy-block" aria-label="About, concept, art direction, and image grid">
         <div class="case-health-copy-stack">
-          <div class="case-health-text-section">
+          <div class="case-health-text-section case-health-text-section--about">
             <h2
               class="case-subhead"
               data-aos="fade-up"
@@ -574,10 +625,19 @@
                 preload="metadata"
                 aria-label="Health Cigarette — final title sequence"
               ></video>
-              <div class="video-walkthrough-overlay" aria-hidden="true">
-                <div class="video-walkthrough-overlay-inner">
-                  <span class="case-subhead">WATCH FINAL VIDEO</span>
-                </div>
+              <div class="video-walkthrough-overlay">
+                <button type="button" class="case-health-final-play" aria-label="Play final title sequence video">
+                  <svg
+                    class="case-health-final-play__icon"
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path fill="currentColor" d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
               </div>
             </div>
             <nav class="case-next-project" aria-label="Next project">

@@ -116,6 +116,11 @@
       padding-bottom: 6rem;
     }
 
+    /* Tight footer: ~one line after “Next project” (matches devill final video section) */
+    .now-page .case-main {
+      padding-bottom: 1.75rem !important;
+    }
+
     .case-reveal-block:not(.visible) .case-reveal-item {
       opacity: 0;
       transform: translate3d(0, 48px, 0);
@@ -233,54 +238,60 @@
       margin-bottom: var(--case-section-gap);
     }
 
-    /* Center axis: block + auto margins + fixed max width (avoids asymmetric 12-col band) */
+    /* 12-col band: copy + headings share cols 4–10 (6 columns centered); titles align with text start */
     .case-now-about-stack {
-      display: block !important;
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 24px !important;
+      row-gap: 24px !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
-      margin: 100px auto 0 !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      margin: 100px 0 0 !important;
       padding: 0 !important;
-      text-align: center !important;
       float: none !important;
+      text-align: left !important;
     }
 
     .case-now-about-stack .case-subhead {
-      display: block !important;
+      grid-column: 4 / 10 !important;
+      justify-self: stretch !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 0 auto !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
-      padding-left: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
     }
 
     .case-now-about-stack .case-body {
-      display: block !important;
+      grid-column: 4 / 10 !important;
+      justify-self: stretch !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 24px auto 0 !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #000000;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* L3 lead inline with L4 body — one paragraph, no break */
+    /* L3 lead inline with body — same 20px band, weight contrast */
     .case-now-about-stack .case-now-about-lead {
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
-      font-size: 16px;
-      line-height: 1.4;
+      font-size: 20px;
+      line-height: 1.5;
       color: #000000;
+      text-align: left !important;
     }
 
     .case-body {
@@ -291,27 +302,28 @@
       margin-bottom: 0 !important;
     }
 
-    /* Header → copy → image; same center axis + band width as About */
+    /* Same 6-col band as About; figure under copy */
     .case-now-research-stack {
-      display: block !important;
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 24px !important;
+      row-gap: 24px !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
-      margin: 100px auto 0 !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      margin: 100px 0 0 !important;
       padding: 0 !important;
-      text-align: center !important;
       float: none !important;
+      text-align: left !important;
     }
 
     .case-now-research-figure-wrap {
+      grid-column: 4 / 10 !important;
+      justify-self: stretch !important;
       display: block !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 60px auto 0 !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 36px 0 0 !important;
       padding: 0 !important;
       box-sizing: border-box;
       line-height: 0;
@@ -323,34 +335,32 @@
       width: 100% !important;
       height: auto !important;
       display: block !important;
-      margin: 0 auto !important;
+      margin: 0 !important;
       padding: 0 !important;
       float: none !important;
     }
 
     .case-now-research-stack .case-subhead {
-      display: block !important;
+      grid-column: 4 / 10 !important;
+      justify-self: stretch !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 0 auto !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
-      padding-left: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
     }
 
-    .case-now-research-stack .case-now-research-copy {
-      display: block !important;
+    .case-now-research-stack .case-now-research-copy,
+    .case-now-research-stack .case-body.case-now-research-copy {
+      grid-column: 4 / 10 !important;
+      justify-self: stretch !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 24px auto 0 !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
     }
@@ -362,68 +372,78 @@
       padding: 0 !important;
     }
 
-    .case-now-ds-userflow + .case-now-cs-after-flow {
+    .case-now-ds-showcase-block > .case-now-cs-after-flow {
+      margin-top: 120px !important;
+    }
+
+    .case-now-cs-after-flow + .case-now-ds-userflow {
       margin-top: 100px !important;
     }
 
-    /* Challenge / solution: 12-col grid; solution title + body span cols 4–9 (6 tracks) */
+    /*
+      Challenge | → | Solution: two 4-col bands (cols 2–5 and 7–10), arrow col 6, row-aligned titles + bodies, all text left.
+      Nudge ~½ column right as one unit for optical center (12-col / 24px rhythm).
+    */
     .case-now-cs-stack.case-now-cs-stack--vertical {
       display: grid !important;
       grid-template-columns: repeat(12, 1fr) !important;
+      grid-template-rows: auto auto !important;
       column-gap: 24px !important;
+      row-gap: 24px !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
       margin: 0 !important;
       padding: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
+      align-items: start !important;
+      transform: translateX(calc((100% - 11 * 24px) / 24));
     }
 
     .case-now-cs-stack--vertical .case-now-cs-style3-heading {
-      text-align: center !important;
+      text-align: left !important;
       margin: 0 !important;
       padding: 0 !important;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-challenge-title {
-      grid-column: 1 / -1 !important;
-      justify-self: center !important;
+      grid-column: 2 / 6 !important;
+      grid-row: 1 !important;
+      justify-self: stretch !important;
       display: block !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 0 auto !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-challenge-body {
-      grid-column: 1 / -1 !important;
-      justify-self: center !important;
+      grid-column: 2 / 6 !important;
+      grid-row: 2 !important;
+      justify-self: stretch !important;
       display: block !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 24px auto 0 !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-arrow {
-      grid-column: 1 / -1 !important;
+      grid-column: 6 / 7 !important;
+      grid-row: 1 / span 2 !important;
+      align-self: center !important;
       justify-self: center !important;
       display: flex !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 30px auto !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
       color: #000000;
       line-height: 0;
@@ -435,33 +455,36 @@
     }
 
     .case-now-cs-stack--vertical .case-now-cs-arrow svg {
-      width: 14px !important;
-      height: 14px !important;
+      width: 20px !important;
+      height: 20px !important;
       display: block;
+      flex-shrink: 0;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-solution-title {
-      grid-column: 1 / -1 !important;
-      justify-self: center !important;
+      grid-column: 7 / 11 !important;
+      grid-row: 1 !important;
+      justify-self: stretch !important;
       display: block !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 0 auto !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
     }
 
     .case-now-cs-stack--vertical .case-now-cs-solution-body {
-      grid-column: 1 / -1 !important;
-      justify-self: center !important;
+      grid-column: 7 / 11 !important;
+      grid-row: 2 !important;
+      justify-self: stretch !important;
       display: block !important;
       width: 100% !important;
-      max-width: var(--case-now-centered-band) !important;
-      margin: 24px auto 0 !important;
+      max-width: none !important;
+      margin: 0 !important;
       padding: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       float: none !important;
       position: static !important;
     }
@@ -481,17 +504,13 @@
       padding: 0 !important;
     }
 
-    .case-now-style-guide .case-now-style-guide-heading {
-      grid-column: 1 / -1 !important;
-      justify-self: stretch !important;
-      width: 100% !important;
-      margin: 0 0 60px !important;
-      padding: 0 !important;
-      text-align: center !important;
+    /* Flush under full-bleed userflow (no 120px band gap) */
+    .case-now-ds-userflow + .case-now-style-guide {
+      margin-top: 0 !important;
     }
 
     .case-now-style-guide-figure-wrap {
-      grid-column: 2 / 12 !important;
+      grid-column: 1 / -1 !important;
       width: 100% !important;
       min-width: 0;
       margin: 0 !important;
@@ -509,14 +528,17 @@
     }
 
     /*
-      Same reading band as About / Solution (--case-now-centered-band); centered stack, 100px between sections, 100px below styleguide image.
+      IA (left) | Iconography (center) | Color (right): each 3 cols on full 12-col row;
+      empty tracks 4 & 8 = gutters; col 12 empty — nudge ½ col right for optical center.
     */
     .case-now-style-guide-breakdown {
       grid-column: 1 / -1 !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      gap: 100px !important;
+      display: grid !important;
+      grid-template-columns: repeat(12, 1fr) !important;
+      column-gap: 24px !important;
+      row-gap: 0 !important;
+      align-items: start !important;
+      justify-items: stretch !important;
       width: 100% !important;
       max-width: 100% !important;
       box-sizing: border-box;
@@ -525,16 +547,29 @@
       margin-right: 0 !important;
       margin-bottom: 0 !important;
       padding: 0 !important;
+      transform: translateX(calc((100% - 11 * 24px) / 24));
     }
 
     .case-now-style-guide-breakdown-col {
       min-width: 0;
       width: 100%;
-      max-width: var(--case-now-centered-band) !important;
+      max-width: none !important;
       box-sizing: border-box;
     }
 
-    /* L3 — centered; 20px to body */
+    .case-now-style-guide-breakdown-col:nth-child(1) {
+      grid-column: 1 / 4 !important;
+    }
+
+    .case-now-style-guide-breakdown-col:nth-child(2) {
+      grid-column: 5 / 8 !important;
+    }
+
+    .case-now-style-guide-breakdown-col:nth-child(3) {
+      grid-column: 9 / 12 !important;
+    }
+
+    /* L3 — left-aligned with body */
     .case-now-sg-breakdown-heading {
       font-family: 'Roboto', sans-serif;
       font-weight: 400;
@@ -543,7 +578,7 @@
       color: #000000;
       margin: 0 0 20px !important;
       padding: 0 !important;
-      text-align: center !important;
+      text-align: left !important;
       text-transform: none;
     }
 
@@ -556,7 +591,7 @@
     }
 
     .case-now-style-guide-breakdown-col .case-body {
-      text-align: center !important;
+      text-align: left !important;
       margin: 0 !important;
       padding: 0 !important;
       max-width: 100% !important;
@@ -576,6 +611,11 @@
       padding: 0 0 120px !important;
       box-sizing: border-box;
       align-items: start !important;
+    }
+
+    .now-page .screens-mosaic {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
     }
 
     .screens-mosaic__cell {
@@ -709,7 +749,7 @@
     .screens-mosaic__cell--fullapp {
       grid-column: 4 / 10;
       grid-row: 7;
-      margin-bottom: 180px !important;
+      margin-bottom: 0 !important;
       z-index: 10;
     }
 
@@ -722,47 +762,80 @@
       background: transparent;
     }
 
-    .screens-mosaic__fullapp-play {
+    /* Full-app play: devill walkthrough pattern — white circle, black triangle, label below */
+    .screens-mosaic__fullapp-ui {
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      margin: 0;
-      padding: 1rem 1.35rem;
-      min-width: 11rem;
-      border: none;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.16);
-      cursor: pointer;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 1.25;
-      letter-spacing: 0.04em;
-      text-align: center;
-      color: #000000;
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        opacity 0.35s ease,
-        visibility 0.35s ease,
-        background 0.25s ease;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 2;
+      pointer-events: none;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
     }
 
-    .screens-mosaic__fullapp-play:hover {
-      transform: translate(-50%, -50%) scale(1.1);
-      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.22);
-      background: rgba(255, 255, 255, 0.98);
+    .screens-mosaic__fullapp-ui-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.875rem;
+      pointer-events: auto;
+      transform-origin: center center;
     }
 
-    .screens-mosaic__fullapp-play:focus-visible {
+    .screens-mosaic__fullapp-play-btn {
+      width: 72px;
+      height: 72px;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      cursor: pointer;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+      transform-origin: center center;
+      transition: transform 0.25s ease-out;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .screens-mosaic__fullapp-play-btn:focus-visible {
       outline: 2px solid #000000;
       outline-offset: 4px;
     }
 
-    .screens-mosaic__cell--fullapp.is-playing .screens-mosaic__fullapp-play {
+    .screens-mosaic__cell--fullapp:not(.is-playing) .screens-mosaic__fullapp-play-btn:hover {
+      transform: scale(1.12);
+    }
+
+    .screens-mosaic__fullapp-play-tri {
+      display: block;
+      width: 0;
+      height: 0;
+      margin-left: 5px;
+      border-style: solid;
+      border-width: 11px 0 11px 18px;
+      border-color: transparent transparent transparent #000000;
+    }
+
+    .screens-mosaic__fullapp-label {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      color: #000000;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .screens-mosaic__cell--fullapp.is-playing .screens-mosaic__fullapp-ui {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -778,7 +851,7 @@
     .now-page .screens-mosaic__cell--fullapp .case-next-project {
       position: relative;
       width: 100%;
-      margin-top: clamp(2rem, 5vw, 4rem) !important;
+      margin-top: clamp(4rem, 10vw, 7rem) !important;
       flex-shrink: 0;
     }
 
@@ -797,14 +870,18 @@
       margin-bottom: var(--case-section-gap);
     }
 
-    /* 120px below eyal.png to userflow.png (research block has no bottom margin) */
+    .now-page .case-block.case-now-ds-showcase-block {
+      margin-bottom: 1.5rem !important;
+    }
+
+    /* Spacing from research handled on first showcase child (.case-now-cs-after-flow) */
     .case-now-ds-item.case-now-ds-userflow {
-      margin-top: 120px !important;
+      margin-top: 0 !important;
     }
 
     .case-now-ds-item.case-now-ds-userflow .case-now-ds-figure-wrap--inset-10 {
       grid-row: 1 !important;
-      grid-column: 2 / 12 !important;
+      grid-column: 1 / -1 !important;
       margin-top: 0 !important;
     }
 
@@ -852,9 +929,9 @@
       grid-column: 1 / -1 !important;
     }
 
-    /* User flow: cols 2-11 (10 tracks); same inset as screens video */
+    /* User flow: full 12-col bleed */
     .case-now-ds-item .case-now-ds-figure-wrap--inset-10 {
-      grid-column: 2 / 12 !important;
+      grid-column: 1 / -1 !important;
     }
 
     .case-now-ds-image {
@@ -876,19 +953,32 @@
       .case-now-research-figure-wrap,
       .case-now-research-stack .case-subhead,
       .case-now-research-stack .case-now-research-copy {
+        grid-column: 1 / -1 !important;
         max-width: 100% !important;
+      }
+
+      .case-now-cs-stack.case-now-cs-stack--vertical {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: none !important;
+        row-gap: 24px !important;
+        transform: none !important;
       }
 
       .case-now-cs-stack--vertical .case-now-cs-challenge-title,
       .case-now-cs-stack--vertical .case-now-cs-challenge-body,
-      .case-now-cs-stack--vertical .case-now-cs-arrow {
-        max-width: 100% !important;
-      }
-
+      .case-now-cs-stack--vertical .case-now-cs-arrow,
       .case-now-cs-stack--vertical .case-now-cs-solution-title,
       .case-now-cs-stack--vertical .case-now-cs-solution-body {
         grid-column: 1 / -1 !important;
+        grid-row: auto !important;
+        justify-self: stretch !important;
         max-width: 100% !important;
+        width: 100% !important;
+        text-align: left !important;
+      }
+
+      .case-now-cs-stack--vertical .case-now-cs-arrow {
+        transform: rotate(90deg);
       }
 
       .case-now-style-guide-figure-wrap {
@@ -927,14 +1017,20 @@
       }
 
       .screens-mosaic__cell--fullapp {
-        margin-bottom: 120px !important;
+        margin-bottom: 0 !important;
       }
 
       .case-now-style-guide-breakdown {
-        gap: 100px !important;
+        grid-template-columns: 1fr !important;
+        column-gap: 0 !important;
+        row-gap: 100px !important;
+        transform: none !important;
       }
 
-      .case-now-style-guide-breakdown-col {
+      .case-now-style-guide-breakdown-col:nth-child(1),
+      .case-now-style-guide-breakdown-col:nth-child(2),
+      .case-now-style-guide-breakdown-col:nth-child(3) {
+        grid-column: 1 / -1 !important;
         max-width: 100% !important;
       }
 
@@ -1053,6 +1149,40 @@
       </section>
 
       <section class="case-block case-now-ds-showcase-block" aria-label="User flow, challenge and solution, and style guide">
+        <div class="case-now-cs-after-flow" aria-label="Challenge and solution">
+          <div class="case-now-cs-stack case-now-cs-stack--vertical">
+            <h2 class="case-now-cs-style3-heading case-now-cs-challenge-title">the design challenge</h2>
+            <div
+              class="case-body case-now-cs-challenge-body"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              Translating meteorological data into an emotional experience in a digital interface. Building a design system that represents a colorful character while maintaining a raw, minimalist aesthetic.
+            </div>
+            <div
+              class="case-now-cs-arrow"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+              aria-hidden="true"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </div>
+            <h2 class="case-now-cs-style3-heading case-now-cs-solution-title">the solution</h2>
+            <div
+              class="case-body case-now-cs-solution-body"
+              data-aos="fade-up"
+              data-aos-duration="900"
+              data-aos-once="true"
+            >
+              A typography-focused design that redefines the standard weather app hierarchy. By replacing complex graphs with bold, poetic type and copywriting, dry meteorological data is transformed into a compelling story.
+            </div>
+          </div>
+        </div>
+
         <div class="case-now-ds-item case-now-ds-userflow">
           <div
             class="case-now-ds-figure-wrap case-now-ds-figure-wrap--inset-10"
@@ -1069,49 +1199,7 @@
           </div>
         </div>
 
-        <div class="case-now-cs-after-flow" aria-label="Challenge and solution">
-          <div class="case-now-cs-stack case-now-cs-stack--vertical">
-            <h2 class="case-now-cs-style3-heading case-now-cs-challenge-title">the challenge</h2>
-            <div
-              class="case-body case-now-cs-challenge-body"
-              data-aos="fade-up"
-              data-aos-duration="900"
-              data-aos-once="true"
-            >
-              Translating meteorological data into an emotional experience in a digital interface. Building a design system that represents a colorful character while maintaining a raw, minimalist aesthetic.
-            </div>
-            <div
-              class="case-now-cs-arrow"
-              data-aos="fade-up"
-              data-aos-duration="900"
-              data-aos-once="true"
-              aria-hidden="true"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                <path d="M12 5v14M19 12l-7 7-7-7" />
-              </svg>
-            </div>
-            <h2 class="case-now-cs-style3-heading case-now-cs-solution-title">the solution</h2>
-            <div
-              class="case-body case-now-cs-solution-body"
-              data-aos="fade-up"
-              data-aos-duration="900"
-              data-aos-once="true"
-            >
-              A typography-focused design that redefines the standard weather app hierarchy. By replacing complex graphs with bold, poetic type and copywriting, dry meteorological data is transformed into a compelling story.
-            </div>
-          </div>
-        </div>
-
         <div class="case-now-style-guide" aria-label="Style guide">
-          <h2
-            class="case-subhead case-now-style-guide-heading"
-            data-aos="fade-up"
-            data-aos-duration="900"
-            data-aos-once="true"
-          >
-            style guide
-          </h2>
           <div
             class="case-now-style-guide-figure-wrap"
             data-aos="fade-up"
@@ -1133,10 +1221,10 @@
               data-aos-duration="900"
               data-aos-once="true"
             >
-              <h3 class="case-now-sg-breakdown-heading">Iconography</h3>
+              <h3 class="case-now-sg-breakdown-heading">Information Architecture</h3>
               <div class="case-now-sg-breakdown-body-wrap">
                 <p class="case-body">
-                  I developed a &ldquo;raw&rdquo; iconography style based on simple geometric shapes, drawing inspiration from the intentional simplicity and directness of his cooking techniques.
+                  Unlike standard weather apps, I separated each meteorological data point into its own independent screen. This decision was inspired by Eyal Shani&rsquo;s deep admiration for raw ingredients, giving each element its own exclusive stage.
                 </p>
               </div>
             </div>
@@ -1146,10 +1234,10 @@
               data-aos-duration="900"
               data-aos-once="true"
             >
-              <h3 class="case-now-sg-breakdown-heading">Information Architecture</h3>
+              <h3 class="case-now-sg-breakdown-heading">Iconography</h3>
               <div class="case-now-sg-breakdown-body-wrap">
                 <p class="case-body">
-                  Unlike standard weather apps, I separated each meteorological data point into its own independent screen. This decision was inspired by Eyal Shani&rsquo;s deep admiration for raw ingredients, giving each element its own exclusive stage.
+                  I developed a &ldquo;raw&rdquo; iconography style based on simple geometric shapes, drawing inspiration from the intentional simplicity and directness of his cooking techniques.
                 </p>
               </div>
             </div>
@@ -1331,9 +1419,14 @@
                   tabindex="0"
                   aria-label="Now — full app walkthrough. Press Space to play or pause."
                 ></video>
-                <button type="button" class="screens-mosaic__fullapp-play" aria-label="Watch full app video">
-                  WATCH FULL APP
-                </button>
+                <div class="screens-mosaic__fullapp-ui">
+                  <div class="screens-mosaic__fullapp-ui-inner">
+                    <button type="button" class="screens-mosaic__fullapp-play-btn" aria-label="Play full app video">
+                      <span class="screens-mosaic__fullapp-play-tri" aria-hidden="true"></span>
+                    </button>
+                    <p class="screens-mosaic__fullapp-label">full app</p>
+                  </div>
+                </div>
               </div>
               <nav class="case-next-project" aria-label="Next project">
                 <a href="balanced.html" class="case-next-project__link js-page-transition">Next project</a>
@@ -1379,7 +1472,7 @@
           (function (wrap) {
             var inner = wrap.querySelector('.screens-mosaic__fullapp-wrap');
             var video = wrap.querySelector('.full-app-video');
-            var btn = wrap.querySelector('.screens-mosaic__fullapp-play');
+            var btn = wrap.querySelector('.screens-mosaic__fullapp-play-btn');
             if (!inner || !video) return;
 
             function syncPlayingClass() {

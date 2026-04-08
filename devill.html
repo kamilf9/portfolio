@@ -166,8 +166,21 @@
     .case-reveal-block.visible > .case-reveal-item:nth-child(2) { transition-delay: 0.12s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(3) { transition-delay: 0.2s; }
     .case-reveal-block.visible > .case-reveal-item:nth-child(4) { transition-delay: 0.28s; }
-    .case-reveal-block.visible.case-devill-alligator-section .devill-embed-video.case-reveal-item { transition-delay: 0.04s; }
-    .case-reveal-block.visible.case-devill-alligator-section .devill-snake-crop-wrap.case-reveal-item { transition-delay: 0.12s; }
+    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(1) .devill-atmosphere-media-box.case-reveal-item {
+      transition-delay: 0.04s;
+    }
+
+    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(2) .devill-atmosphere-media-box.case-reveal-item {
+      transition-delay: 0.12s;
+    }
+
+    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(3) .devill-atmosphere-media-box.case-reveal-item {
+      transition-delay: 0.2s;
+    }
+
+    .case-reveal-block.visible.case-devill-atmosphere-grid .devill-video-span:nth-child(4) .devill-atmosphere-media-box.case-reveal-item {
+      transition-delay: 0.28s;
+    }
     .case-body {
       text-align: left;
       max-width: 52rem;
@@ -185,10 +198,10 @@
       display: flex !important;
       flex-direction: column !important;
       align-items: stretch !important;
-      row-gap: 0 !important;
+      row-gap: 48px !important;
       column-gap: 0 !important;
       margin-top: 0;
-      margin-bottom: 0;
+      margin-bottom: var(--case-section-gap);
     }
 
     /* Inset by 2/12 grid each side → image spans 8/12 of container width */
@@ -203,48 +216,44 @@
       padding: 0 !important;
     }
 
-    /* Narrower than opening image — 6/12 grid span, centered */
-    .case-opening-image-secondary {
+    /* 6/12 columns, centered (tracks 4–9) */
+    .case-screens-image {
       width: calc(100% * 6 / 12);
       max-width: none;
-      height: auto !important;
+      height: auto;
       display: block;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 24px;
       margin-bottom: 0 !important;
       padding: 0 !important;
     }
 
-    /* Same vertical rhythm as opening → 3pages (secondary margin-top: 24px) */
-    .case-opening-poster-grid {
-      display: grid !important;
-      grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
-      row-gap: 0 !important;
-      width: 100% !important;
+    /* 12-col shell: headings share start edge with copy (cols 4–9) */
+    .devill-page .case-about-block {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      row-gap: 24px;
+      width: 100%;
       box-sizing: border-box;
-      margin-top: 24px !important;
-      margin-bottom: 120px !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      padding: 0 !important;
     }
 
-    .case-opening-poster-grid .case-opening-image-poster {
-      grid-column: 3 / 11 !important;
-      width: 100% !important;
+    .devill-page .case-about-block .devill-about-heading {
+      grid-column: 4 / 10;
+      margin-bottom: 0 !important;
+      text-align: left !important;
+      width: 100%;
       max-width: none;
-      min-width: 0;
-      height: auto !important;
-      display: block;
-      margin: 0 !important;
-      padding: 0 !important;
+      justify-self: stretch;
     }
 
-    .case-about-block .case-subhead,
-    .case-research-section > .case-subhead {
-      margin-bottom: 16px;
+    .devill-page .case-research-section .devill-research-heading {
+      grid-column: 4 / 10;
+      margin-bottom: 0 !important;
+      text-align: left !important;
+      width: 100%;
+      max-width: none;
+      justify-self: stretch;
     }
 
     .about-grid-container {
@@ -253,28 +262,26 @@
       column-gap: 24px !important;
       align-items: start !important;
       width: 100% !important;
-      margin-top: 24px !important;
+      margin-top: 0 !important;
+      grid-column: 1 / -1;
       box-sizing: border-box;
     }
 
-    .about-grid-container .left-column {
-      grid-column: 2 / 7 !important;
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-      min-width: 0;
-    }
-
-    .about-grid-container .right-column {
-      grid-column: 7 / 12 !important;
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-      min-width: 0;
-    }
-
-    .about-grid-container .case-body {
-      margin: 0;
-      padding: 0;
+    /* About: one paragraph, 6 columns centered (tracks 4–9 → lines 4 / 10), Roboto Light 20px */
+    .devill-page .case-about-block .devill-about-copy {
+      grid-column: 4 / 10 !important;
+      margin: 0 !important;
+      padding: 0 !important;
       max-width: none;
+      min-width: 0;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 1.5;
+      color: #000000;
+      text-align: left;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .case-about-block .case-name {
@@ -285,6 +292,20 @@
     .case-research-section.case-block {
       margin-top: 120px;
       margin-bottom: 80px;
+    }
+
+    .devill-page .case-research-section.case-block {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      row-gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .devill-page .case-research-section .research-grid {
+      grid-column: 1 / -1;
+      margin-top: 0 !important;
     }
 
     /* 12-col shell for embedded video (width aligns with research stack: cols 2–8) */
@@ -308,6 +329,71 @@
       box-sizing: border-box;
     }
 
+    /* Quad spans grid lines 2–12 (columns 2–11), same 12-col / 24px rhythm as rest of page */
+    .case-devill-atmosphere-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .case-devill-atmosphere-grid .devill-media-grid.devill-media-grid--atmosphere-quad {
+      grid-column: 2 / 12;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+
+    /* Atmosphere 2×2: wolf | alligator / snake | goose — 16px gap H+V; row height from alligator (JS --devill-atmosphere-h) */
+    .devill-media-grid.devill-media-grid--atmosphere-quad {
+      column-gap: 16px !important;
+      row-gap: 16px !important;
+      align-items: stretch !important;
+    }
+
+    .devill-media-grid--atmosphere-quad .devill-video-span--atmosphere-cell {
+      grid-column: span 6 !important;
+      display: flex !important;
+      align-items: stretch !important;
+      min-width: 0;
+    }
+
+    .devill-atmosphere-media-box {
+      flex: 1 1 auto;
+      width: 100%;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+      background-color: #f0f0f0;
+      line-height: 0;
+      height: var(--devill-atmosphere-h, auto);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .devill-media-grid--atmosphere-quad .devill-atmosphere-media-box video {
+      display: block;
+      width: 100% !important;
+      max-width: none !important;
+      height: 100%;
+      min-height: 0;
+      margin: 0 !important;
+      padding: 0 !important;
+      object-fit: cover;
+      object-position: top center;
+      transform-origin: center top;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      background-color: #f0f0f0;
+    }
+
+    /* Reference clip: full frame, no bottom crop; height drives siblings via --devill-atmosphere-h */
+    .devill-media-grid--atmosphere-quad .devill-atmosphere-media-box video.devill-atmosphere-ref {
+      object-fit: contain;
+      object-position: top center;
+    }
+
     /* Same width as research stack (7 tracks + 6 internal gaps in 12-col / 24px rhythm) */
     .devill-embed-video {
       display: block;
@@ -326,66 +412,32 @@
       background-color: #f0f0f0;
     }
 
-    /* Alligator + snake: same row pattern — flex center + identical 7-col max-width as .devill-embed-video */
-    .case-devill-alligator-section .devill-media-grid {
-      margin-bottom: 0 !important;
+    /* All animals video + packages image: stacked flush, full bleed like other assets */
+    .case-allanimals-packages-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .case-devill-alligator-section .devill-video-span .devill-snake-crop-wrap {
-      overflow: hidden !important;
+    .case-packages-image-wrap {
       width: 100% !important;
-      max-width: calc((100% - 11 * 24px) * 7 / 12 + 6 * 24px);
-      margin: 0 auto !important;
-      margin-top: 60px !important;
-      margin-bottom: 0 !important;
+      display: block;
+      margin: 0 !important;
       padding: 0 !important;
-      min-width: 0;
-      box-sizing: border-box;
       line-height: 0;
-      transform-origin: center center;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-
-    /* 10-col inset (cols 2–11); 80px below snake, 120px before next section */
-    .case-devill-packages-grid {
-      display: grid !important;
-      grid-template-columns: repeat(12, 1fr) !important;
-      column-gap: 24px !important;
-      row-gap: 0 !important;
-      width: 100% !important;
       box-sizing: border-box;
-      margin-top: 80px !important;
-      margin-bottom: 120px !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      padding: 0 !important;
     }
 
-    .case-devill-packages-grid .case-devill-packages {
-      grid-column: 2 / 12 !important;
+    .case-packages-image-wrap .case-devill-packages {
       width: 100% !important;
       max-width: none;
-      min-width: 0;
       height: auto !important;
       display: block;
       margin: 0 !important;
       padding: 0 !important;
-    }
-
-    .case-devill-alligator-section .devill-video-span .devill-snake-still {
-      display: block;
-      width: 100% !important;
-      height: auto !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      object-fit: cover !important;
-      object-position: top center !important;
-      -webkit-clip-path: inset(0 0 5px 0);
-      clip-path: inset(0 0 5px 0);
-      box-sizing: border-box;
-      transform-origin: center top;
-      background-color: #f0f0f0;
     }
 
     /* 12-col shell; inner stack is flex column (grid-column only applies here, not on flex-only parent) */
@@ -401,7 +453,6 @@
     }
 
     .research-stack {
-      grid-column: 2 / 9 !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: flex-start !important;
@@ -409,6 +460,11 @@
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
+    }
+
+    /* Research copy: columns 4–9 (grid lines 4 / 10) */
+    .devill-page .case-research-section .research-stack {
+      grid-column: 4 / 10 !important;
     }
 
     .research-stack .research-right-col {
@@ -537,7 +593,8 @@
       top: auto !important;
       z-index: 1;
       box-sizing: border-box;
-      margin-top: clamp(2rem, 5vw, 3.5rem);
+      margin-top: clamp(4rem, 10vw, 7rem);
+      margin-bottom: 1.5rem;
     }
 
     .devill-page .video-walkthrough-grid .case-next-project__link {
@@ -593,28 +650,70 @@
     }
 
     .video-walkthrough-overlay-inner {
-      width: 240px;
-      min-height: 50px;
+      width: auto;
+      min-height: 0;
       box-sizing: border-box;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.875rem;
+      padding: 0;
+      pointer-events: auto;
+      cursor: pointer;
+      transform-origin: center center;
+    }
+
+    .video-walkthrough-label {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.35;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .video-walkthrough-play-btn {
+      width: 72px;
+      height: 72px;
+      border: none;
+      border-radius: 50%;
       background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 8px 14px;
-      pointer-events: auto;
+      padding: 0;
       cursor: pointer;
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
       transform-origin: center center;
-      transition: transform 0.3s ease-in-out;
+      transition: transform 0.25s ease-out;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .video-walkthrough-wrapper.is-paused:hover .video-walkthrough-overlay-inner {
-      transform: scale(1.05);
+    .video-walkthrough-play-btn:focus-visible {
+      outline: 2px solid #000000;
+      outline-offset: 4px;
     }
 
-    .video-walkthrough-overlay-inner span {
-      text-align: center;
-      text-transform: none;
-      line-height: 1.25;
+    .video-walkthrough-wrapper.is-paused:hover .video-walkthrough-play-btn {
+      transform: scale(1.12);
+    }
+
+    .video-walkthrough-play-icon {
+      display: block;
+      width: 0;
+      height: 0;
+      margin-left: 5px;
+      border-style: solid;
+      border-width: 11px 0 11px 18px;
+      border-color: transparent transparent transparent #000000;
     }
 
     @media (max-width: 900px) {
@@ -622,8 +721,17 @@
         max-width: 100%;
       }
 
-      .case-devill-alligator-section .devill-video-span .devill-snake-crop-wrap {
-        max-width: 100%;
+      .devill-media-grid--atmosphere-quad .devill-video-span--atmosphere-cell {
+        grid-column: 1 / -1 !important;
+      }
+
+      .devill-media-grid.devill-media-grid--atmosphere-quad {
+        row-gap: 16px !important;
+      }
+
+      .case-devill-atmosphere-grid .devill-media-grid.devill-media-grid--atmosphere-quad {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
       }
 
       .about-grid-container {
@@ -632,8 +740,15 @@
         row-gap: 1.25rem !important;
       }
 
-      .about-grid-container .left-column,
-      .about-grid-container .right-column {
+      .devill-page .case-about-block .devill-about-copy {
+        grid-column: 1 / -1 !important;
+      }
+
+      .devill-page .case-about-block .devill-about-heading {
+        grid-column: 1 / -1 !important;
+      }
+
+      .devill-page .case-research-section .devill-research-heading {
         grid-column: 1 / -1 !important;
       }
 
@@ -646,6 +761,10 @@
         grid-column: 1 / -1 !important;
       }
 
+      .devill-page .case-research-section .research-stack {
+        grid-column: 1 / -1 !important;
+      }
+
       .video-walkthrough-grid .video-walkthrough-wrapper {
         grid-column: 1 / -1 !important;
       }
@@ -654,13 +773,6 @@
         grid-column: 1 / -1 !important;
       }
 
-      .case-opening-poster-grid .case-opening-image-poster {
-        grid-column: 1 / -1 !important;
-      }
-
-      .case-devill-packages-grid .case-devill-packages {
-        grid-column: 1 / -1 !important;
-      }
     }
   </style>
 </head>
@@ -714,56 +826,24 @@
           loading="eager"
         />
         <img
-          class="case-opening-image-secondary case-reveal-item"
-          src="devillproject/3pages.jpg"
-          alt="House of de Vill — three-page spread"
+          class="case-screens-image case-reveal-item"
+          src="devillproject/screens.png"
+          alt="House of de Vill — screens"
           loading="lazy"
         />
-        <div class="case-opening-poster-grid">
-          <img
-            class="case-opening-image-poster case-reveal-item"
-            src="devillproject/poster.jpg"
-            alt="House of de Vill — poster"
-            loading="lazy"
-          />
-        </div>
       </section>
 
       <section class="case-block case-reveal-block case-about-block" data-case-reveal aria-label="About this project">
-        <h2 class="case-subhead case-reveal-item">about</h2>
+        <h2 class="case-subhead case-reveal-item devill-about-heading">about</h2>
         <div class="about-grid-container case-reveal-item">
-          <div class="left-column">
-            <p class="case-body">
-              House of De Vill is a conceptual high-fashion digital platform inspired by <span class="case-name">Cruella De Vil</span>, the iconic villain from Disney&apos;s 101 Dalmatians. Her entire essence revolves around a collection of high-end fur coats. Throughout the story, she abducts 101 Dalmatian puppies to create the &apos;ultimate coat&apos; from their fur. The project explores the intersection of extreme narcissism, material addiction, and the ethical boundaries of consumerism.
-            </p>
-          </div>
-          <div class="right-column">
-            <p class="case-body">
-              Inspired by the psychological complexity of <span class="case-name">Cruella</span>, the project challenges the &quot;denial of production&quot; in the fashion industry. While traditional brands obscure the origin of their materials, House of De Vill forces a confrontation between the wearer and the source. It is an experience designed to evoke discomfort, stripping away the privilege of ignorance.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="case-block case-reveal-block case-devill-wolf-section" data-case-reveal aria-label="Wolf atmosphere video">
-        <div class="devill-media-grid">
-          <div class="devill-video-span">
-            <video
-              class="devill-embed-video case-reveal-item"
-              src="devillproject/wolf.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              aria-label="Atmosphere study — wolf"
-            ></video>
-          </div>
+          <p class="case-body devill-about-copy">
+            House of De Vill is a conceptual high-fashion digital platform inspired by <span class="case-name">Cruella De Vil</span>, the iconic villain from Disney&apos;s 101 Dalmatians, who abducts 101 Dalmatian puppies to create the &lsquo;ultimate coat&rsquo; from their fur. The project explores the intersection of extreme narcissism, material addiction, and the ethical boundaries of consumerism, informed by the psychological complexity of <span class="case-name">Cruella</span>. While traditional brands obscure the origin of their materials, House of De Vill forces a confrontation between the wearer and the source. It is an experience designed to evoke discomfort, stripping away the privilege of ignorance.
+          </p>
         </div>
       </section>
 
       <section class="case-block case-reveal-block case-research-section" data-case-reveal aria-label="Research">
-        <h2 class="case-subhead case-reveal-item">research</h2>
+        <h2 class="case-subhead case-reveal-item devill-research-heading">research</h2>
         <div class="research-grid case-reveal-item">
           <div class="research-stack">
             <div class="research-left-col">
@@ -780,24 +860,44 @@
         </div>
       </section>
 
-      <section class="case-block case-reveal-block case-devill-alligator-section" data-case-reveal aria-label="Alligator atmosphere video and atmosphere still">
-        <div class="devill-media-grid">
-          <div class="devill-video-span">
-            <video
-              class="devill-embed-video case-reveal-item"
-              src="devillproject/alligator.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              aria-label="Atmosphere study — alligator"
-            ></video>
-          </div>
-          <div class="devill-video-span">
-            <div class="devill-snake-crop-wrap case-reveal-item">
+      <section
+        class="case-block case-reveal-block case-devill-atmosphere-grid"
+        data-case-reveal
+        aria-label="Wolf, alligator, snake, and goose atmosphere videos"
+      >
+        <div class="devill-media-grid devill-media-grid--atmosphere-quad">
+          <div class="devill-video-span devill-video-span--atmosphere-cell">
+            <div class="devill-atmosphere-media-box case-reveal-item">
               <video
-                class="devill-snake-still"
+                class="devill-embed-video"
+                src="devillproject/wolf.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Atmosphere study — wolf"
+              ></video>
+            </div>
+          </div>
+          <div class="devill-video-span devill-video-span--atmosphere-cell">
+            <div class="devill-atmosphere-media-box case-reveal-item">
+              <video
+                class="devill-embed-video devill-atmosphere-ref"
+                src="devillproject/alligator.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Atmosphere study — alligator"
+              ></video>
+            </div>
+          </div>
+          <div class="devill-video-span devill-video-span--atmosphere-cell">
+            <div class="devill-atmosphere-media-box case-reveal-item">
+              <video
+                class="devill-embed-video"
                 src="devillproject/snake.mp4"
                 autoplay
                 loop
@@ -808,43 +908,59 @@
               ></video>
             </div>
           </div>
-        </div>
-        <div class="case-devill-packages-grid">
-          <img
-            class="case-devill-packages case-reveal-item"
-            src="devillproject/packages.png"
-            alt="House of de Vill — packages"
-            loading="lazy"
-          />
+          <div class="devill-video-span devill-video-span--atmosphere-cell">
+            <div class="devill-atmosphere-media-box case-reveal-item">
+              <video
+                class="devill-embed-video"
+                src="devillproject/goose.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Atmosphere study — goose"
+              ></video>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="case-block case-reveal-block case-design-assets" data-case-reveal>
-        <img
-          class="case-styleguide case-reveal-item"
-          src="devillproject/styleguide.png"
-          alt="House of de Vill design system"
-          loading="lazy"
-        />
-        <div class="case-allanimals-video-wrap">
-          <video
-            class="case-allanimals-video case-reveal-item"
-            src="devillproject/allanimals.mp4"
-            autoplay
-            loop
-            muted
-            playsinline
-            webkit-playsinline
-            preload="metadata"
-            aria-label="House of de Vill — all animals motion study"
-          ></video>
-        </div>
         <img
           class="case-userflow case-reveal-item"
           src="devillproject/userflow.png"
           alt="House of de Vill user flow"
           loading="lazy"
         />
+        <img
+          class="case-styleguide case-reveal-item"
+          src="devillproject/styleguide.png"
+          alt="House of de Vill design system"
+          loading="lazy"
+        />
+        <div class="case-allanimals-packages-stack">
+          <div class="case-allanimals-video-wrap">
+            <video
+              class="case-allanimals-video case-reveal-item"
+              src="devillproject/allanimals.mp4"
+              autoplay
+              loop
+              muted
+              playsinline
+              webkit-playsinline
+              preload="metadata"
+              aria-label="House of de Vill — all animals motion study"
+            ></video>
+          </div>
+          <div class="case-packages-image-wrap case-reveal-item">
+            <img
+              class="case-devill-packages"
+              src="devillproject/packages.png"
+              alt="House of de Vill — packages"
+              loading="lazy"
+            />
+          </div>
+        </div>
         <div class="video-walkthrough-grid">
           <div class="video-walkthrough-wrapper is-paused case-reveal-item">
             <video
@@ -855,9 +971,12 @@
               preload="metadata"
               aria-label="House of de Vill — full site navigation walkthrough"
             ></video>
-            <div class="video-walkthrough-overlay" aria-hidden="true">
+            <div class="video-walkthrough-overlay">
               <div class="video-walkthrough-overlay-inner">
-                <span>VIEW FULL SITE NAVIGATION</span>
+                <button type="button" class="video-walkthrough-play-btn" aria-label="Play walkthrough video">
+                  <span class="video-walkthrough-play-icon" aria-hidden="true"></span>
+                </button>
+                <p class="video-walkthrough-label">full website</p>
               </div>
             </div>
           </div>
@@ -886,6 +1005,36 @@
         }
       }
       bindPageTransitions();
+
+      (function bindDevillAtmosphereHeight() {
+        var grid = document.querySelector('.devill-media-grid.devill-media-grid--atmosphere-quad');
+        var ref = grid ? grid.querySelector('video.devill-atmosphere-ref') : null;
+        if (!grid || !ref) return;
+
+        var refBox = ref.closest('.devill-atmosphere-media-box');
+
+        function apply() {
+          var vw = ref.videoWidth;
+          var vh = ref.videoHeight;
+          var box = ref.closest('.devill-atmosphere-media-box');
+          var cw = box ? box.clientWidth : 0;
+          if (!vw || !vh || !cw) return;
+          var displayH = (cw / vw) * vh;
+          grid.style.setProperty('--devill-atmosphere-h', Math.round(displayH * 100) / 100 + 'px');
+        }
+
+        function schedule() {
+          window.requestAnimationFrame(apply);
+        }
+
+        ref.addEventListener('loadedmetadata', schedule);
+        window.addEventListener('resize', schedule);
+        if (refBox && typeof ResizeObserver !== 'undefined') {
+          var ro = new ResizeObserver(schedule);
+          ro.observe(refBox);
+        }
+        schedule();
+      })();
 
       (function bindWalkthroughHover() {
         var wrap = document.querySelector('.video-walkthrough-wrapper');
