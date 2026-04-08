@@ -301,14 +301,14 @@ video {
   letter-spacing: normal;
 }
 
-/* Landing custom cursor: same L4 metrics, inverted for black pill */
+/* Landing custom cursor: black scroll/view label only (no pill), same L4 type metrics */
 .custom-cursor,
 .custom-cursor__label {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 16px;
   line-height: 1.6;
-  color: #ffffff;
+  color: #000000;
 }
 
 .case-body,

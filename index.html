@@ -9,6 +9,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="typography.css" />
   <script src="nav-auto-hide.js" defer></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -18,6 +26,12 @@
 
     html, body {
       min-height: 100%;
+    }
+
+    /* Home: no horizontal page scroll; hero canvas is full viewport width and centered (typography.css override). */
+    html,
+    body {
+      overflow-x: hidden !important;
     }
 
     .container {
@@ -59,12 +73,16 @@
       top: 0;
       z-index: 10000;
       pointer-events: none;
-      padding: 10px 16px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      background: #000000;
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
       letter-spacing: -0.01em;
       text-transform: lowercase;
       white-space: nowrap;
@@ -82,6 +100,44 @@
       transition: opacity 0.25s ease;
     }
 
+    @keyframes landingPinkFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes landingBlackRise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes landingNavDrop {
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes landingContactRise {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     nav.site-header {
       position: fixed;
       top: 0;
@@ -91,6 +147,8 @@
       padding: 0;
       background: transparent;
       will-change: transform;
+      opacity: 0;
+      animation: landingNavDrop 1.1s cubic-bezier(0.22, 1, 0.36, 1) 1.23s forwards;
     }
 
     nav .brand {
@@ -114,10 +172,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 5.5rem);
-      min-height: calc(100svh - 5.5rem);
-      padding-top: 3rem;
-      padding-bottom: 3rem;
+      flex: 1 1 auto;
+      width: 100%;
+      padding-top: clamp(1rem, 4vh, 3rem);
+      padding-bottom: clamp(1rem, 4vh, 3rem);
+      padding-left: 0;
+      padding-right: 0;
+      max-width: none;
+      overflow-x: visible;
+      overflow-y: visible;
     }
 
     .site-contact {
@@ -135,6 +198,8 @@
       transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
         transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
         visibility 0.4s ease;
+      opacity: 0;
+      animation: landingContactRise 1.1s cubic-bezier(0.22, 1, 0.36, 1) 1.68s forwards;
     }
 
     .site-contact.is-hidden-on-scroll {
@@ -156,69 +221,187 @@
       position: relative;
       padding-top: 5.5rem;
       width: 100%;
+      overflow-x: visible;
     }
 
     .hero-view {
       position: relative;
+      overflow-x: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      min-height: calc(100vh - 5.5rem);
+      min-height: calc(100svh - 5.5rem);
     }
 
+    /* Hero: full-bleed stack + WebGL (no max-width grid); overflow visible through chain */
     .hero-stage {
       width: 100%;
-      max-width: 100%;
+      max-width: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 10vh;
+      flex: 1 1 auto;
+      min-height: 0;
       box-sizing: border-box;
-      perspective: 1200px;
-      perspective-origin: 50% 50%;
-      transform: translateY(-25%);
+      background: transparent;
+      overflow: visible;
     }
 
-    .hero-tilt {
-      transform-style: preserve-3d;
+    .hero-3d {
+      /* Content width (layer1 + visual match to image_18); window below is 100vw to avoid clip */
+      --hero-band-vw: 83.3vw;
+      position: relative;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      transform-origin: center center;
+      opacity: 1;
+      transform: none;
+      box-sizing: border-box;
+      overflow: visible !important;
     }
 
-    .hero-tilt__line {
+    .hero-3d__stack {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      min-height: clamp(260px, 52vh, 600px);
+      margin: 0 auto;
+      line-height: 0;
+      font-size: 0;
+      overflow: visible !important;
+    }
+
+    .hero-3d__base-wrap {
+      position: relative;
+      z-index: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw !important;
+      max-width: none !important;
+      left: 50%;
+      transform: translateX(-50%);
+      flex: 0 0 auto;
+      box-sizing: border-box;
+    }
+
+    .hero-3d__base {
+      position: relative;
+      z-index: 0;
       display: block;
+      width: var(--hero-band-vw, 83.3vw);
+      max-width: none;
+      height: auto;
+      margin: 0;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+      transform: none;
+      transform-origin: center center;
+      opacity: 0;
+      animation: landingBlackRise 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.63s forwards;
     }
 
-    .hero-view .hero-tilt {
-      font-family: 'Instrument Serif', serif;
-      font-weight: 400;
-      font-size: clamp(2.5rem, 6vw + 1.75rem, 12.5rem);
-      line-height: 0.92;
-      color: #000000;
-      text-align: center;
-      text-rendering: optimizeLegibility;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    .hero-3d__float-wrap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      perspective: 1000px;
+      perspective-origin: 50% 50%;
+      box-sizing: border-box;
+      overflow: visible !important;
     }
 
-    /* Hero dynamic type: Instrument Serif 200px — S1 lead, S2 lowercase regular, S3 lowercase italic */
-    .hero-view .hero-style-1 {
-      text-transform: uppercase;
-      font-style: normal;
-      font-weight: 400;
+    .hero-3d__float-inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      transform-origin: center center;
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      box-sizing: border-box;
+      overflow: visible !important;
     }
 
-    .hero-view .hero-style-2 {
-      text-transform: lowercase;
-      font-style: normal;
-      font-weight: 400;
+    /*
+     * Full viewport width for WebGL raster (no edge clip on pink type); layer1 stays --hero-band-vw.
+     */
+    .hero-3d__canvas-mount {
+      position: absolute !important;
+      width: 100vw !important;
+      max-width: none !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, calc(-50% - 50px)) !important;
+      height: auto;
+      min-height: clamp(192px, 32vw, 380px);
+      max-height: min(52vh, 500px);
+      overflow: visible !important;
+      box-sizing: border-box;
+      opacity: 0;
+      animation: landingPinkFade 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.09s forwards;
     }
 
-    .hero-view .hero-style-3 {
-      text-transform: lowercase;
-      font-style: italic;
-      font-weight: 400;
+    .hero-3d__canvas-mount canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: none !important;
+      object-fit: contain;
     }
 
-    /* Mixed casing in markup (beats S1–S3 text-transform) */
-    .hero-view .hero-style-1.hero-preserve-case,
-    .hero-view .hero-style-2.hero-preserve-case,
-    .hero-view .hero-style-3.hero-preserve-case {
-      text-transform: none;
+    @media (max-width: 767px) {
+      .hero-3d__float-inner {
+        transform: none !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      nav.site-header,
+      .hero-3d__base,
+      .hero-3d__canvas-mount,
+      .site-contact {
+        animation: none !important;
+      }
+
+      nav.site-header {
+        opacity: 1 !important;
+      }
+
+      .hero-3d__base {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .hero-3d__canvas-mount {
+        opacity: 1 !important;
+      }
+
+      .site-contact {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /*
@@ -409,10 +592,6 @@
     }
 
     @media (min-width: 768px) and (max-width: 1024px) {
-      .hero-view .hero-tilt {
-        font-size: clamp(2.25rem, min(10vw, 3.5rem + 5vw), 9rem);
-      }
-
       .project-card__caption-name,
       .project-card__caption-type {
         font-size: 13px;
@@ -420,13 +599,8 @@
     }
 
     @media (max-width: 767px) {
-      .hero-view .hero-tilt {
-        font-size: clamp(2.25rem, 12vw, 5rem);
-      }
-
-      .hero-stage {
-        padding-top: 6vh;
-        transform: translateY(-12%);
+      .hero-3d {
+        max-width: none;
       }
 
       .projects-grid {
@@ -464,9 +638,27 @@
     <section class="hero-view">
       <div class="container hero-view__inner">
         <div class="hero-stage">
-          <div class="hero-tilt" id="heroTilt" aria-label="Hi, I'm Kamil, UX/UI designer and creative thinker">
-            <span class="hero-tilt__line"><span class="hero-style-1 hero-preserve-case">Hi,</span><span class="hero-style-2 hero-preserve-case"> I'm </span><span class="hero-style-3 hero-preserve-case">Kamil</span><span class="hero-style-3">,</span></span>
-            <span class="hero-tilt__line"><span class="hero-style-2">ux.ui </span><span class="hero-style-3">designer </span><span class="hero-style-2">&amp; </span><span class="hero-style-3">creative </span><span class="hero-style-2">thinker</span></span>
+          <div class="hero-3d" id="heroVisualRoot">
+            <div class="hero-3d__stack">
+              <div class="hero-3d__base-wrap">
+                <img
+                  class="hero-3d__base"
+                  src="/images/layer1.png"
+                  alt="Hi I'm Kamil — a ux/ui designer"
+                  width="1200"
+                  height="400"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </div>
+              <div class="hero-3d__float-wrap" aria-hidden="false">
+                <div class="hero-3d__float-inner" id="heroFloatInner">
+                  <div class="hero-3d__canvas-mount" id="heroKamilMount">
+                    <canvas id="heroKamilCanvas" aria-label="Kamil 3D lettering"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="site-contact" aria-label="Contact information">
@@ -663,7 +855,12 @@
 
       var cursorEl = document.getElementById('customCursor');
       var cursorLabelEl = document.getElementById('cursorLabel');
-      var heroEl = document.getElementById('heroTilt');
+      var heroFloatInner = document.getElementById('heroFloatInner');
+      var heroKamilMount = document.getElementById('heroKamilMount');
+
+      function isHeroMotionEnabled() {
+        return window.matchMedia('(min-width: 768px)').matches;
+      }
       var aboutSection = document.getElementById('about');
       var backToTopEl = document.getElementById('backToTop');
       var cursorHotspots = document.querySelectorAll('.js-cursor-hotspot');
@@ -725,20 +922,127 @@
         });
       }
 
-      if (!cursorEl || !heroEl) {
+      if (!cursorEl) {
         runRevealObservers();
         return;
       }
 
-      var CURSOR_OFFSET_X = 20;
-      var CURSOR_OFFSET_Y = 22;
-      var heroMaxX = 7;
-      var heroMaxY = 9;
-      var smoothing = 0.12;
+      var CURSOR_TEXT_OFFSET_X = 14;
+      var CURSOR_TEXT_OFFSET_Y = 16;
+      var maxTiltX = 5.2;
+      var maxTiltY = 5.8;
+      var maxShiftX = 12;
+      var maxShiftY = 10;
+      /** Higher = snappier mouse follow; spring removed for gentle non-bouncy motion */
+      var PARALLAX_SMOOTH_LAMBDA = 22;
+      var parallaxState = {
+        px: 0,
+        py: 0,
+        tpx: 0,
+        tpy: 0,
+        rx: 0,
+        ry: 0,
+        trx: 0,
+        trY: 0,
+      };
+      var parallaxRafId = null;
+      var lastParallaxTs = 0;
 
-      var heroState = { cx: 0, cy: 0, tx: 0, ty: 0 };
+      function snapHeroParallax() {
+        parallaxState.px = parallaxState.py = parallaxState.rx = parallaxState.ry = 0;
+      }
+
+      function resetParallaxTargets() {
+        parallaxState.tpx = parallaxState.tpy = 0;
+        parallaxState.trx = parallaxState.trY = 0;
+      }
+
+      function setParallaxTargetsFromMouse(clientX, clientY) {
+        var nx;
+        var ny;
+        if (heroKamilMount && heroKamilMount.getBoundingClientRect) {
+          var r = heroKamilMount.getBoundingClientRect();
+          var rw = Math.max(r.width, 1);
+          var rh = Math.max(r.height, 1);
+          nx = (clientX - r.left) / rw - 0.5;
+          ny = (clientY - r.top) / rh - 0.5;
+          nx = Math.max(-0.55, Math.min(0.55, nx));
+          ny = Math.max(-0.55, Math.min(0.55, ny));
+        } else {
+          var w = window.innerWidth || 1;
+          var h = window.innerHeight || 1;
+          nx = clientX / w - 0.5;
+          ny = clientY / h - 0.5;
+        }
+        parallaxState.tpx = nx * maxShiftX * 2;
+        parallaxState.tpy = ny * maxShiftY * 2;
+        parallaxState.trx = -ny * maxTiltX * 2;
+        parallaxState.trY = nx * maxTiltY * 2;
+      }
+
+      function smoothParallaxStep(dt) {
+        var p = parallaxState;
+        var dtSec = Math.min(50, dt) / 1000;
+        var a = 1 - Math.exp(-PARALLAX_SMOOTH_LAMBDA * dtSec);
+        p.px += (p.tpx - p.px) * a;
+        p.py += (p.tpy - p.py) * a;
+        p.rx += (p.trx - p.rx) * a;
+        p.ry += (p.trY - p.ry) * a;
+      }
+
+      function applyHeroStackParallax() {
+        if (!heroFloatInner) return;
+        if (!isHeroMotionEnabled()) {
+          heroFloatInner.style.transform = '';
+          return;
+        }
+        var p = parallaxState;
+        heroFloatInner.style.transform =
+          'translate3d(' +
+          p.px.toFixed(2) +
+          'px,' +
+          p.py.toFixed(2) +
+          'px,0) rotateX(' +
+          p.rx.toFixed(3) +
+          'deg) rotateY(' +
+          p.ry.toFixed(3) +
+          'deg)';
+      }
+
+      function parallaxMoving() {
+        var p = parallaxState;
+        return (
+          Math.abs(p.tpx - p.px) > 0.12 ||
+          Math.abs(p.tpy - p.py) > 0.12 ||
+          Math.abs(p.trx - p.rx) > 0.04 ||
+          Math.abs(p.trY - p.ry) > 0.04
+        );
+      }
+
+      function parallaxTick(ts) {
+        if (!isHeroMotionEnabled() || !heroFloatInner) {
+          parallaxRafId = null;
+          lastParallaxTs = 0;
+          return;
+        }
+        var now = ts != null ? ts : performance.now();
+        var dt = lastParallaxTs ? Math.min(50, now - lastParallaxTs) : 16.67;
+        lastParallaxTs = now;
+        smoothParallaxStep(dt);
+        applyHeroStackParallax();
+        if (parallaxMoving()) {
+          parallaxRafId = window.requestAnimationFrame(parallaxTick);
+        } else {
+          parallaxRafId = null;
+          lastParallaxTs = 0;
+        }
+      }
+
+      function scheduleParallaxTick() {
+        if (parallaxRafId === null) parallaxRafId = window.requestAnimationFrame(parallaxTick);
+      }
+
       var hotspotHoverDepth = 0;
-      var rafId = null;
 
       function setCursorLabel() {
         if (!cursorLabelEl) return;
@@ -755,66 +1059,54 @@
         setCursorLabel();
       }
 
-      function setTargetsFromNormalized(nx, ny, maxRx, maxRy, state) {
-        state.ty = nx * maxRy * 2;
-        state.tx = -ny * maxRx * 2;
-      }
-
       function moveCustomCursor(clientX, clientY) {
-        var x = clientX + CURSOR_OFFSET_X;
-        var y = clientY + CURSOR_OFFSET_Y;
+        var x = clientX + CURSOR_TEXT_OFFSET_X;
+        var y = clientY + CURSOR_TEXT_OFFSET_Y;
         cursorEl.style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
         if (!cursorEl.classList.contains('is-suppressed-in-about')) {
           cursorEl.classList.add('is-visible');
         }
       }
 
-      function lerpState(state) {
-        state.cx += (state.tx - state.cx) * smoothing;
-        state.cy += (state.ty - state.cy) * smoothing;
-      }
-
-      function applyHeroTransform() {
-        heroEl.style.transform =
-          'rotateX(' + heroState.cx.toFixed(3) + 'deg) rotateY(' + heroState.cy.toFixed(3) + 'deg)';
-      }
-
-      function tick() {
-        lerpState(heroState);
-        applyHeroTransform();
-
-        var heroMoving =
-          Math.abs(heroState.tx - heroState.cx) > 0.002 ||
-          Math.abs(heroState.ty - heroState.cy) > 0.002;
-
-        if (heroMoving) {
-          rafId = requestAnimationFrame(tick);
-        } else {
-          rafId = null;
-        }
-      }
-
-      function scheduleTick() {
-        if (rafId === null) rafId = requestAnimationFrame(tick);
-      }
-
       function onMouseMove(e) {
         moveCustomCursor(e.clientX, e.clientY);
-
-        var w = window.innerWidth || 1;
-        var h = window.innerHeight || 1;
-        setTargetsFromNormalized(e.clientX / w - 0.5, e.clientY / h - 0.5, heroMaxX, heroMaxY, heroState);
-
-        scheduleTick();
+        if (!heroFloatInner) return;
+        if (isHeroMotionEnabled()) {
+          setParallaxTargetsFromMouse(e.clientX, e.clientY);
+          scheduleParallaxTick();
+        } else {
+          resetParallaxTargets();
+          snapHeroParallax();
+          lastParallaxTs = 0;
+          applyHeroStackParallax();
+        }
       }
 
       function onDocumentLeave() {
         hotspotHoverDepth = 0;
         setCursorLabel();
-        heroState.tx = heroState.ty = 0;
         cursorEl.classList.remove('is-visible');
-        scheduleTick();
+        resetParallaxTargets();
+        if (isHeroMotionEnabled()) scheduleParallaxTick();
+        else {
+          snapHeroParallax();
+          lastParallaxTs = 0;
+          applyHeroStackParallax();
+        }
       }
+
+      window.addEventListener('resize', function () {
+        if (!isHeroMotionEnabled()) {
+          resetParallaxTargets();
+          snapHeroParallax();
+          lastParallaxTs = 0;
+          if (parallaxRafId !== null) {
+            window.cancelAnimationFrame(parallaxRafId);
+            parallaxRafId = null;
+          }
+          applyHeroStackParallax();
+        }
+      }, { passive: true });
 
       for (var i = 0; i < cursorHotspots.length; i++) {
         cursorHotspots[i].addEventListener('mouseenter', onHotspotEnter);
@@ -828,9 +1120,11 @@
       window.addEventListener('blur', onDocumentLeave);
 
       setCursorLabel();
-      scheduleTick();
+      if (isHeroMotionEnabled() && heroFloatInner) scheduleParallaxTick();
+      else applyHeroStackParallax();
     })();
 
   </script>
+  <script type="module" src="hero-kamil-3d.js"></script>
 </body>
 </html>
