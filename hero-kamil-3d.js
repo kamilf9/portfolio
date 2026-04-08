@@ -1,13 +1,13 @@
 /**
  * Hero 3D: loads only kamil.obj from ./portfolio/obj/kamil.obj (no other filenames).
- * Hot pink glossy material (roughness 0); directional light eases toward pointer (canvas-local) when width ≥ 768px.
+ * Glossy lettering #fffdd7; directional light eases toward pointer (canvas-local) when width ≥ 768px.
  */
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const KAMIL_OBJ_PATH = './portfolio/obj/kamil.obj';
-const HOT_PINK = 0xff69b4;
+const LETTER_COLOR = 0xfffdd7;
 /** Base scale when pink type matched ~10/12 cols; canvas stays full width, mesh uses 8/12. */
 const MODEL_SCALE_BASE = 6;
 const PINK_GRID_COLS = 8;
@@ -64,7 +64,7 @@ function init() {
   scene.add(dirLight.target);
 
   const glossyMat = new THREE.MeshPhysicalMaterial({
-    color: HOT_PINK,
+    color: LETTER_COLOR,
     roughness: 0,
     metalness: 0.08,
     envMapIntensity: 1.15,

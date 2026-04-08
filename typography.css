@@ -29,24 +29,21 @@ html {
   overflow-x: hidden;
 }
 
-/* —— L1: Case study hero titles — fluid up to 96px —— */
+/* —— L1: Case study hero titles — Roboto 48px Light, ALL CAPS —— */
 .case-hero-title,
 .case-health-hero-title {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.75rem, 4.8vw + 1.5rem, 96px);
-  line-height: 1.08;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: #000000;
+  text-align: center;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.case-hero-title,
-.case-health-hero-title {
-  text-align: center;
-  text-transform: none;
   padding: 100px 0 0;
   margin: 0 0 12px;
 }
@@ -326,7 +323,7 @@ video {
   font-weight: 400;
 }
 
-/* —— L1: “Next project” (Instrument Serif Italic 96px), after final page media —— */
+/* —— L1: “Next project” — Roboto 48px Light, ALL CAPS (matches case hero title) —— */
 .case-next-project {
   width: 100%;
   margin: 0;
@@ -337,18 +334,40 @@ video {
 }
 
 .case-next-project__link {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(2.5rem, 5vw + 1.5rem, 96px);
-  line-height: 1.08;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: #000000;
   text-decoration: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
   transition: filter 0.4s ease;
+}
+
+/*
+ * North-east arrow: longer shaft (~45°), hairline stroke (non-scaling) ~ Roboto Light;
+ * box sized to cap height like the uppercase label.
+ */
+.case-next-project__link::after {
+  content: '';
+  display: block;
+  width: 0.95em;
+  height: 0.82em;
+  width: 1.15cap;
+  height: 1cap;
+  flex-shrink: 0;
+  margin-bottom: 0.04em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28' fill='none'%3E%3Cpath vector-effect='non-scaling-stroke' d='M3.5 24.5L24.5 3.5M24.5 3.5L13.5 3.5M24.5 3.5L24.5 14.5' stroke='%23000000' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat center / contain;
 }
 
 @media (hover: hover) {
@@ -393,11 +412,11 @@ video {
 
   .case-hero-title,
   .case-health-hero-title {
-    font-size: clamp(2.5rem, 4vw + 1.25rem, 77px);
+    font-size: 42px;
   }
 
   .case-next-project__link {
-    font-size: clamp(2.25rem, 4.5vw + 1rem, 77px);
+    font-size: 42px;
   }
 }
 
@@ -405,7 +424,7 @@ video {
 @media (max-width: 767px) {
   .case-hero-title,
   .case-health-hero-title {
-    font-size: clamp(2.25rem, 9vw, 5rem);
+    font-size: clamp(28px, 8vw, 48px);
     padding: 48px 0 0;
     margin-bottom: 12px;
   }
@@ -416,7 +435,7 @@ video {
   }
 
   .case-next-project__link {
-    font-size: clamp(2.25rem, 9vw, 5rem);
+    font-size: clamp(28px, 8vw, 48px);
   }
 
   nav:not(.case-next-project) .container {

@@ -863,8 +863,8 @@
       }
       var aboutSection = document.getElementById('about');
       var backToTopEl = document.getElementById('backToTop');
-      var cursorHotspots = document.querySelectorAll('.js-cursor-hotspot');
       var revealTargets = document.querySelectorAll('.js-project-reveal');
+      var heroSectionForCursor = document.querySelector('.hero-view');
 
       function runRevealObservers() {
         if ('IntersectionObserver' in window) {
@@ -926,6 +926,8 @@
         runRevealObservers();
         return;
       }
+
+      document.body.classList.add('is-hero-cursor-active');
 
       var CURSOR_TEXT_OFFSET_X = 14;
       var CURSOR_TEXT_OFFSET_Y = 16;
@@ -1042,21 +1044,31 @@
         if (parallaxRafId === null) parallaxRafId = window.requestAnimationFrame(parallaxTick);
       }
 
-      var hotspotHoverDepth = 0;
-
-      function setCursorLabel() {
-        if (!cursorLabelEl) return;
-        cursorLabelEl.textContent = hotspotHoverDepth > 0 ? 'view' : 'scroll';
+      function stopHeroParallaxNow() {
+        if (parallaxRafId !== null) {
+          window.cancelAnimationFrame(parallaxRafId);
+          parallaxRafId = null;
+        }
+        lastParallaxTs = 0;
+        resetParallaxTargets();
+        snapHeroParallax();
+        applyHeroStackParallax();
       }
 
-      function onHotspotEnter() {
-        hotspotHoverDepth++;
-        setCursorLabel();
-      }
-
-      function onHotspotLeave() {
-        hotspotHoverDepth = Math.max(0, hotspotHoverDepth - 1);
-        setCursorLabel();
+      if (heroSectionForCursor && 'IntersectionObserver' in window) {
+        var heroCursorIO = new IntersectionObserver(
+          function (entries) {
+            var en = entries[0];
+            var active = en.isIntersecting && en.intersectionRatio >= 0.04;
+            document.body.classList.toggle('is-hero-cursor-active', active);
+            if (!active) {
+              cursorEl.classList.remove('is-visible');
+              stopHeroParallaxNow();
+            }
+          },
+          { root: null, rootMargin: '0px', threshold: [0, 0.02, 0.04, 0.06, 0.1, 0.15, 0.25, 0.5, 0.75, 1] }
+        );
+        heroCursorIO.observe(heroSectionForCursor);
       }
 
       function moveCustomCursor(clientX, clientY) {
@@ -1069,8 +1081,14 @@
       }
 
       function onMouseMove(e) {
-        moveCustomCursor(e.clientX, e.clientY);
+        if (document.body.classList.contains('is-hero-cursor-active')) {
+          moveCustomCursor(e.clientX, e.clientY);
+        } else {
+          cursorEl.classList.remove('is-visible');
+        }
+
         if (!heroFloatInner) return;
+        if (!document.body.classList.contains('is-hero-cursor-active')) return;
         if (isHeroMotionEnabled()) {
           setParallaxTargetsFromMouse(e.clientX, e.clientY);
           scheduleParallaxTick();
@@ -1083,9 +1101,8 @@
       }
 
       function onDocumentLeave() {
-        hotspotHoverDepth = 0;
-        setCursorLabel();
         cursorEl.classList.remove('is-visible');
+        if (!document.body.classList.contains('is-hero-cursor-active')) return;
         resetParallaxTargets();
         if (isHeroMotionEnabled()) scheduleParallaxTick();
         else {
@@ -1108,19 +1125,15 @@
         }
       }, { passive: true });
 
-      for (var i = 0; i < cursorHotspots.length; i++) {
-        cursorHotspots[i].addEventListener('mouseenter', onHotspotEnter);
-        cursorHotspots[i].addEventListener('mouseleave', onHotspotLeave);
-      }
-
       runRevealObservers();
 
       window.addEventListener('mousemove', onMouseMove);
       document.documentElement.addEventListener('mouseleave', onDocumentLeave);
       window.addEventListener('blur', onDocumentLeave);
 
-      setCursorLabel();
-      if (isHeroMotionEnabled() && heroFloatInner) scheduleParallaxTick();
+      if (cursorLabelEl) cursorLabelEl.textContent = 'scroll';
+      if (isHeroMotionEnabled() && heroFloatInner && document.body.classList.contains('is-hero-cursor-active'))
+        scheduleParallaxTick();
       else applyHeroStackParallax();
     })();
 
