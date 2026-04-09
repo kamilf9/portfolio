@@ -1,13 +1,17 @@
 /**
  * Hero 3D: loads only kamil.obj from ./portfolio/obj/kamil.obj (no other filenames).
- * Glossy lettering #fffdd7; directional light eases toward pointer (canvas-local) when width ≥ 768px.
+ * Lettering: base #f9ff00 with env + clearcoat for roundness; low emissive so directional light reads as shade.
+ * All meshes when OBJ has 6 parts; 7th mesh = “.obj” #fffdd7. Light follows pointer when width ≥ 768px.
  */
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const KAMIL_OBJ_PATH = './portfolio/obj/kamil.obj';
-const LETTER_COLOR = 0xfffdd7;
+const KAMIL_LETTER_COLOR = 0xf9ff00;
+const OBJ_SUFFIX_COLOR = 0xfffdd7;
+/** When mesh count exceeds this, the rightmost-by-X mesh alone uses OBJ_SUFFIX_COLOR. */
+const OBJ_SUFFIX_MIN_MESHES = 7;
 /** Base scale when pink type matched ~10/12 cols; canvas stays full width, mesh uses 8/12. */
 const MODEL_SCALE_BASE = 6;
 const PINK_GRID_COLS = 8;
@@ -43,17 +47,17 @@ function init() {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.02;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
   scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
 
-  const ambient = new THREE.AmbientLight(0xffffff, 0.22);
+  const ambient = new THREE.AmbientLight(0xfff6d0, 0.18);
   scene.add(ambient);
 
-  const dirLight = new THREE.DirectionalLight(0xffffff, 2.4);
+  const dirLight = new THREE.DirectionalLight(0xfffaf0, 2.65);
   dirLight.castShadow = true;
   dirLight.shadow.bias = -0.0002;
   dirLight.shadow.normalBias = 0.02;
@@ -63,14 +67,21 @@ function init() {
   scene.add(dirLight);
   scene.add(dirLight.target);
 
-  const glossyMat = new THREE.MeshPhysicalMaterial({
-    color: LETTER_COLOR,
-    roughness: 0,
-    metalness: 0.08,
-    envMapIntensity: 1.15,
-    clearcoat: 1,
-    clearcoatRoughness: 0,
-  });
+  function makeLetterMat(hex) {
+    var base = new THREE.Color(hex);
+    return new THREE.MeshPhysicalMaterial({
+      color: base,
+      roughness: 0.2,
+      metalness: 0,
+      envMapIntensity: 0.82,
+      clearcoat: 0.48,
+      clearcoatRoughness: 0.12,
+      emissive: base.clone(),
+      emissiveIntensity: 0.07,
+    });
+  }
+  const glossyMatKamil = makeLetterMat(KAMIL_LETTER_COLOR);
+  const glossyMatObjSuffix = makeLetterMat(OBJ_SUFFIX_COLOR);
 
   const lightPosCurrent = new THREE.Vector3(4, 6, 14);
   const lightPosTarget = new THREE.Vector3(4, 6, 14);
@@ -117,13 +128,32 @@ function init() {
       dirLight.shadow.camera.near = 0.1;
       dirLight.shadow.camera.updateProjectionMatrix();
 
+      const letterMeshes = [];
       obj.traverse(function (child) {
-        if (child.isMesh) {
-          child.material = glossyMat;
-          child.castShadow = true;
-          child.receiveShadow = true;
-        }
+        if (child.isMesh) letterMeshes.push(child);
       });
+      const meshCenter = new THREE.Vector3();
+      const byX = letterMeshes.map(function (mesh) {
+        new THREE.Box3().setFromObject(mesh).getCenter(meshCenter);
+        return { mesh: mesh, x: meshCenter.x };
+      });
+      byX.sort(function (a, b) {
+        return a.x - b.x;
+      });
+      var useObjSuffix =
+        byX.length >= OBJ_SUFFIX_MIN_MESHES;
+      for (var si = 0; si < byX.length; si++) {
+        var ch = byX[si].mesh;
+        var isObjSuffix =
+          useObjSuffix && si === byX.length - 1;
+        ch.material = isObjSuffix ? glossyMatObjSuffix : glossyMatKamil;
+        ch.material.vertexColors = false;
+        if (ch.geometry && ch.geometry.hasAttribute('color')) {
+          ch.geometry.deleteAttribute('color');
+        }
+        ch.castShadow = true;
+        ch.receiveShadow = true;
+      }
       scene.add(obj);
 
       var dist = rawMax * CAMERA_FRAMING;
