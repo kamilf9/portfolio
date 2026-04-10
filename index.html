@@ -151,6 +151,13 @@
       animation: landingNavDrop 1.1s cubic-bezier(0.22, 1, 0.36, 1) 1.23s forwards;
     }
 
+    /* After intro animation: no keyframe fill so nav-auto-hide can own transform/opacity */
+    nav.site-header.site-header--landing-done {
+      animation: none;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     nav .brand {
       color: inherit;
       text-decoration: none;

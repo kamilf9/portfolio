@@ -13,6 +13,26 @@
   }
   if (!nav || nav.classList.contains('case-next-project')) return;
 
+  if (nav.classList.contains('site-header')) {
+    function markNavLandingDone() {
+      nav.classList.add('site-header--landing-done');
+    }
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      markNavLandingDone();
+    } else {
+      nav.addEventListener('animationend', function (e) {
+        var name = e.animationName || '';
+        if (name === 'landingNavDrop' || /landingNavDrop$/i.test(name)) {
+          markNavLandingDone();
+        }
+      });
+      setTimeout(markNavLandingDone, 4000);
+    }
+  }
+
   var contact = document.querySelector('.site-contact');
   var hiddenClass = 'is-header-hidden';
   var lastY = window.scrollY || 0;

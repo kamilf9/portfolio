@@ -165,8 +165,10 @@ body.case-page > nav:not(.case-next-project) {
 
 nav.site-header.is-header-hidden,
 body.case-page > nav:not(.case-next-project).is-header-hidden {
-  transform: translateY(-100%);
-  opacity: 0;
+  /* Beat home landing keyframes (forwards) so scroll hide / hover zone work */
+  animation: none !important;
+  transform: translateY(-100%) !important;
+  opacity: 0 !important;
   pointer-events: none;
 }
 
