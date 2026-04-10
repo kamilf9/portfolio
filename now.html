@@ -1028,6 +1028,74 @@
         grid-column: 1 / -1 !important;
       }
     }
+
+    @media (max-width: 768px) {
+      .now-page .case-hero-meta-shell .case-meta-row {
+        font-size: clamp(11px, 3.1vw, 14px);
+        letter-spacing: -0.02em;
+      }
+
+      .case-now-research-stack .case-subhead,
+      .case-now-research-stack .case-now-research-copy,
+      .case-now-research-figure-wrap {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .case-now-research-image {
+        width: 100% !important;
+      }
+
+      /* Final screens mosaic: 1 — 2 — 1 vertical rhythm (full / pair / full) */
+      .screens-mosaic {
+        grid-template-columns: 1fr 1fr !important;
+        column-gap: var(--grid-gutter) !important;
+        row-gap: 1.25rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+
+      .screens-mosaic__cell--open {
+        grid-column: 1 / -1 !important;
+      }
+
+      .screens-mosaic__cell--loader {
+        grid-column: 1 !important;
+      }
+
+      .screens-mosaic__cell--winds {
+        grid-column: 2 !important;
+      }
+
+      .screens-mosaic__cell--home {
+        grid-column: 1 / -1 !important;
+      }
+
+      .screens-mosaic__cell--uv {
+        grid-column: 1 !important;
+      }
+
+      .screens-mosaic__cell--visibility {
+        grid-column: 2 !important;
+      }
+
+      .screens-mosaic__cell--precip {
+        grid-column: 1 / -1 !important;
+      }
+
+      .screens-mosaic__cell--recipe1 {
+        grid-column: 1 !important;
+      }
+
+      .screens-mosaic__cell--recipe2 {
+        grid-column: 2 !important;
+      }
+
+      .screens-mosaic__cell--fullapp {
+        grid-column: 1 / -1 !important;
+      }
+    }
   </style>
 </head>
 <body class="case-page case-study-page now-page is-entering">
@@ -1082,6 +1150,7 @@
             <video
               class="case-now-screens-video"
               src="nowproject/screens.mp4"
+              poster="nowproject/styleguide.png"
               autoplay
               muted
               loop
@@ -1420,6 +1489,7 @@
                 <video
                   class="mosaic-item full-app-video"
                   src="nowproject/fullapp.mp4"
+                  poster="nowproject/opening.png"
                   preload="metadata"
                   loop
                   playsinline

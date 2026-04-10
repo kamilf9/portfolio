@@ -754,6 +754,37 @@
       }
 
     }
+
+    @media (max-width: 768px) {
+      .devill-page .case-hero-meta-shell .case-meta-row {
+        font-size: clamp(11px, 3.1vw, 14px);
+        letter-spacing: -0.02em;
+        column-gap: 6px;
+      }
+
+      .devill-page .case-opening-image,
+      .devill-page .case-userflow,
+      .devill-page .case-styleguide,
+      .devill-page .case-devill-packages {
+        width: calc(100% + 2 * var(--container-pad)) !important;
+        max-width: none !important;
+        margin-left: calc(-1 * var(--container-pad)) !important;
+        margin-right: calc(-1 * var(--container-pad)) !important;
+      }
+
+      .devill-page .case-allanimals-packages-stack {
+        width: calc(100% + 2 * var(--container-pad)) !important;
+        max-width: none !important;
+        margin-left: calc(-1 * var(--container-pad)) !important;
+        margin-right: calc(-1 * var(--container-pad)) !important;
+      }
+
+      .devill-page .case-allanimals-video-wrap,
+      .devill-page .case-allanimals-video {
+        width: 100% !important;
+        max-width: none !important;
+      }
+    }
   </style>
 </head>
 <body class="case-page case-study-page devill-page is-entering">
@@ -963,6 +994,7 @@
               <video
                 class="video-walkthrough-embed"
                 src="devillproject/fullweb.mp4"
+                poster="devillproject/screens.png"
                 controls
                 playsinline
                 preload="metadata"

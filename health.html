@@ -422,6 +422,31 @@
         grid-column: 2 / 12 !important;
       }
     }
+
+    @media (max-width: 768px) {
+      .health-page .case-health-meta {
+        font-size: clamp(11px, 3.1vw, 14px);
+        letter-spacing: -0.02em;
+      }
+
+      .health-page .case-health-copy-stack > .case-health-text-section .case-subhead {
+        font-size: clamp(17px, 4.5vw, 20px);
+        letter-spacing: -0.03em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .case-health-final-video-grid .video-walkthrough-wrapper {
+        grid-column: 1 / -1 !important;
+        width: 100% !important;
+        max-width: none !important;
+      }
+
+      .health-page .case-health-final-video-grid .case-next-project {
+        grid-column: 1 / -1 !important;
+      }
+    }
   </style>
 </head>
 <body class="case-page case-study-page health-page is-entering">
@@ -601,6 +626,7 @@
                 id="projectVideo"
                 class="video-walkthrough-embed"
                 src="helthcigaretteproject/healthcigarette.mp4"
+                poster="helthcigaretteproject/cover.jpg"
                 controls
                 playsinline
                 preload="metadata"

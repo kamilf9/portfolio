@@ -382,6 +382,17 @@
       .hero-3d__float-inner {
         transform: none !important;
       }
+
+      /* Avoid 100vw horizontal overflow on narrow phones; keep 3D mount within hero width */
+      .hero-3d__canvas-mount {
+        width: 100% !important;
+        max-width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        transform: translateY(calc(-50% - 44px)) !important;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -639,6 +650,15 @@
         --project-col-gap: var(--grid-gutter, 16px);
       }
     }
+
+    @media (max-width: 768px) {
+      .site-contact__line--phone {
+        color: #000000;
+        text-decoration: none;
+        pointer-events: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
   </style>
 </head>
 <body>
@@ -686,7 +706,7 @@
         <div class="site-contact" aria-label="Contact information">
           <p class="site-contact__label">Contact</p>
           <p class="site-contact__line">kamil.fogel@gmail.com</p>
-          <p class="site-contact__line">+972 52 666 2494</p>
+          <p class="site-contact__line site-contact__line--phone">+972 52 666 2494</p>
         </div>
       </div>
     </section>

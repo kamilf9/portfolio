@@ -2,6 +2,7 @@
  * Hero 3D: loads only kamil.obj from ./portfolio/obj/kamil.obj (no other filenames).
  * Lettering: base #f9ff00 with env + clearcoat for roundness; low emissive so directional light reads as shade.
  * All meshes when OBJ has 6 parts; 7th mesh = “.obj” #fffdd7. Light follows pointer when width ≥ 768px.
+ * Viewport ≤767px: smaller mesh scale + wider FOV so lettering fits; desktop scale/FOV unchanged.
  */
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
@@ -29,6 +30,28 @@ const CAMERA_FRAMING = 2.35;
 const BASELINE_ALIGN_Y = 0.085;
 /** Framerate-independent smoothing: higher = follows pointer more tightly (no spring overshoot). */
 const LIGHT_FOLLOW_LAMBDA = 21;
+
+const MOBILE_MAX_WIDTH_PX = 767;
+/** Multiply MODEL_SCALE on narrow viewports (~48% size vs desktop). */
+const MOBILE_MODEL_SCALE_FACTOR = 0.52;
+const DESKTOP_CAMERA_FOV = 42;
+const MOBILE_CAMERA_FOV = 50;
+/** Slight camera pull-back on mobile after scale (extra margin vs clip). */
+const MOBILE_CAMERA_DIST_MULT = 1.1;
+
+function isMobileHeroViewport() {
+  return window.matchMedia(
+    '(max-width: ' + MOBILE_MAX_WIDTH_PX + 'px)'
+  ).matches;
+}
+
+function getHeroResponsiveScaleFactor() {
+  return isMobileHeroViewport() ? MOBILE_MODEL_SCALE_FACTOR : 1;
+}
+
+function getHeroCameraFov() {
+  return isMobileHeroViewport() ? MOBILE_CAMERA_FOV : DESKTOP_CAMERA_FOV;
+}
 
 function init() {
   const mount = document.getElementById('heroKamilMount');
@@ -90,6 +113,61 @@ function init() {
   dirLight.position.copy(lightPosCurrent);
   dirLight.target.position.copy(lightAim);
 
+  let heroMeshRoot = null;
+  let baselineShift = 0;
+  let rawMaxUnscaled = 1;
+  let sceneLightScale = 14;
+
+  function applyHeroResponsiveLayout() {
+    if (!heroMeshRoot) return;
+
+    heroMeshRoot.position.y -= baselineShift;
+    baselineShift = 0;
+
+    var factor = getHeroResponsiveScaleFactor();
+    var s = MODEL_SCALE * factor;
+    heroMeshRoot.scale.set(s, s, s);
+    heroMeshRoot.updateMatrixWorld(true);
+
+    var box = new THREE.Box3().setFromObject(heroMeshRoot);
+    var size = box.getSize(new THREE.Vector3());
+    var maxDim = Math.max(size.x, size.y, size.z, 1);
+    baselineShift = maxDim * BASELINE_ALIGN_Y;
+    heroMeshRoot.position.y += baselineShift;
+    heroMeshRoot.updateMatrixWorld(true);
+
+    var boxFit = new THREE.Box3().setFromObject(heroMeshRoot);
+    var fitSize = boxFit.getSize(new THREE.Vector3());
+    var maxFit = Math.max(fitSize.x, fitSize.y, fitSize.z, 1);
+    boxFit.getCenter(lightAim);
+    sceneLightScale = maxFit;
+
+    var pad = maxFit * 0.35;
+    dirLight.shadow.camera.left = -(maxFit + pad);
+    dirLight.shadow.camera.right = maxFit + pad;
+    dirLight.shadow.camera.top = maxFit + pad;
+    dirLight.shadow.camera.bottom = -(maxFit + pad);
+    dirLight.shadow.camera.far = maxFit * 12 + 20;
+    dirLight.shadow.camera.near = 0.1;
+    dirLight.shadow.camera.updateProjectionMatrix();
+
+    camera.fov = getHeroCameraFov();
+    camera.updateProjectionMatrix();
+
+    var dist = rawMaxUnscaled * CAMERA_FRAMING;
+    if (isMobileHeroViewport()) dist *= MOBILE_CAMERA_DIST_MULT;
+    if (dist < 0.4) dist = 0.4;
+    camera.position.set(0, 0, dist);
+    camera.near = Math.max(0.01, dist * 0.001);
+    camera.far = dist * 100;
+    camera.lookAt(lightAim);
+    dirLight.target.position.copy(lightAim);
+
+    var s0 = sceneLightScale;
+    lightPosCurrent.set(s0 * 0.12, s0 * 0.32, s0 * 0.95);
+    lightPosTarget.copy(lightPosCurrent);
+  }
+
   const loader = new OBJLoader();
   loader.load(
     KAMIL_OBJ_PATH,
@@ -101,32 +179,9 @@ function init() {
 
       const boxUnscaled = new THREE.Box3().setFromObject(obj);
       const rawSize = boxUnscaled.getSize(new THREE.Vector3());
-      var rawMax = Math.max(rawSize.x, rawSize.y, rawSize.z, 1e-6);
+      rawMaxUnscaled = Math.max(rawSize.x, rawSize.y, rawSize.z, 1e-6);
 
-      obj.scale.set(MODEL_SCALE, MODEL_SCALE, MODEL_SCALE);
-      obj.updateMatrixWorld(true);
-
-      const box = new THREE.Box3().setFromObject(obj);
-      const size = box.getSize(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z, 1);
-
-      obj.position.y += maxDim * BASELINE_ALIGN_Y;
-
-      obj.updateMatrixWorld(true);
-      const boxFit = new THREE.Box3().setFromObject(obj);
-      const fitSize = boxFit.getSize(new THREE.Vector3());
-      const maxFit = Math.max(fitSize.x, fitSize.y, fitSize.z, 1);
-      boxFit.getCenter(lightAim);
-      sceneLightScale = maxFit;
-
-      const pad = maxFit * 0.35;
-      dirLight.shadow.camera.left = -(maxFit + pad);
-      dirLight.shadow.camera.right = maxFit + pad;
-      dirLight.shadow.camera.top = maxFit + pad;
-      dirLight.shadow.camera.bottom = -(maxFit + pad);
-      dirLight.shadow.camera.far = maxFit * 12 + 20;
-      dirLight.shadow.camera.near = 0.1;
-      dirLight.shadow.camera.updateProjectionMatrix();
+      heroMeshRoot = obj;
 
       const letterMeshes = [];
       obj.traverse(function (child) {
@@ -155,18 +210,8 @@ function init() {
         ch.receiveShadow = true;
       }
       scene.add(obj);
-
-      var dist = rawMax * CAMERA_FRAMING;
-      if (dist < 0.4) dist = 0.4;
-      camera.position.set(0, 0, dist);
-      camera.near = Math.max(0.01, dist * 0.001);
-      camera.far = dist * 100;
-      camera.lookAt(lightAim);
-      dirLight.target.position.copy(lightAim);
-
-      var s0 = sceneLightScale;
-      lightPosCurrent.set(s0 * 0.12, s0 * 0.32, s0 * 0.95);
-      lightPosTarget.copy(lightPosCurrent);
+      applyHeroResponsiveLayout();
+      resize();
     },
     undefined,
     function (err) {
@@ -185,8 +230,6 @@ function init() {
   let mx = 0;
   let my = 0;
   let lightFollowLastTs = 0;
-  /** World scale of loaded mesh (max bbox edge); drives light orbit radius. */
-  let sceneLightScale = 14;
   const mq = window.matchMedia('(min-width: 768px)');
 
   function onPointerMove(e) {
@@ -208,6 +251,19 @@ function init() {
   ro.observe(mount);
   window.addEventListener('resize', resize, { passive: true });
   resize();
+
+  const mqHeroMobile = window.matchMedia(
+    '(max-width: ' + MOBILE_MAX_WIDTH_PX + 'px)'
+  );
+  function onHeroMobileBpChange() {
+    applyHeroResponsiveLayout();
+    resize();
+  }
+  if (typeof mqHeroMobile.addEventListener === 'function') {
+    mqHeroMobile.addEventListener('change', onHeroMobileBpChange);
+  } else if (typeof mqHeroMobile.addListener === 'function') {
+    mqHeroMobile.addListener(onHeroMobileBpChange);
+  }
 
   function tick(ts) {
     requestAnimationFrame(tick);
