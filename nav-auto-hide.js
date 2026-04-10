@@ -46,7 +46,10 @@
     var shouldHide = wantsHidden && !hoverReveal;
     if (shouldHide) {
       nav.classList.add(hiddenClass);
-      if (contact) contact.classList.add('is-hidden-on-scroll');
+      if (contact) {
+        contact.classList.add('site-contact--intro-done');
+        contact.classList.add('is-hidden-on-scroll');
+      }
     } else {
       nav.classList.remove(hiddenClass);
       if (contact) contact.classList.remove('is-hidden-on-scroll');
