@@ -1,7 +1,7 @@
 /**
  * Hero 3D: loads only kamil.obj from ./portfolio/obj/kamil.obj (no other filenames).
- * Lettering: base #f9ff00 with env + clearcoat for roundness; low emissive so directional light reads as shade.
- * All meshes when OBJ has 6 parts; 7th mesh = “.obj” #fffdd7. Light follows pointer when width ≥ 768px.
+ * Lettering: base #00FFD9 with env + clearcoat for roundness; low emissive so directional light reads as shade.
+ * All meshes when OBJ has 6 parts; 7th mesh = “.obj” uses same blue. Light follows pointer when width ≥ 768px.
  * Viewport ≤767px: smaller mesh scale + wider FOV so lettering fits; desktop scale/FOV unchanged.
  */
 import * as THREE from 'three';
@@ -9,8 +9,8 @@ import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const KAMIL_OBJ_PATH = './portfolio/obj/kamil.obj';
-const KAMIL_LETTER_COLOR = 0xf9ff00;
-const OBJ_SUFFIX_COLOR = 0xfffdd7;
+const KAMIL_LETTER_COLOR = 0x00ffd9;
+const OBJ_SUFFIX_COLOR = 0x00ffd9;
 /** When mesh count exceeds this, the rightmost-by-X mesh alone uses OBJ_SUFFIX_COLOR. */
 const OBJ_SUFFIX_MIN_MESHES = 7;
 /** Base scale when pink type matched ~10/12 cols; canvas stays full width, mesh uses 8/12. */
@@ -119,6 +119,38 @@ function init() {
   }
   const glossyMatKamil = makeLetterMat(KAMIL_LETTER_COLOR);
   const glossyMatObjSuffix = makeLetterMat(OBJ_SUFFIX_COLOR);
+  const letterMaterials = [glossyMatKamil, glossyMatObjSuffix];
+  let lastLetterColorHex = KAMIL_LETTER_COLOR;
+
+  function applyLetterColor(hex) {
+    lastLetterColorHex = hex;
+    for (var i = 0; i < letterMaterials.length; i++) {
+      var mat = letterMaterials[i];
+      mat.color.setHex(hex);
+      mat.emissive.setHex(hex);
+    }
+  }
+
+  function randomVibrantHex() {
+    var color = new THREE.Color();
+    color.setHSL(Math.random(), 1, 0.5);
+    return color.getHex();
+  }
+
+  function pickRandomLetterColor() {
+    var hex = randomVibrantHex();
+    var tries = 0;
+    while (hex === lastLetterColorHex && tries < 8) {
+      hex = randomVibrantHex();
+      tries++;
+    }
+    applyLetterColor(hex);
+  }
+
+  var recolorBtn = document.getElementById('heroRecolorBtn');
+  if (recolorBtn) {
+    recolorBtn.addEventListener('click', pickRandomLetterColor);
+  }
 
   const lightPosCurrent = new THREE.Vector3(4, 6, 14);
   const lightPosTarget = new THREE.Vector3(4, 6, 14);

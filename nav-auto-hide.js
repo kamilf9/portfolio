@@ -34,6 +34,7 @@
   }
 
   var contact = document.querySelector('.site-contact');
+  var recolorBtn = document.querySelector('.hero-recolor-btn');
   var hiddenClass = 'is-header-hidden';
   var lastY = window.scrollY || 0;
   var threshold = 8;
@@ -50,9 +51,14 @@
         contact.classList.add('site-contact--intro-done');
         contact.classList.add('is-hidden-on-scroll');
       }
+      if (recolorBtn) {
+        recolorBtn.classList.add('hero-recolor-btn--intro-done');
+        recolorBtn.classList.add('is-hidden-on-scroll');
+      }
     } else {
       nav.classList.remove(hiddenClass);
       if (contact) contact.classList.remove('is-hidden-on-scroll');
+      if (recolorBtn) recolorBtn.classList.remove('is-hidden-on-scroll');
     }
   }
 
