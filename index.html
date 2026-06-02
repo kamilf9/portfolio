@@ -895,7 +895,7 @@
     <div class="container">
       <a class="brand" href="#">Kamil Fogel</a>
       <ul>
-        <li><a href="#work">Work</a></li>
+        <li><a href="#work" class="js-nav-work">Work</a></li>
         <li><a href="#site-bottom" class="js-nav-about-bottom">About</a></li>
       </ul>
     </div>
@@ -1130,15 +1130,17 @@
       }
     })();
 
-    (function bindHeroScrollHint() {
-      var hint = document.querySelector('.hero-scroll-hint');
+    (function bindWorkSmoothScroll() {
       var work = document.getElementById('work');
-      if (!hint || !work) return;
-      hint.addEventListener('click', function (e) {
-        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
-        e.preventDefault();
-        work.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+      if (!work) return;
+      var workLinks = document.querySelectorAll('a.js-nav-work, .hero-scroll-hint[href="#work"]');
+      for (var wi = 0; wi < workLinks.length; wi++) {
+        workLinks[wi].addEventListener('click', function (e) {
+          if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+          e.preventDefault();
+          work.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
     })();
 
     (function () {
