@@ -1329,34 +1329,24 @@
   </script>
   <script>
     (function initSitePreloader() {
-      var PRELOADER_MIN_MS = 3000;
       var preloader = document.getElementById('sitePreloader');
       var pctEl = document.getElementById('sitePreloaderPct');
       if (!preloader || !pctEl) return;
 
-      var startedAt = performance.now();
       var displayedPct = 0;
-      var realPct = 0;
-      var mode = 'synthetic';
-      var assetReady = false;
-      var dismissed = false;
-      var rafId = null;
+      var finished = false;
 
-      function setProgress(percent, force) {
+      function setProgress(percent) {
         var n = Math.round(Math.min(100, Math.max(0, percent)));
-        if (!force && n < displayedPct) return;
+        if (n < displayedPct) return;
         displayedPct = n;
         pctEl.textContent = String(n);
       }
 
-      function dismissPreloader() {
-        if (dismissed) return;
-        dismissed = true;
-        if (rafId !== null) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
-        setProgress(100, true);
+      function finishPreloader() {
+        if (finished) return;
+        finished = true;
+        setProgress(100);
         preloader.classList.add('is-done');
         preloader.setAttribute('aria-busy', 'false');
         document.body.classList.remove('site-preloader-active');
@@ -1371,59 +1361,20 @@
         }, 700);
       }
 
-      function tryDismissAtHundred() {
-        if (dismissed || displayedPct < 100 || !assetReady) return;
-        dismissPreloader();
-      }
-
-      function onAssetReady() {
-        assetReady = true;
-        if (mode === 'real') {
-          setProgress(100, true);
-          dismissPreloader();
-        } else {
-          tryDismissAtHundred();
-        }
-      }
-
-      function tick(now) {
-        if (dismissed) return;
-
-        if (mode === 'synthetic') {
-          var elapsed = now - startedAt;
-          var synthetic = Math.min(100, (elapsed / PRELOADER_MIN_MS) * 100);
-          setProgress(synthetic, true);
-
-          if (synthetic >= 100) {
-            if (assetReady) {
-              dismissPreloader();
-              return;
-            }
-            mode = 'real';
-            setProgress(realPct, true);
-          }
-        }
-
-        rafId = requestAnimationFrame(tick);
-      }
-
       document.addEventListener('hero-asset-progress', function (e) {
         var p = e.detail && e.detail.progress;
-        if (typeof p !== 'number') return;
-        realPct = p * 100;
-        if (mode === 'real') setProgress(realPct, true);
+        if (typeof p === 'number') setProgress(p * 100);
       });
 
-      document.addEventListener('hero-asset-ready', onAssetReady);
+      document.addEventListener('hero-asset-ready', finishPreloader);
 
       if (!document.getElementById('heroKamilCanvas')) {
-        assetReady = true;
+        finishPreloader();
+        return;
       }
 
-      rafId = requestAnimationFrame(tick);
-
       window.setTimeout(function () {
-        if (!dismissed) onAssetReady();
+        if (!finished) finishPreloader();
       }, 60000);
     })();
   </script>
