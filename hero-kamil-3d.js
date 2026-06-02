@@ -38,6 +38,20 @@ const DESKTOP_CAMERA_FOV = 42;
 const MOBILE_CAMERA_FOV = 50;
 /** Slight camera pull-back on mobile after scale (extra margin vs clip). */
 const MOBILE_CAMERA_DIST_MULT = 1.1;
+/** Share of total progress attributed to OBJ download (rest = parse + first render). */
+const HERO_LOAD_DOWNLOAD_WEIGHT = 0.92;
+
+function dispatchHeroLoadProgress(progress) {
+  document.dispatchEvent(
+    new CustomEvent('hero-asset-progress', {
+      detail: { progress: Math.min(1, Math.max(0, progress)) },
+    })
+  );
+}
+
+function dispatchHeroLoadReady() {
+  document.dispatchEvent(new CustomEvent('hero-asset-ready'));
+}
 
 function isMobileHeroViewport() {
   return window.matchMedia(
@@ -168,7 +182,17 @@ function init() {
     lightPosTarget.copy(lightPosCurrent);
   }
 
-  const loader = new OBJLoader();
+  const heroLoadingManager = new THREE.LoadingManager();
+  heroLoadingManager.onProgress = function (_url, loaded, total) {
+    if (total > 0) {
+      dispatchHeroLoadProgress((loaded / total) * HERO_LOAD_DOWNLOAD_WEIGHT);
+    }
+  };
+  heroLoadingManager.onLoad = function () {
+    dispatchHeroLoadProgress(0.96);
+  };
+
+  const loader = new OBJLoader(heroLoadingManager);
   loader.load(
     KAMIL_OBJ_PATH,
     function (obj) {
@@ -212,10 +236,20 @@ function init() {
       scene.add(obj);
       applyHeroResponsiveLayout();
       resize();
+      renderer.render(scene, camera);
+      dispatchHeroLoadProgress(1);
+      dispatchHeroLoadReady();
     },
-    undefined,
+    function (xhr) {
+      if (xhr.lengthComputable && xhr.total > 0) {
+        dispatchHeroLoadProgress(
+          (xhr.loaded / xhr.total) * HERO_LOAD_DOWNLOAD_WEIGHT
+        );
+      }
+    },
     function (err) {
       console.error('OBJLoader failed for', KAMIL_OBJ_PATH, err);
+      dispatchHeroLoadReady();
     }
   );
 
