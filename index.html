@@ -388,6 +388,10 @@
       overflow: visible;
     }
 
+    :root {
+      --hero-recolor-ui: #ff0edc;
+    }
+
     .hero-3d {
       /* Content width (layer1 + visual match to image_18); window below is 100vw to avoid clip */
       --hero-band-vw: 83.3vw;
@@ -467,9 +471,13 @@
       font-weight: 400;
       line-height: 1.35;
       letter-spacing: normal;
-      color: #000000;
-      background: #ffffff;
-      border: 1px solid #000000;
+      color: var(--hero-recolor-ui, #ff0edc);
+      background-color: #ffffff;
+      border: 1px solid var(--hero-recolor-ui, #ff0edc);
+      outline: none;
+      box-shadow: none;
+      -webkit-appearance: none;
+      appearance: none;
       border-radius: 9999px;
       cursor: pointer;
       box-sizing: border-box;
@@ -477,7 +485,9 @@
       visibility: visible;
       transition: opacity var(--hero-recolor-fade-ms) cubic-bezier(0.25, 0.1, 0.25, 1),
         transform var(--hero-recolor-fade-ms) cubic-bezier(0.25, 0.1, 0.25, 1),
-        visibility 0s linear 0s;
+        visibility 0s linear 0s,
+        color 0.35s ease,
+        border-color 0.35s ease;
       -webkit-font-smoothing: antialiased;
       opacity: 0;
       animation: landingPinkFade 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
@@ -500,7 +510,7 @@
     }
 
     .hero-recolor-btn:focus-visible {
-      outline: 2px solid #000000;
+      outline: 2px solid var(--hero-recolor-ui, #ff0edc);
       outline-offset: 2px;
     }
 
@@ -910,7 +920,7 @@
               <div class="hero-3d__base-wrap">
                 <img
                   class="hero-3d__base"
-                  src="/images/layer1.png"
+                  src="/images/layer1.png?v=20260603"
                   alt="Hi I'm Kamil — a ux/ui designer"
                   width="1200"
                   height="400"

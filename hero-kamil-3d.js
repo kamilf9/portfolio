@@ -121,33 +121,139 @@ function init() {
   const glossyMatObjSuffix = makeLetterMat(OBJ_SUFFIX_COLOR);
   const letterMaterials = [glossyMatKamil, glossyMatObjSuffix];
   let lastLetterColorHex = KAMIL_LETTER_COLOR;
+  const recolorBtn = document.getElementById('heroRecolorBtn');
+  const _colorA = new THREE.Color();
+  const _colorB = new THREE.Color();
+
+  function hexToCss(hex) {
+    return '#' + hex.toString(16).padStart(6, '0');
+  }
+
+  const MIN_RECOLOR_UI_CONTRAST = 4;
+
+  function relativeLuminance(color) {
+    function channel(v) {
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    }
+    const r = channel(color.r);
+    const g = channel(color.g);
+    const b = channel(color.b);
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  }
+
+  function contrastOnWhite(hex) {
+    _colorA.setHex(hex);
+    const lum = relativeLuminance(_colorA);
+    return 1.05 / (lum + 0.05);
+  }
+
+  /** Button text/border only: darken light Kamil picks so they stay readable on white. */
+  function recolorUiHex(hex) {
+    if (contrastOnWhite(hex) >= MIN_RECOLOR_UI_CONTRAST) return hex;
+    _colorA.setHex(hex);
+    const hsl = { h: 0, s: 0, l: 0 };
+    _colorA.getHSL(hsl);
+    for (var i = 0; i < 14; i++) {
+      hsl.l = Math.max(0.2, hsl.l * 0.84);
+      hsl.s = Math.min(1, hsl.s + 0.03);
+      _colorB.setHSL(hsl.h, hsl.s, hsl.l);
+      const candidate = _colorB.getHex();
+      if (contrastOnWhite(candidate) >= MIN_RECOLOR_UI_CONTRAST) return candidate;
+    }
+    return _colorB.getHex();
+  }
+
+  function syncRecolorBtnColor(hex) {
+    const uiCss = hexToCss(recolorUiHex(hex));
+    document.documentElement.style.setProperty('--hero-recolor-ui', uiCss);
+    if (recolorBtn) {
+      recolorBtn.style.setProperty('color', uiCss);
+      recolorBtn.style.setProperty('border-color', uiCss);
+    }
+  }
 
   function applyLetterColor(hex) {
     lastLetterColorHex = hex;
+    rememberLetterHex(hex);
     for (var i = 0; i < letterMaterials.length; i++) {
       var mat = letterMaterials[i];
       mat.color.setHex(hex);
       mat.emissive.setHex(hex);
     }
+    syncRecolorBtnColor(hex);
+  }
+
+  syncRecolorBtnColor(KAMIL_LETTER_COLOR);
+
+  const RECENT_COLOR_MEMORY = 4;
+  const MIN_HUE_SEPARATION = 0.12;
+  const MIN_RGB_SEPARATION_SQ = 0.04;
+  const GOLDEN_HUE_STEP = 0.6180339887;
+  const POP_SATURATION = 1;
+  const POP_LIGHTNESS = 0.5;
+  const recentLetterHexes = [KAMIL_LETTER_COLOR];
+
+  function rememberLetterHex(hex) {
+    recentLetterHexes.push(hex);
+    if (recentLetterHexes.length > RECENT_COLOR_MEMORY) {
+      recentLetterHexes.shift();
+    }
   }
 
   function randomVibrantHex() {
-    var color = new THREE.Color();
-    color.setHSL(Math.random(), 1, 0.5);
-    return color.getHex();
+    _colorA.setHSL(Math.random(), POP_SATURATION, POP_LIGHTNESS);
+    return _colorA.getHex();
+  }
+
+  function isDistinctFrom(nextHex, otherHex) {
+    if (nextHex === otherHex) return false;
+    _colorA.setHex(otherHex);
+    _colorB.setHex(nextHex);
+    const dr = _colorA.r - _colorB.r;
+    const dg = _colorA.g - _colorB.g;
+    const db = _colorA.b - _colorB.b;
+    if (dr * dr + dg * dg + db * db < MIN_RGB_SEPARATION_SQ) return false;
+    const hslA = { h: 0, s: 0, l: 0 };
+    const hslB = { h: 0, s: 0, l: 0 };
+    _colorA.getHSL(hslA);
+    _colorB.getHSL(hslB);
+    let hueDiff = Math.abs(hslA.h - hslB.h);
+    if (hueDiff > 0.5) hueDiff = 1 - hueDiff;
+    return hueDiff >= MIN_HUE_SEPARATION;
+  }
+
+  function isDistinctFromRecent(hex) {
+    for (var i = 0; i < recentLetterHexes.length; i++) {
+      if (!isDistinctFrom(hex, recentLetterHexes[i])) return false;
+    }
+    return true;
+  }
+
+  function randomDistinctVibrantHex() {
+    for (var i = 0; i < 48; i++) {
+      const hex = randomVibrantHex();
+      if (isDistinctFromRecent(hex)) return hex;
+    }
+    _colorA.setHex(lastLetterColorHex);
+    const hsl = { h: 0, s: 0, l: 0 };
+    _colorA.getHSL(hsl);
+    hsl.h = (hsl.h + GOLDEN_HUE_STEP + Math.random() * 0.1) % 1;
+    hsl.s = POP_SATURATION;
+    hsl.l = POP_LIGHTNESS;
+    _colorB.setHSL(hsl.h, hsl.s, hsl.l);
+    var hex = _colorB.getHex();
+    if (!isDistinctFromRecent(hex)) {
+      hsl.h = (hsl.h + 0.5) % 1;
+      _colorB.setHSL(hsl.h, hsl.s, hsl.l);
+      hex = _colorB.getHex();
+    }
+    return hex;
   }
 
   function pickRandomLetterColor() {
-    var hex = randomVibrantHex();
-    var tries = 0;
-    while (hex === lastLetterColorHex && tries < 8) {
-      hex = randomVibrantHex();
-      tries++;
-    }
-    applyLetterColor(hex);
+    applyLetterColor(randomDistinctVibrantHex());
   }
 
-  var recolorBtn = document.getElementById('heroRecolorBtn');
   if (recolorBtn) {
     recolorBtn.addEventListener('click', pickRandomLetterColor);
   }
