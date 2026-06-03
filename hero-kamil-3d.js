@@ -1,6 +1,6 @@
 /**
  * Hero 3D: loads only kamil.obj from ./portfolio/obj/kamil.obj (no other filenames).
- * Lettering: base #00FFD9 with env + clearcoat for roundness; low emissive so directional light reads as shade.
+ * Lettering: base #FF0EDC with env + clearcoat for roundness; low emissive so directional light reads as shade.
  * All meshes when OBJ has 6 parts; 7th mesh = “.obj” uses same blue. Light follows pointer when width ≥ 768px.
  * Viewport ≤767px: smaller mesh scale + wider FOV so lettering fits; desktop scale/FOV unchanged.
  */
@@ -9,8 +9,8 @@ import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const KAMIL_OBJ_PATH = './portfolio/obj/kamil.obj';
-const KAMIL_LETTER_COLOR = 0x00ffd9;
-const OBJ_SUFFIX_COLOR = 0x00ffd9;
+const KAMIL_LETTER_COLOR = 0xff0edc;
+const OBJ_SUFFIX_COLOR = 0xff0edc;
 /** When mesh count exceeds this, the rightmost-by-X mesh alone uses OBJ_SUFFIX_COLOR. */
 const OBJ_SUFFIX_MIN_MESHES = 7;
 /** Base scale when pink type matched ~10/12 cols; canvas stays full width, mesh uses 8/12. */
