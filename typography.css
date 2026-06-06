@@ -1,9 +1,9 @@
 /**
- * Global L1–L4 typography (index, case studies).
+ * Global L1-L4 typography (index, case studies).
  * Requires: Instrument Serif (italic), Roboto 300 & 400.
  */
 
-/* —— Global layout tokens (shared: home + case studies). Use var(--grid-gutter) in page grids. —— */
+/* -- Global layout tokens (shared: home + case studies). Use var(--grid-gutter) in page grids. -- */
 :root {
   --container-pad: clamp(20px, 2.2vw, 24px);
   --grid-gutter: clamp(16px, 2vw, 24px);
@@ -34,7 +34,7 @@ html {
   overflow-x: hidden;
 }
 
-/* —— L1: Case study hero titles — Roboto 48px Light, ALL CAPS —— */
+/* -- L1: Case study hero titles - Roboto 48px Light, ALL CAPS -- */
 .case-hero-title,
 .case-health-hero-title {
   font-family: 'Roboto', sans-serif;
@@ -53,7 +53,7 @@ html {
   margin: 0 0 12px;
 }
 
-/* —— L2: Section headers — Roboto Regular 20px, ALL CAPS —— */
+/* -- L2: Section headers - Roboto Regular 20px, ALL CAPS -- */
 .case-subhead,
 .case-now-ds-item .case-subhead,
 .case-now-cs-stack--vertical .case-now-cs-style3-heading {
@@ -66,7 +66,7 @@ html {
   color: #000000;
 }
 
-/* —— L3: Nav, contact label, project names — Roboto Regular 16px, sentence case from markup —— */
+/* -- L3: Nav, contact label, project names - Roboto Regular 16px, sentence case from markup -- */
 nav,
 nav .brand,
 .site-contact__label,
@@ -155,7 +155,7 @@ body.case-page .site-nav-hover-zone {
   z-index: 9999;
 }
 
-/* Primary nav auto-hide (scroll) — home + case studies */
+/* Primary nav auto-hide (scroll) - home + case studies */
 nav.site-header,
 body.case-page > nav:not(.case-next-project) {
   transition:
@@ -185,7 +185,7 @@ body.case-page > nav:not(.case-next-project).is-header-hidden {
   margin-bottom: 1.25rem;
 }
 
-/* —— L4: Project hero metadata (type, field, time, year) — Roboto Light 16px —— */
+/* -- L4: Project hero metadata (type, field, time, year) - Roboto Light 16px -- */
 .case-meta-part,
 .case-meta-sep {
   font-family: 'Roboto', sans-serif;
@@ -219,7 +219,7 @@ body.case-page > nav:not(.case-next-project).is-header-hidden {
   padding: 0;
 }
 
-/* L3: External project links — Roboto Regular 16px, NE arrow via ::after (same asset as next-project / about) */
+/* L3: External project links - Roboto Regular 16px, NE arrow via ::after (same asset as next-project / about) */
 .case-prototype-link {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
@@ -266,7 +266,7 @@ body.case-page > nav:not(.case-next-project).is-header-hidden {
   filter: none;
 }
 
-/* —— L4: Body, footer detail, UI chrome —— */
+/* -- L4: Body, footer detail, UI chrome -- */
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -331,7 +331,7 @@ video {
   font-weight: 400;
 }
 
-/* —— L1: “Next project” — Roboto 48px Light, ALL CAPS (matches case hero title) —— */
+/* -- L1: “Next project” - Roboto 48px Light, ALL CAPS (matches case hero title) -- */
 .case-next-project {
   width: 100%;
   margin: 0;

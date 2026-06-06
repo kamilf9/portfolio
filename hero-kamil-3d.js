@@ -19,7 +19,7 @@ const PINK_GRID_COLS = 8;
 const LAYER1_GRID_COLS = 10;
 const MODEL_SCALE = MODEL_SCALE_BASE * (PINK_GRID_COLS / LAYER1_GRID_COLS);
 /**
- * Camera distance must be derived from the *unscaled* bbox, not scaled — otherwise
+ * Camera distance must be derived from the *unscaled* bbox, not scaled - otherwise
  * dist grows with MODEL_SCALE and the mesh stays tiny on screen vs layer2.png shadow.
  */
 const CAMERA_FRAMING = 2.35;

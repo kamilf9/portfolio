@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Local preview for this portfolio (needs http:// — not file://).
+# Local preview for this portfolio (needs http:// - not file://).
 cd "$(dirname "$0")"
 
 PORT="${1:-8080}"
@@ -19,7 +19,7 @@ port_free() {
 }
 
 if ! port_free "$PORT"; then
-  echo "Port $PORT is in use — trying another port..."
+  echo "Port $PORT is in use - trying another port..."
   for try in 8081 8082 5500 5501 3000; do
     if port_free "$try"; then
       PORT="$try"

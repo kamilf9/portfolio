@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Balanced — Kamil Fogel</title>
+  <title>Balanced - Kamil Fogel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
@@ -113,18 +113,18 @@
       margin-bottom: 0;
     }
 
-    /* L1 — explicit center (hero titles) */
+    /* L1 - explicit center (hero titles) */
     .balanced-page h1.case-hero-title.style1 {
       letter-spacing: 0.02em;
       text-align: center;
     }
 
-    /* L2 section titles — always centered on Balanced */
+    /* L2 section titles - always centered on Balanced */
     .balanced-page .case-subhead {
       text-align: center;
     }
 
-    /* L4 body — center everywhere in case main (overrides typography.css .case-body) */
+    /* L4 body - center everywhere in case main (overrides typography.css .case-body) */
     .balanced-page main .case-body {
       text-align: center;
     }
@@ -134,7 +134,7 @@
       text-transform: none;
     }
 
-    /* 12-col shell + meta row — matches devill .case-hero-meta-shell / .case-meta-row */
+    /* 12-col shell + meta row - matches devill .case-hero-meta-shell / .case-meta-row */
     .balanced-page .case-balanced-hero .case-hero-meta-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -218,7 +218,7 @@
       text-align: center;
     }
 
-    /* About + research: 6 cols centered (4–10), heading + body left-aligned */
+    /* About + research: 6 cols centered (4-10), heading + body left-aligned */
     .balanced-page .balanced-content-band--six-col {
       grid-column: 4 / 10;
       min-width: 0;
@@ -237,7 +237,8 @@
       max-width: none;
     }
 
-    .balanced-page main .balanced-content-section--about .balanced-content-band--six-col > .case-body {
+    .balanced-page main .balanced-content-section--about .balanced-content-band--six-col > .case-body,
+    .balanced-page .balanced-content-shell > .balanced-design-system-figure + .balanced-content-band--six-col > .case-body {
       font-size: 20px;
     }
 
@@ -257,14 +258,10 @@
     }
 
     /*
-      Research: social graphic — visually centered on the page (flex), not locked to grid lines.
-      ~3-col max width matches previous scale (3 tracks + 2 gutters in this shell’s 12-col math).
+      Research: social graphic - same width as six-col copy band above (cols 4-10).
     */
     .balanced-page .balanced-content-shell > .balanced-research-social-figure {
-      grid-column: 1 / -1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      grid-column: 4 / 10;
       min-width: 0;
       margin: 48px 0 0;
       padding: 0;
@@ -275,8 +272,7 @@
     }
 
     .balanced-page .balanced-content-shell > .balanced-research-social-figure img {
-      width: auto;
-      max-width: min(100%, calc((100% - 11 * var(--grid-gutter)) / 12 * 3 + 2 * var(--grid-gutter)));
+      width: 100%;
       height: auto;
       display: block;
       object-fit: contain;
@@ -298,7 +294,7 @@
     }
 
     /*
-      Problem & Solution: 12-col row — col 1 empty | problem (4) | arrow (2) | solution (4) | col 12 empty.
+      Problem & Solution: 12-col row - col 1 empty | problem (4) | arrow (2) | solution (4) | col 12 empty.
       Tighter text bands; group stays centered in the grid.
     */
     .balanced-ps-grid {
@@ -360,11 +356,10 @@
     }
 
     /*
-      userflow + design system images: full grid width (bleed cancels .container pad).
-      Stacked flush in .balanced-content-shell.
+      userflow: full grid width (bleed cancels .container pad).
+      design system: cols 5-end, aligned to the right side of the grid.
     */
-    .balanced-page .balanced-content-shell > .balanced-ps-userflow,
-    .balanced-page .balanced-content-shell > .balanced-design-system-figure {
+    .balanced-page .balanced-content-shell > .balanced-ps-userflow {
       grid-column: 1 / -1;
       min-width: 0;
       width: calc(100% + 2 * var(--container-pad));
@@ -380,6 +375,39 @@
       box-sizing: border-box;
     }
 
+    .balanced-page .balanced-content-shell > .balanced-design-system-figure {
+      grid-column: 5 / -1;
+      min-width: 0;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      border: none;
+      line-height: 0;
+      overflow: hidden;
+      border-radius: 0;
+      box-sizing: border-box;
+      align-self: start;
+    }
+
+    .balanced-page .balanced-content-shell > .balanced-design-system-copy {
+      grid-column: 1 / 5;
+      min-width: 0;
+      text-align: left;
+      align-self: start;
+    }
+
+    .balanced-page main .balanced-content-section .balanced-design-system-copy > .case-subhead {
+      text-align: left;
+    }
+
+    .balanced-page main .balanced-content-section .balanced-design-system-copy > .case-body {
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+    }
+
     .balanced-page .balanced-content-shell > .balanced-ps-userflow img,
     .balanced-page .balanced-content-shell > .balanced-design-system-figure img {
       width: 100%;
@@ -389,9 +417,13 @@
       border-radius: 0;
     }
 
+    .balanced-page .balanced-content-shell > .balanced-design-system-figure + .balanced-content-band--six-col {
+      margin-top: 48px;
+    }
+
     /*
-      Full-app video — replicated from now.html (screens-mosaic fullapp cell).
-      Grid: cols 4–10 (6 tracks); wrap + play control match nowproject sizing.
+      Full-app video - replicated from now.html (screens-mosaic fullapp cell).
+      Grid: cols 4-10 (6 tracks); wrap + play control match nowproject sizing.
     */
     .balanced-video-section .balanced-video-shell {
       display: grid;
@@ -598,7 +630,7 @@
           >
             <img
               src="balancedproject/opening.png"
-              alt="Balanced — opening"
+              alt="Balanced - opening"
               loading="lazy"
             />
           </figure>
@@ -607,11 +639,11 @@
             data-aos="fade-up"
             data-aos-duration="900"
             data-aos-once="true"
-            aria-label="Balanced — product screens"
+            aria-label="Balanced - product screens"
           >
             <img
               src="balancedproject/screens.png"
-              alt="Balanced — screens"
+              alt="Balanced - screens"
               loading="lazy"
             />
           </figure>
@@ -646,16 +678,16 @@
           <div class="balanced-content-band balanced-content-band--six-col">
             <h2 class="case-subhead">research</h2>
             <p class="case-body">
-              I mapped out the existing market to understand why current solutions fall short for my colleagues and me. While Generic Calendars (Google/Apple) are excellent for time management, they lack a financial data layer and cannot perform &ldquo;hours x rate&rdquo; manipulations. On the other hand, Invoicing Software (Morning/Green Invoice) focuses only on the end of the process—document production—without helping the user calculate how much money they should actually demand, leaving the cross-referencing manual and tedious. The &ldquo;pain&rdquo; for trainers in Israel is not in managing the calendar itself, but in the wasted time and human errors created by the need to manually bridge the gap between their schedule and their bank account at the end of every month.
+              I mapped out the existing market to understand why current solutions fall short for my colleagues and me. While Generic Calendars (Google/Apple) are excellent for time management, they lack a financial data layer and cannot perform &ldquo;hours x rate&rdquo; manipulations. On the other hand, Invoicing Software (Morning/Green Invoice) focuses only on the end of the process - document production - without helping the user calculate how much money they should actually demand, leaving the cross-referencing manual and tedious. The &ldquo;pain&rdquo; for trainers in Israel is not in managing the calendar itself, but in the wasted time and human errors created by the need to manually bridge the gap between their schedule and their bank account at the end of every month.
             </p>
           </div>
           <figure
             class="balanced-research-social-figure"
-            aria-label="Balanced — research"
+            aria-label="Balanced - research"
           >
             <img
               src="balancedproject/social.png"
-              alt="Balanced — research"
+              alt="Balanced - research"
               loading="lazy"
             />
           </figure>
@@ -680,7 +712,7 @@
           <div class="balanced-ps-solution">
             <h2 class="case-subhead">the solution</h2>
             <p class="case-body">
-              Smart Calendar Integration keeps each session in context—employer, location, and pay—so the calendar remains the single source of truth. Dynamic Earnings Dashboard rolls sessions into live monthly totals by employer and rate. One-Click Invoice Ready output aligns billing with what you actually taught, not what you remembered to copy into another tool.
+              Smart Calendar Integration keeps each session in context - employer, location, and pay - so the calendar remains the single source of truth. Dynamic Earnings Dashboard rolls sessions into live monthly totals by employer and rate. One-Click Invoice Ready output aligns billing with what you actually taught, not what you remembered to copy into another tool.
             </p>
           </div>
         </div>
@@ -697,17 +729,29 @@
           <figure class="balanced-ps-userflow" aria-label="User flow">
             <img
               src="balancedproject/userflow.png"
-              alt="Balanced — user flow"
+              alt="Balanced - user flow"
               loading="lazy"
             />
           </figure>
+          <div class="balanced-design-system-copy">
+            <h2 class="case-subhead">design system</h2>
+            <p class="case-body">
+              The visual language bridges high-energy fitness with structured finance. It pairs bold typography and saturated colors with clean, minimalist cards and a clear information hierarchy.
+            </p>
+          </div>
           <figure class="balanced-design-system-figure" aria-label="Design system">
             <img
               src="balancedproject/designsystem.png"
-              alt="Balanced — design system"
+              alt="Balanced - design system"
               loading="lazy"
             />
           </figure>
+          <div class="balanced-content-band balanced-content-band--six-col">
+            <h2 class="case-subhead">the next step</h2>
+            <p class="case-body">
+              I am currently designing and developing an in-app PDF invoice generation flow. Users will be able to generate documents directly from their dashboard and instantly share them via WhatsApp or email in a single click. This feature will close the loop for entire administrative workflow for fitness professionals.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -730,7 +774,7 @@
                 playsinline
                 loading="lazy"
                 tabindex="0"
-                aria-label="Balanced — full project walkthrough. Press Space to play or pause."
+                aria-label="Balanced - full project walkthrough. Press Space to play or pause."
               ></video>
               <button type="button" class="balanced-fullapp-play" aria-label="Play full project video">
                 <svg
