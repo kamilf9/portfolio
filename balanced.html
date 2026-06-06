@@ -462,22 +462,29 @@
       position: relative;
       width: 100%;
       line-height: 0;
-      border-radius: 8px;
+      border-radius: 64px;
       overflow: hidden;
+      isolation: isolate;
+      transform: translateZ(0);
       background: transparent;
     }
 
     .balanced-fullapp-wrap .balanced-full-app-video {
-      width: 100% !important;
+      width: auto !important;
+      max-width: 100% !important;
       height: auto !important;
       max-height: 75vh !important;
-      object-fit: contain !important;
+      margin-left: auto;
+      margin-right: auto;
+      object-fit: unset !important;
       object-position: center;
       display: block;
       background: transparent !important;
       border: none !important;
       box-shadow: none !important;
-      border-radius: 8px;
+      border-radius: 64px;
+      -webkit-clip-path: inset(0 round 64px);
+      clip-path: inset(0 round 64px);
       cursor: pointer;
     }
 
@@ -629,7 +636,7 @@
             data-aos-once="true"
           >
             <img
-              src="balancedproject/opening.png"
+              src="balancedproject/opening.png?v=3"
               alt="Balanced - opening"
               loading="lazy"
             />
@@ -749,7 +756,7 @@
           <div class="balanced-content-band balanced-content-band--six-col">
             <h2 class="case-subhead">the next step</h2>
             <p class="case-body">
-              I am currently designing and developing an in-app PDF invoice generation flow. Users will be able to generate documents directly from their dashboard and instantly share them via WhatsApp or email in a single click. This feature will close the loop for entire administrative workflow for fitness professionals.
+              I am currently designing and developing an in-app PDF invoice generation flow. Users will be able to generate documents directly from their dashboard and instantly share them via WhatsApp or email in a single click. This feature will close the loop for entire administrative workflow for fitness trainers.
             </p>
           </div>
         </div>

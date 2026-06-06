@@ -43,4 +43,18 @@ echo ""
 echo "  Keep this terminal open. Press Ctrl+C to stop."
 echo ""
 
-exec "$PY" -m http.server "$PORT"
+exec "$PY" -c "
+import http.server
+import socketserver
+import sys
+
+port = int(sys.argv[1])
+
+class Handler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate')
+        super().end_headers()
+
+with socketserver.TCPServer(('', port), Handler) as httpd:
+    httpd.serve_forever()
+" "$PORT"
