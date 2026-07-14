@@ -105,10 +105,6 @@
       margin-bottom: var(--case-section-gap);
     }
 
-    .balanced-page .case-block.balanced-video-section {
-      margin-bottom: 0;
-    }
-
     .case-block.case-hero-intro {
       margin-bottom: 0;
     }
@@ -237,8 +233,7 @@
       max-width: none;
     }
 
-    .balanced-page main .balanced-content-section--about .balanced-content-band--six-col > .case-body,
-    .balanced-page .balanced-content-shell > .balanced-design-system-figure + .balanced-content-band--six-col > .case-body {
+    .balanced-page main .balanced-content-section--about .balanced-content-band--six-col > .case-body {
       font-size: 20px;
     }
 
@@ -286,6 +281,11 @@
       column-gap: var(--grid-gutter);
       width: 100%;
       box-sizing: border-box;
+    }
+
+    /* Extra space above wireframes */
+    .balanced-page .case-block.balanced-ps-block {
+      margin-bottom: calc(var(--case-section-gap) + 80px);
     }
 
     .balanced-ps-block > .balanced-ps-grid {
@@ -356,76 +356,11 @@
     }
 
     /*
-      userflow: full grid width (bleed cancels .container pad).
-      design system: cols 5-end, aligned to the right side of the grid.
+      wireframes / user flow / design system:
+      centered titles above centered images (same width as screens, cols 2-12).
     */
-    .balanced-page .balanced-content-shell > .balanced-ps-userflow {
+    .balanced-page .balanced-content-shell > .balanced-side-media-row {
       grid-column: 1 / -1;
-      min-width: 0;
-      width: calc(100% + 2 * var(--container-pad));
-      max-width: none;
-      margin: 0;
-      margin-left: calc(-1 * var(--container-pad));
-      margin-right: calc(-1 * var(--container-pad));
-      padding: 0;
-      border: none;
-      line-height: 0;
-      overflow: hidden;
-      border-radius: 0;
-      box-sizing: border-box;
-    }
-
-    .balanced-page .balanced-content-shell > .balanced-design-system-figure {
-      grid-column: 5 / -1;
-      min-width: 0;
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      padding: 0;
-      border: none;
-      line-height: 0;
-      overflow: hidden;
-      border-radius: 0;
-      box-sizing: border-box;
-      align-self: start;
-    }
-
-    .balanced-page .balanced-content-shell > .balanced-design-system-copy {
-      grid-column: 1 / 5;
-      min-width: 0;
-      text-align: left;
-      align-self: start;
-    }
-
-    .balanced-page main .balanced-content-section .balanced-design-system-copy > .case-subhead {
-      text-align: left;
-    }
-
-    .balanced-page main .balanced-content-section .balanced-design-system-copy > .case-body {
-      text-align: left;
-      margin-left: 0;
-      margin-right: 0;
-      max-width: none;
-    }
-
-    .balanced-page .balanced-content-shell > .balanced-ps-userflow img,
-    .balanced-page .balanced-content-shell > .balanced-design-system-figure img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-      border-radius: 0;
-    }
-
-    .balanced-page .balanced-content-shell > .balanced-design-system-figure + .balanced-content-band--six-col {
-      margin-top: 48px;
-    }
-
-    /*
-      Full-app video - replicated from now.html (screens-mosaic fullapp cell).
-      Grid: cols 4-10 (6 tracks); wrap + play control match nowproject sizing.
-    */
-    .balanced-video-section .balanced-video-shell {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       column-gap: var(--grid-gutter);
@@ -433,16 +368,76 @@
       box-sizing: border-box;
     }
 
-    .balanced-fullapp-cell {
-      grid-column: 4 / 10;
-      width: 100%;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
+    .balanced-page .balanced-content-shell > .balanced-side-media-row + .balanced-side-media-row {
+      margin-top: 120px;
     }
 
-    .balanced-page .balanced-fullapp-cell .case-next-project {
+    .balanced-page .balanced-side-media-row > .case-subhead {
+      grid-column: 2 / 12;
+      min-width: 0;
+      margin: 0 0 16px;
+      text-align: center;
+    }
+
+    .balanced-page main .balanced-content-section .balanced-side-media-row > .case-subhead {
+      text-align: center;
+    }
+
+    .balanced-page .balanced-side-media-row > .case-body {
+      grid-column: 5 / 10;
+      min-width: 0;
+      margin: 0 0 16px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .balanced-page main .balanced-content-section .balanced-side-media-row > .case-body {
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+    }
+
+    .balanced-page .balanced-side-media-row > .balanced-wireframes-figure,
+    .balanced-page .balanced-side-media-row > .balanced-ps-userflow,
+    .balanced-page .balanced-side-media-row > .balanced-design-system-figure {
+      grid-column: 2 / 12;
+      min-width: 0;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      border: none;
+      line-height: 0;
+      overflow: hidden;
+      border-radius: 0;
+      box-sizing: border-box;
+    }
+
+    .balanced-page .balanced-side-media-row > .balanced-wireframes-figure img,
+    .balanced-page .balanced-side-media-row > .balanced-ps-userflow img,
+    .balanced-page .balanced-side-media-row > .balanced-design-system-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      border-radius: 0;
+    }
+
+    .balanced-page .balanced-closing {
+      margin-bottom: 0;
+    }
+
+    .balanced-page .balanced-closing-shell {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      column-gap: var(--grid-gutter);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .balanced-page .balanced-closing .case-next-project {
+      grid-column: 4 / 10;
       position: relative;
       width: 100%;
       margin-top: clamp(2rem, 5vw, 4rem) !important;
@@ -451,90 +446,10 @@
       margin-right: 0 !important;
       padding: 0 !important;
       padding-bottom: 1.5rem !important;
-      flex-shrink: 0;
     }
 
-    .balanced-page .balanced-fullapp-cell .case-next-project__link {
+    .balanced-page .balanced-closing .case-next-project__link {
       position: relative;
-    }
-
-    .balanced-fullapp-wrap {
-      position: relative;
-      width: 100%;
-      line-height: 0;
-      border-radius: 64px;
-      overflow: hidden;
-      isolation: isolate;
-      transform: translateZ(0);
-      background: transparent;
-    }
-
-    .balanced-fullapp-wrap .balanced-full-app-video {
-      width: auto !important;
-      max-width: 100% !important;
-      height: auto !important;
-      max-height: 75vh !important;
-      margin-left: auto;
-      margin-right: auto;
-      object-fit: unset !important;
-      object-position: center;
-      display: block;
-      background: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      border-radius: 64px;
-      -webkit-clip-path: inset(0 round 64px);
-      clip-path: inset(0 round 64px);
-      cursor: pointer;
-    }
-
-    .balanced-fullapp-play {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      margin: 0;
-      padding: 0;
-      width: 4.5rem;
-      height: 4.5rem;
-      min-width: 0;
-      border: none;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.18);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000000;
-      transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        opacity 0.35s ease,
-        visibility 0.35s ease,
-        background 0.25s ease;
-      z-index: 2;
-    }
-
-    .balanced-fullapp-play__icon {
-      display: block;
-      margin-left: 3px;
-    }
-
-    .balanced-fullapp-play:hover {
-      transform: translate(-50%, -50%) scale(1.08);
-      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.24);
-    }
-
-    .balanced-fullapp-play:focus-visible {
-      outline: 2px solid #000000;
-      outline-offset: 4px;
-    }
-
-    .balanced-fullapp-cell.is-playing .balanced-fullapp-play {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
     }
 
     @media (max-width: 900px) {
@@ -548,9 +463,8 @@
         grid-column: 2 / 12 !important;
       }
 
-      .balanced-page .balanced-fullapp-cell {
+      .balanced-page .balanced-closing .case-next-project {
         grid-column: 1 / -1 !important;
-        margin-bottom: 0 !important;
       }
 
       .balanced-page .balanced-ps-grid {
@@ -601,11 +515,11 @@
           aria-label="Project details"
         >
           <div class="case-meta-row case-meta-row--balanced">
-            <span class="case-meta-part">personal project</span>
+            <span class="case-meta-part">student project</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
-            <span class="case-meta-part">ux.ui, ai-powered development</span>
+            <span class="case-meta-part">ux.ui</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
-            <span class="case-meta-part">2 weeks</span>
+            <span class="case-meta-part">10 weeks</span>
             <span class="case-meta-sep" aria-hidden="true">|</span>
             <span class="case-meta-part">2026</span>
           </div>
@@ -618,11 +532,11 @@
         >
           <a
             class="case-prototype-link"
-            href="https://balanced-dun.vercel.app/"
+            href="https://www.figma.com/proto/VPsqmIvWdSu5pWoVH4dJzd/balanced-final-final-final?node-id=125-18&t=i8mvpTa5zEha4bxD-1"
             target="_blank"
             rel="noopener noreferrer"
           >
-            launch app
+            explore prototype
           </a>
         </div>
       </section>
@@ -636,7 +550,7 @@
             data-aos-once="true"
           >
             <img
-              src="balancedproject/opening.png?v=3"
+              src="balancedproject/opening.png?v=4"
               alt="Balanced - opening"
               loading="lazy"
             />
@@ -649,7 +563,7 @@
             aria-label="Balanced - product screens"
           >
             <img
-              src="balancedproject/screens.png"
+              src="balancedproject/screens.png?v=2"
               alt="Balanced - screens"
               loading="lazy"
             />
@@ -727,79 +641,53 @@
 
       <section
         class="case-block balanced-content-section"
-        aria-label="User flow and design system"
+        aria-label="Wireframes, user flow and design system"
         data-aos="fade-up"
         data-aos-duration="900"
         data-aos-once="true"
       >
         <div class="balanced-content-shell">
-          <figure class="balanced-ps-userflow" aria-label="User flow">
-            <img
-              src="balancedproject/userflow.png"
-              alt="Balanced - user flow"
-              loading="lazy"
-            />
-          </figure>
-          <div class="balanced-design-system-copy">
+          <div class="balanced-side-media-row">
+            <h2 class="case-subhead">wireframes</h2>
+            <figure class="balanced-wireframes-figure" aria-label="Wireframes">
+              <img
+                src="balancedproject/wireframes.png?v=1"
+                alt="Balanced - wireframes"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+          <div class="balanced-side-media-row">
+            <h2 class="case-subhead">user flow</h2>
+            <figure class="balanced-ps-userflow" aria-label="User flow">
+              <img
+                src="balancedproject/userflow.png"
+                alt="Balanced - user flow"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+          <div class="balanced-side-media-row">
             <h2 class="case-subhead">design system</h2>
             <p class="case-body">
               The visual language bridges high-energy fitness with structured finance. It pairs bold typography and saturated colors with clean, minimalist cards and a clear information hierarchy.
             </p>
-          </div>
-          <figure class="balanced-design-system-figure" aria-label="Design system">
-            <img
-              src="balancedproject/designsystem.png"
-              alt="Balanced - design system"
-              loading="lazy"
-            />
-          </figure>
-          <div class="balanced-content-band balanced-content-band--six-col">
-            <h2 class="case-subhead">the next step</h2>
-            <p class="case-body">
-              I am currently designing and developing an in-app PDF invoice generation flow. Users will be able to generate documents directly from their dashboard and instantly share them via WhatsApp or email in a single click. This feature will close the loop for entire administrative workflow for fitness trainers.
-            </p>
+            <figure class="balanced-design-system-figure" aria-label="Design system">
+              <img
+                src="balancedproject/designsystem.png"
+                alt="Balanced - design system"
+                loading="lazy"
+              />
+            </figure>
           </div>
         </div>
       </section>
 
-      <section class="case-block balanced-video-section" aria-label="Full project video">
-        <div class="balanced-video-shell">
-          <div
-            class="balanced-fullapp-cell"
-            data-aos="fade-up"
-            data-aos-duration="2000"
-            data-aos-delay="400"
-            data-aos-offset="300"
-            data-aos-once="true"
-          >
-            <div class="balanced-fullapp-wrap">
-              <video
-                class="balanced-full-app-video"
-                src="balancedproject/fullapp.mp4"
-                preload="metadata"
-                loop
-                playsinline
-                loading="lazy"
-                tabindex="0"
-                aria-label="Balanced - full project walkthrough. Press Space to play or pause."
-              ></video>
-              <button type="button" class="balanced-fullapp-play" aria-label="Play full project video">
-                <svg
-                  class="balanced-fullapp-play__icon"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path fill="currentColor" d="M8 5v14l11-7z" />
-                </svg>
-              </button>
-            </div>
-            <nav class="case-next-project" aria-label="Next project">
-              <a href="health.html" class="case-next-project__link js-page-transition">Next project</a>
-            </nav>
-          </div>
+      <section class="case-block balanced-closing" aria-label="Next project">
+        <div class="balanced-closing-shell">
+          <nav class="case-next-project" aria-label="Next project">
+            <a href="health.html" class="case-next-project__link js-page-transition">Next project</a>
+          </nav>
         </div>
       </section>
     </div>
@@ -832,58 +720,6 @@
         }
       }
       bindPageTransitions();
-
-      (function bindBalancedFullAppVideo() {
-        var cells = document.querySelectorAll('.balanced-fullapp-cell');
-        for (var i = 0; i < cells.length; i++) {
-          (function (wrap) {
-            var inner = wrap.querySelector('.balanced-fullapp-wrap');
-            var video = wrap.querySelector('.balanced-full-app-video');
-            var btn = wrap.querySelector('.balanced-fullapp-play');
-            if (!inner || !video) return;
-
-            function syncPlayingClass() {
-              if (video.paused) {
-                wrap.classList.remove('is-playing');
-              } else {
-                wrap.classList.add('is-playing');
-              }
-            }
-
-            video.addEventListener('play', syncPlayingClass);
-            video.addEventListener('pause', syncPlayingClass);
-
-            function togglePlayback() {
-              if (video.paused) {
-                video.play();
-              } else {
-                video.pause();
-              }
-            }
-
-            inner.addEventListener('click', function () {
-              togglePlayback();
-            });
-
-            if (btn) {
-              btn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                if (video.paused) {
-                  video.play();
-                } else {
-                  video.pause();
-                }
-              });
-            }
-
-            video.addEventListener('keydown', function (e) {
-              if (e.key !== ' ' && e.key !== 'Spacebar') return;
-              e.preventDefault();
-              togglePlayback();
-            });
-          })(cells[i]);
-        }
-      })();
 
       function endEnter() {
         document.body.classList.remove('is-entering');
