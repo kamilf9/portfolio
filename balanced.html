@@ -253,10 +253,10 @@
     }
 
     /*
-      Research: social graphic - same width as six-col copy band above (cols 4-10).
+      Research: social graphic - same width as opening (cols 2-12).
     */
     .balanced-page .balanced-content-shell > .balanced-research-social-figure {
-      grid-column: 4 / 10;
+      grid-column: 2 / 12;
       min-width: 0;
       margin: 48px 0 0;
       padding: 0;
@@ -399,9 +399,22 @@
     }
 
     .balanced-page .balanced-side-media-row > .balanced-wireframes-figure,
-    .balanced-page .balanced-side-media-row > .balanced-ps-userflow,
-    .balanced-page .balanced-side-media-row > .balanced-design-system-figure {
+    .balanced-page .balanced-side-media-row > .balanced-ps-userflow {
       grid-column: 2 / 12;
+      min-width: 0;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      border: none;
+      line-height: 0;
+      overflow: hidden;
+      border-radius: 0;
+      box-sizing: border-box;
+    }
+
+    .balanced-page .balanced-side-media-row > .balanced-design-system-figure {
+      grid-column: 3 / 11;
       min-width: 0;
       width: 100%;
       max-width: none;
@@ -550,7 +563,7 @@
             data-aos-once="true"
           >
             <img
-              src="balancedproject/opening.png?v=4"
+              src="balancedproject/opening.png?v=5"
               alt="Balanced - opening"
               loading="lazy"
             />
@@ -607,7 +620,7 @@
             aria-label="Balanced - research"
           >
             <img
-              src="balancedproject/social.png"
+              src="balancedproject/social.jpeg?v=1"
               alt="Balanced - research"
               loading="lazy"
             />
